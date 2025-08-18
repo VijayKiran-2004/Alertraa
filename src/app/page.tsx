@@ -45,6 +45,7 @@ import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 
 type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
+type Theme = 'default' | 'maroon';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,6 +59,7 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState<string | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState<Theme>('default');
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [showChatbotModal, setShowChatbotModal] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -77,12 +79,10 @@ export default function App() {
   }, []);
   
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    document.documentElement.classList.toggle('maroon', theme === 'maroon');
+    document.documentElement.classList.toggle('default', theme === 'default');
+  }, [isDarkMode, theme]);
 
   const checkVitalsStatus = (vitalsData: { heartRate: string, bloodPressure: string, bloodOxygen: string }) => {
     const hr = parseInt(vitalsData.heartRate.split(' ')[0], 10);
@@ -300,7 +300,7 @@ export default function App() {
           document.body
         )}
         {showSettingsModal && createPortal(
-          <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />,
+          <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} theme={theme} setTheme={setTheme} />,
           document.body
         )}
         {showBurgerMenu && createPortal(
