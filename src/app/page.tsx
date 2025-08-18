@@ -45,7 +45,7 @@ import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 
 type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
-type Theme = 'default' | 'pale-lavender' | 'vodka' | 'blue-yonder' | 'american-blue' | 'eerie-black';
+type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,7 +80,7 @@ export default function App() {
   
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
-    document.documentElement.classList.remove('default', 'pale-lavender', 'vodka', 'blue-yonder', 'american-blue', 'eerie-black');
+    document.documentElement.classList.remove('default', 'blue-yonder', 'american-blue', 'eerie-black');
     document.documentElement.classList.add(theme);
   }, [isDarkMode, theme]);
 
