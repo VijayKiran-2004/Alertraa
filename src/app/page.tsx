@@ -195,6 +195,11 @@ export default function App() {
       alert('Invalid credentials');
     }
   };
+  
+  const handleLogout = () => {
+      setIsAuthenticated(false);
+      setShowBurgerMenu(false);
+  }
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -299,7 +304,7 @@ export default function App() {
           document.body
         )}
         {showBurgerMenu && createPortal(
-          <BurgerMenu onClose={() => setShowBurgerMenu(false)} onShowSettingsModal={setShowSettingsModal} isDarkMode={isDarkMode} />,
+          <BurgerMenu onClose={() => setShowBurgerMenu(false)} onShowSettingsModal={setShowSettingsModal} isDarkMode={isDarkMode} onLogout={handleLogout} />,
           document.body
         )}
         {showChatbotModal && createPortal(
