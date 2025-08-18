@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Globe, AlertTriangle } from 'lucide-react';
+import { Heart, Globe, AlertTriangle, Route, ChevronRight, MapPin } from 'lucide-react';
 import SectionCard from './section-card';
 import GoogleMap from './google-map';
 import { mockData } from '@/lib/mock-data';
@@ -17,8 +17,6 @@ const Gauge = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w
 const Footprints = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M4 16v-2.38c0-.97.5-1.84 1.3-2.39l1.4-1.05a2.5 2.5 0 0 1 3.6 0l1.4 1.05c.8.55 1.3 1.42 1.3 2.39V16"/><path d="M12 16v-2.38c0-.97.5-1.84 1.3-2.39l1.4-1.05a2.5 2.5 0 0 1 3.6 0l1.4 1.05c.8.55 1.3 1.42 1.3 2.39V16"/><path d="M4.68 12.55a2.5 2.5 0 0 1 0-5.1"/><path d="M12.68 12.55a2.5 2.5 0 0 1 0-5.1"/></svg>
 const Moon = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
 const LifeBuoy = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
-const MapPin = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-const Route = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
@@ -99,7 +97,3 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
     </div>
   );
 }
-
-const ChevronRight = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="m9 18 6-6-6-6"/></svg>
-)
