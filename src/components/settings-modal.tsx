@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import { mockData } from '@/lib/mock-data';
 
-type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black';
+type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
 
 interface SettingsModalProps {
   setting: string;
@@ -157,6 +157,7 @@ export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkM
                     <option value="blue-yonder">Blue Yonder</option>
                     <option value="american-blue">American Blue</option>
                     <option value="eerie-black">Eerie Black</option>
+                    <option value="pink-delight">Pink Delight</option>
                 </select>
             </div>
             <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Adjust app settings for better accessibility, including font sizes, color contrast, and screen reader support.</p>
