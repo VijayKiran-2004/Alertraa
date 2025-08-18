@@ -20,6 +20,9 @@ export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishli
 
   const activeTabClasses = 'border-b-2 border-primary text-primary font-bold';
   const inactiveTabClasses = `border-b-2 border-transparent ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`;
+  const tabBaseClasses = 'flex-1 text-center p-4 transition-colors flex items-center justify-center gap-2 relative';
+
+  const EcommerceTab = activeTab === 'E-commerce' ? 'div' : 'button';
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -27,14 +30,14 @@ export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishli
         <div className={`flex justify-around ${isDarkMode ? 'border-b border-slate-700' : 'border-b'}`}>
           <button
             onClick={() => setActiveTab('Prescriptions')}
-            className={`flex-1 text-center p-4 transition-colors flex items-center justify-center gap-2 ${activeTab === 'Prescriptions' ? activeTabClasses : inactiveTabClasses}`}
+            className={`${tabBaseClasses} ${activeTab === 'Prescriptions' ? activeTabClasses : inactiveTabClasses}`}
           >
             <Pill size={20} />
             <span className="hidden sm:inline">My Prescriptions</span>
           </button>
-          <button
+          <EcommerceTab
             onClick={() => setActiveTab('E-commerce')}
-            className={`flex-1 text-center p-4 transition-colors flex items-center justify-center gap-2 relative ${activeTab === 'E-commerce' ? activeTabClasses : inactiveTabClasses}`}
+            className={`${tabBaseClasses} ${activeTab === 'E-commerce' ? activeTabClasses : inactiveTabClasses}`}
           >
             <ShoppingCart size={20} />
             <span className="hidden sm:inline">Buy Medicines</span>
@@ -43,7 +46,7 @@ export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishli
                     {cartCount}
                 </button>
             )}
-          </button>
+          </EcommerceTab>
         </div>
       </div>
       {activeTab === 'Prescriptions' ? (
