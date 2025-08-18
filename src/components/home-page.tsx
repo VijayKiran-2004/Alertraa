@@ -18,7 +18,7 @@ const Footprints = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://
 const Moon = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
 const LifeBuoy = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
 const MapPin = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-
+const Route = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
@@ -39,7 +39,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
     { name: 'Blood Pressure', value: vitals.bloodPressure, icon: <Gauge size={24} className="text-primary animate-pulse-fast" />, onClick: () => onMetricClick('Blood Pressure') },
     { name: 'Blood Oxygen', value: vitals.bloodOxygen, icon: <Globe size={24} className="text-cyan-500" />, onClick: () => onMetricClick('Blood Oxygen') },
     { name: 'Steps Walked', value: mockData.dailyActivity.steps, icon: <Footprints size={24} className="text-pink-500" />, onClick: () => onMetricClick('Steps') },
-    { name: 'Distance Walked', value: mockData.dailyActivity.distanceWalked, icon: <Footprints size={24} className="text-orange-500" />, onClick: () => onMetricClick('Distance Walked') },
+    { name: 'Distance Walked', value: mockData.dailyActivity.distanceWalked, icon: <Route size={24} className="text-orange-500" />, onClick: () => onMetricClick('Distance Walked') },
     { name: 'Calories Burnt', value: mockData.dailyActivity.caloriesBurnt, icon: <LifeBuoy size={24} className="text-lime-500" />, onClick: () => onMetricClick('Calories Burnt') },
     { name: 'Sleep Hours', value: mockData.dailyActivity.sleepHours, icon: <Moon size={24} className="text-indigo-500" />, onClick: () => onMetricClick('Sleep Hours') },
   ];
