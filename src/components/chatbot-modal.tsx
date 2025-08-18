@@ -78,11 +78,11 @@ export default function ChatbotModal({ onClose, isDarkMode }: ChatbotModalProps)
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-end z-50">
        <div
         className={cn(
-          "absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none transition-opacity duration-300",
+          "absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-primary/20 via-accent/10 to-transparent pointer-events-none transition-opacity duration-300",
           isSlidingIn ? "opacity-100" : "opacity-0"
         )}
         style={{
-            maskImage: 'radial-gradient(ellipse at bottom, black 20%, transparent 70%)',
+            maskImage: 'radial-gradient(ellipse at bottom, black 30%, transparent 80%)',
         }}
       />
       <div 
