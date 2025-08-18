@@ -27,6 +27,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const themeClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
   const iconActiveClasses = isDarkMode ? 'text-white' : 'text-primary';
   const iconInactiveClasses = isDarkMode ? 'text-slate-400 hover:text-white' : 'text-gray-500 hover:text-primary';
+  const ringOffsetClass = isDarkMode ? 'dark:ring-offset-[#36454F]' : 'ring-offset-white';
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 h-24 px-4 z-30 flex justify-center items-center">
@@ -70,10 +71,13 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
         </div>
 
         {/* Central SOS Button */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center">
             <button
                 onClick={onSosClick}
-                className="bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center font-bold text-xl shadow-xl transition-transform transform hover:scale-105 active:scale-95 ring-4 ring-offset-2 ring-red-300/50 dark:ring-offset-[#36454F]"
+                className={cn(
+                    "bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center font-bold text-xl shadow-xl transition-transform transform hover:scale-105 active:scale-95 ring-4 ring-red-300/50",
+                    ringOffsetClass
+                )}
                 aria-label="SOS Emergency Button"
             >
                 SOS
