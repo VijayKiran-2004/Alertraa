@@ -45,7 +45,7 @@ import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 
 type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
-type Theme = 'default' | 'maroon';
+type Theme = 'default' | 'pale-lavender' | 'vodka' | 'blue-yonder' | 'american-blue' | 'eerie-black';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,8 +80,8 @@ export default function App() {
   
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
-    document.documentElement.classList.toggle('maroon', theme === 'maroon');
-    document.documentElement.classList.toggle('default', theme === 'default');
+    document.documentElement.classList.remove('default', 'pale-lavender', 'vodka', 'blue-yonder', 'american-blue', 'eerie-black');
+    document.documentElement.classList.add(theme);
   }, [isDarkMode, theme]);
 
   const checkVitalsStatus = (vitalsData: { heartRate: string, bloodPressure: string, bloodOxygen: string }) => {
@@ -264,7 +264,7 @@ export default function App() {
         </main>
         <button
           onClick={() => setShowChatbotModal(true)}
-          className="fixed bottom-24 right-4 bg-gradient-to-r from-[#4866FA] to-[#99BCF2] text-white rounded-full p-4 shadow-xl transition-transform transform hover:scale-110 active:scale-95 z-40 animate-gradient-xy"
+          className="fixed bottom-24 right-4 bg-gradient-to-r from-primary to-accent text-white rounded-full p-4 shadow-xl transition-transform transform hover:scale-110 active:scale-95 z-40 animate-gradient-xy"
           aria-label="Open Chatbot"
         >
           <MessageCircle size={24} />
