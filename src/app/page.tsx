@@ -247,7 +247,7 @@ export default function App() {
         </main>
         <button
           onClick={() => setShowChatbotModal(true)}
-          className="fixed bottom-24 right-4 bg-gradient-to-r from-[#4866FA] to-[#99BCF2] text-white rounded-full p-4 shadow-xl transition-transform transform hover:scale-110 active:scale-95 z-40"
+          className="fixed bottom-24 right-4 bg-gradient-to-r from-[#4866FA] to-[#99BCF2] text-white rounded-full p-4 shadow-xl transition-transform transform hover:scale-110 active:scale-95 z-40 animate-gradient-xy"
           aria-label="Open Chatbot"
         >
           <MessageCircle size={24} />

@@ -61,7 +61,7 @@ export default function CartModal({ cart, onClose, onUpdateQuantity, onCheckout,
               </div>
               <button
                 onClick={onCheckout}
-                className="w-full py-3 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-lg font-bold hover:opacity-90 transition-opacity"
+                className="w-full py-3 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-lg font-bold hover:opacity-90 transition-opacity animate-gradient-xy"
               >
                 Proceed to Checkout
               </button>

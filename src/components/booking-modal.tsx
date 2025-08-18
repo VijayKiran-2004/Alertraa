@@ -68,7 +68,7 @@ export default function BookingModal({ onClose, isDarkMode }: BookingModalProps)
           <button
             onClick={handleBook}
             disabled={!date || !time}
-            className="py-2 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-md font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="py-2 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-md font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all animate-gradient-xy"
           >
             Book
           </button>

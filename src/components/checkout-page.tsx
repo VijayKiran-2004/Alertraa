@@ -115,7 +115,7 @@ export default function CheckoutPage({ cart, onConfirmPayment, onBack, isDarkMod
                  <button
                     onClick={onConfirmPayment}
                     disabled={!isFormValid()}
-                    className="w-full mt-4 py-3 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-lg font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="w-full mt-4 py-3 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-lg font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all animate-gradient-xy"
                   >
                    <span className="flex items-center justify-center gap-2"><Lock size={16} /> Confirm and Pay</span>
                   </button>

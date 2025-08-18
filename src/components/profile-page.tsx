@@ -59,7 +59,7 @@ export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEme
       <SectionCard isDarkMode={isDarkMode}>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-headline font-bold">Health Information</h2>
-          <button onClick={onShowHealthHistory} className="px-4 py-2 rounded-lg shadow-md text-sm bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity">
+          <button onClick={onShowHealthHistory} className="px-4 py-2 rounded-lg shadow-md text-sm bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity animate-gradient-xy">
             History
           </button>
         </div>
@@ -110,7 +110,7 @@ export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEme
                 <button onClick={() => handleRemoveContact(contact)} className={`p-2 rounded-full shadow-sm transition-colors ${isDarkMode ? 'bg-slate-700 hover:bg-slate-600' : 'bg-gray-200 hover:bg-gray-300'}`}>
                   <X size={20} />
                 </button>
-                <button className="p-2 rounded-full shadow-sm bg-gradient-to-r from-primary to-accent text-white">
+                <button className="p-2 rounded-full shadow-sm bg-gradient-to-r from-primary to-accent text-white animate-gradient-xy">
                   <PhoneCall size={20} />
                 </button>
               </div>

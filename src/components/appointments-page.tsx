@@ -24,7 +24,7 @@ export default function AppointmentsPage({ onBookVisit, isDarkMode }: Appointmen
           </div>
           <button
             onClick={onBookVisit}
-            className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity"
+            className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity animate-gradient-xy"
           >
             Book a Visit
           </button>

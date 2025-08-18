@@ -59,7 +59,7 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
           </button>
           <button
             onClick={() => onAddToCart(medicine)}
-            className="px-3 py-1.5 text-sm bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity"
+            className="px-3 py-1.5 text-sm bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity animate-gradient-xy"
           >
             Add
           </button>

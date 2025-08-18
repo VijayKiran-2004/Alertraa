@@ -44,7 +44,7 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
     <header className={cn('p-4 border-b shadow-sm flex items-center justify-between sticky top-0 z-20', themeClasses)}>
       <div className="w-10"></div>
       <div className="flex items-center space-x-2">
-        <AlertraLogo className="h-7 text-primary" />
+        <AlertraLogo className="h-7 text-primary font-extrabold" />
         <div 
           className={cn(
             'w-3 h-3 rounded-full transition-colors',

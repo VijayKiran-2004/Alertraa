@@ -84,7 +84,7 @@ export default function AddInfoModal({ type, onClose, isDarkMode }: AddInfoModal
             </button>
             <button
               type="submit"
-              className="py-2 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-md font-bold hover:opacity-90 transition-opacity"
+              className="py-2 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-md font-bold hover:opacity-90 transition-opacity animate-gradient-xy"
             >
               Add
             </button>

@@ -35,7 +35,7 @@ export default function PrescribedMedicinePage({ isDarkMode }: PrescribedMedicin
           <p className={secondaryTextClasses}>Digital copies of your doctor's prescriptions.</p>
           <button
             onClick={handleUpload}
-            className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity flex items-center space-x-2"
+            className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity flex items-center space-x-2 animate-gradient-xy"
           >
             <Upload size={18} />
             <span>Upload New</span>
