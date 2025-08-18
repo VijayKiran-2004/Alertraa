@@ -30,38 +30,38 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
-  const cardClasses = isDarkMode ? 'bg-[#2A343D]' : 'bg-white';
+  const cardClasses = isDarkMode ? 'bg-slate-800' : 'bg-white';
 
   const renderMedicineCard = (medicine: Medicine) => (
-    <div key={medicine.id} className={`p-6 rounded-2xl shadow-md ${cardClasses} flex flex-col justify-between`}>
+    <div key={medicine.id} className={`p-4 rounded-xl shadow-md ${cardClasses} flex flex-col justify-between`}>
       <div>
-        <div className="flex items-start space-x-4 mb-4">
-          <Pill size={40} className="text-primary flex-shrink-0 mt-1" />
+        <div className="flex items-start space-x-3 mb-3">
+          <Pill size={32} className="text-primary flex-shrink-0 mt-1" />
           <div>
-            <h3 className={`text-lg font-headline font-bold ${textClasses}`}>{medicine.name}</h3>
-            <p className={`text-sm ${secondaryTextClasses}`}>{medicine.description}</p>
+            <h3 className={`text-base font-headline font-bold ${textClasses}`}>{medicine.name}</h3>
+            <p className={`text-xs ${secondaryTextClasses}`}>{medicine.description}</p>
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center mt-4">
-        <p className={`text-xl font-bold text-primary`}>${medicine.price}</p>
+      <div className="flex justify-between items-center mt-3">
+        <p className={`text-lg font-bold text-primary`}>${medicine.price}</p>
         <div className="flex items-center space-x-2">
           <button
             onClick={() => toggleWishlist(medicine.id)}
             className={`p-2 rounded-full transition-colors ${
               isWishlisted(medicine.id)
-                ? 'bg-red-500 text-white'
-                : `${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'} text-gray-500`
+                ? 'bg-red-100 text-red-500'
+                : `${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'} text-gray-500 dark:text-gray-400`
             }`}
             aria-label={isWishlisted(medicine.id) ? 'Remove from wishlist' : 'Add to wishlist'}
           >
-            <Heart size={20} fill={isWishlisted(medicine.id) ? 'currentColor' : 'none'} />
+            <Heart size={18} fill={isWishlisted(medicine.id) ? 'currentColor' : 'none'} />
           </button>
           <button
             onClick={() => onAddToCart(medicine)}
-            className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity"
+            className="px-3 py-1.5 text-sm bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity"
           >
-            Add to Cart
+            Add
           </button>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
       {wishlist.length > 0 && (
         <SectionCard title="My Wishlist" isDarkMode={isDarkMode}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {medicines.filter((m) => isWishlisted(m.id)).map(renderMedicineCard)}
           </div>
         </SectionCard>
@@ -98,14 +98,14 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
       {frequentlyBought.length > 0 && (
         <SectionCard title="Frequently Bought" isDarkMode={isDarkMode}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {frequentlyBought.map(renderMedicineCard)}
           </div>
         </SectionCard>
       )}
 
       <SectionCard title="All Medicines" isDarkMode={isDarkMode}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {otherMedicines.map(renderMedicineCard)}
         </div>
       </SectionCard>
