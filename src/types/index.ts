@@ -113,6 +113,12 @@ export interface ECommerce {
     medicines: Medicine[];
 }
 
+export interface Notification {
+  title: string;
+  description: string;
+  severity: 'critical' | 'important' | 'normal';
+}
+
 export interface NotificationSetting {
     name: string;
     description: string;
@@ -177,6 +183,7 @@ export interface MockData {
   emergencyContacts: EmergencyContact[];
   allContacts: AllContact[];
   eCommerce: ECommerce;
+  notifications: Notification[];
   settingsContent: SettingsContent;
   emergencyDetails: Record<string, EmergencyDetails>;
   healthHistoryDetails: HealthHistoryDetails[];

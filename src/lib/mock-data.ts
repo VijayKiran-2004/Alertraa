@@ -146,6 +146,12 @@ export const mockData: MockData = {
       { id: 12, name: 'Probiotic Blend', price: '22.00', description: 'Supports digestive health.', frequentlyBought: false },
     ],
   },
+  notifications: [
+    { title: 'Critical Alert: Heart Rate', description: 'Your heart rate is unusually high. Please rest.', severity: 'critical' },
+    { title: 'Medication Reminder', description: 'Time to take your Lisinopril.', severity: 'important' },
+    { title: 'Appointment Reminder', description: 'You have a check-up tomorrow at 10 AM.', severity: 'important' },
+    { title: 'Weekly Summary', description: 'Your health summary for the week is ready.', severity: 'normal' },
+  ],
   settingsContent: {
     'Notifications': {
       title: 'Notifications',
