@@ -17,50 +17,68 @@ const CalendarDays = (props: React.SVGProps<SVGSVGElement>) => (
 )
 
 export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDarkMode }: NavbarProps) {
-  const allNavItems = [
+  const navItems = [
     { name: 'Home', icon: <Heart size={24} />, page: 'Home' },
     { name: 'Appointments', icon: <CalendarDays size={24} />, page: 'Appointments' },
-    { name: 'SOS', text: 'SOS', page: 'SOS', isSpecial: true },
     { name: 'Medicine', icon: <Pill size={24} />, page: 'Medicine' },
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
 
-  const themeClasses = isDarkMode ? 'bg-[#36454F] border-slate-700' : 'bg-white/80 backdrop-blur-sm border-gray-200';
-  const inactiveIconClasses = isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-gray-500 hover:text-primary';
-  const activeGradientClasses = 'bg-gradient-to-r from-primary to-accent text-white shadow-md animate-fade-in';
+  const themeClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
+  const iconActiveClasses = isDarkMode ? 'text-white' : 'text-primary';
+  const iconInactiveClasses = isDarkMode ? 'text-slate-400 hover:text-white' : 'text-gray-500 hover:text-primary';
 
   return (
-    <nav className={cn('fixed bottom-0 left-0 right-0 border-t shadow-[0_-10px_30px_-15px_rgba(0,0,0,0.1)] p-2 z-30', themeClasses)}>
-      <div className="flex justify-evenly items-center max-w-lg mx-auto">
-        {allNavItems.map((item) => {
-          if (item.isSpecial) {
-            return (
-              <button
+    <nav className="fixed bottom-0 left-0 right-0 h-24 px-4 z-30 flex justify-center items-center">
+      <div className={cn('relative w-full max-w-lg h-16 rounded-full flex items-center justify-evenly shadow-lg', themeClasses)}>
+        
+        {/* Left items */}
+        <div className="flex-1 flex justify-evenly items-center pr-10">
+            {navItems.slice(0, 2).map((item) => (
+                <button
                 key={item.name}
-                onClick={onSosClick}
-                className="bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-110 active:scale-95 ring-4 ring-red-300/50 -translate-y-4"
-                aria-label="SOS Emergency Button"
-              >
-                {item.text}
-              </button>
-            );
-          }
+                onClick={() => setCurrentPage(item.page as Page)}
+                className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16 rounded-full', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
+                aria-current={currentPage === item.page ? 'page' : undefined}
+                >
+                <div className={cn('w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary text-white scale-110 -translate-y-6 shadow-lg' : '')}>
+                    {item.icon}
+                </div>
+                <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-0' : 'opacity-100')}>{item.name}</span>
+                </button>
+            ))}
+        </div>
 
-          return (
+        {/* SOS Button placeholder */}
+        <div className="w-20" />
+
+        {/* Right items */}
+        <div className="flex-1 flex justify-evenly items-center pl-10">
+            {navItems.slice(2, 4).map((item) => (
+                 <button
+                 key={item.name}
+                 onClick={() => setCurrentPage(item.page as Page)}
+                 className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16 rounded-full', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
+                 aria-current={currentPage === item.page ? 'page' : undefined}
+                 >
+                 <div className={cn('w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary text-white scale-110 -translate-y-6 shadow-lg' : '')}>
+                     {item.icon}
+                 </div>
+                 <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-0' : 'opacity-100')}>{item.name}</span>
+                 </button>
+            ))}
+        </div>
+
+        {/* Central SOS Button */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
             <button
-              key={item.name}
-              onClick={() => setCurrentPage(item.page as Page)}
-              className={cn(
-                'flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 min-w-[60px] h-14',
-                currentPage === item.page ? activeGradientClasses : inactiveIconClasses
-              )}
-              aria-current={currentPage === item.page ? 'page' : undefined}
+                onClick={onSosClick}
+                className="bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center font-bold text-xl shadow-xl transition-transform transform hover:scale-105 active:scale-95 ring-4 ring-offset-2 ring-red-300/50 dark:ring-offset-[#36454F]"
+                aria-label="SOS Emergency Button"
             >
-              {item.icon}
-              <span className="text-xs mt-1">{item.name}</span>
+                SOS
             </button>
-          );
-        })}
+        </div>
       </div>
     </nav>
   );
