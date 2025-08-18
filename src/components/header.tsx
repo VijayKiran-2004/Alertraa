@@ -1,6 +1,6 @@
 'use client';
 
-import { Settings, ShoppingCart } from 'lucide-react';
+import { Settings, ShoppingCart, Bell } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
@@ -9,6 +9,7 @@ interface HeaderProps {
   healthStatus: string;
   cartCount: number;
   onCartClick: () => void;
+  onNotificationClick: () => void;
 }
 
 const AlertraLogo = (props: React.SVGProps<SVGSVGElement>) => (
@@ -31,7 +32,7 @@ const AlertraLogo = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 )
 
-export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCount, onCartClick }: HeaderProps) {
+export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCount, onCartClick, onNotificationClick }: HeaderProps) {
   const themeClasses = isDarkMode
     ? 'bg-[#36454F] text-white border-slate-700'
     : 'bg-white text-slate-900 border-gray-200';
@@ -65,6 +66,13 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
       </div>
       <div className="flex items-center gap-2">
         <button
+          onClick={onNotificationClick}
+          className={cn('p-2 rounded-full relative', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          aria-label="Open notifications"
+        >
+          <Bell size={24} />
+        </button>
+        <button
           onClick={onCartClick}
           className={cn('p-2 rounded-full relative', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open cart"
@@ -87,5 +95,3 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
     </header>
   );
 }
-
-    

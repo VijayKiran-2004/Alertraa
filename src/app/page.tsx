@@ -41,6 +41,7 @@ import BookingModal from '@/components/booking-modal';
 import CartModal from '@/components/cart-modal';
 import CheckoutPage from '@/components/checkout-page';
 import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
+import NotificationPopover from '@/components/notification-popover';
 
 type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
 
@@ -60,6 +61,7 @@ export default function App() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [healthStatus, setHealthStatus] = useState('normal');
   const [isClient, setIsClient] = useState(false);
+  const [showNotificationPopover, setShowNotificationPopover] = useState(false);
 
   // E-commerce state
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -237,6 +239,7 @@ export default function App() {
         healthStatus={healthStatus}
         cartCount={cartItemCount}
         onCartClick={() => setShowCartModal(true)}
+        onNotificationClick={() => setShowNotificationPopover(!showNotificationPopover)}
       />
       <div className="flex-1 relative">
         <main className="h-full overflow-y-auto p-4 pb-24">
@@ -307,6 +310,17 @@ export default function App() {
           <PaymentConfirmationModal onClose={handleClosePaymentConfirmation} isDarkMode={isDarkMode} />,
           document.body
         )}
+        {showNotificationPopover && createPortal(
+          <NotificationPopover
+            onClose={() => setShowNotificationPopover(false)}
+            isDarkMode={isDarkMode}
+            onShowSettings={() => {
+              setShowNotificationPopover(false);
+              setShowSettingsModal('Notifications');
+            }}
+          />,
+          document.body
+        )}
       </>}
     </div>
   );
@@ -315,5 +329,3 @@ export default function App() {
 const MessageCircle = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
 )
-
-    
