@@ -44,7 +44,7 @@ body {
   }
 
   .blue-yonder {
-    --background: 223 35% 10%;
+    --background: 223 35% 96%;
     --primary: 223 35% 52%;
     --accent: 223 35% 25%;
     --foreground: 0 0% 98%;
@@ -58,7 +58,7 @@ body {
     --accent-foreground: 0 0% 98%;
   }
   .american-blue {
-    --background: 251 41% 10%;
+    --background: 251 41% 96%;
     --primary: 251 41% 31%;
     --accent: 251 41% 20%;
     --foreground: 0 0% 98%;
@@ -72,7 +72,7 @@ body {
     --accent-foreground: 0 0% 98%;
   }
   .eerie-black {
-    --background: 276 31% 5%;
+    --background: 276 31% 96%;
     --primary: 276 31% 20%;
     --accent: 276 31% 15%;
     --foreground: 0 0% 98%;
@@ -122,7 +122,7 @@ body {
   }
 
   .dark.blue-yonder {
-    --background: 223 35% 96%;
+    --background: 223 35% 10%;
     --primary: 223 35% 52%;
     --accent: 223 35% 85%;
     --foreground: 222.2 84% 4.9%;
@@ -136,7 +136,7 @@ body {
     --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark.american-blue {
-    --background: 251 41% 96%;
+    --background: 251 41% 10%;
     --primary: 251 41% 31%;
     --accent: 251 41% 85%;
     --foreground: 222.2 84% 4.9%;
@@ -150,7 +150,7 @@ body {
     --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark.eerie-black {
-    --background: 276 31% 96%;
+    --background: 276 31% 5%;
     --primary: 276 31% 10%;
     --accent: 276 31% 85%;
     --foreground: 222.2 84% 4.9%;
