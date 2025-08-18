@@ -1,12 +1,14 @@
 'use client';
 
-import { Settings } from 'lucide-react';
+import { Settings, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
   onMenuClick: () => void;
   isDarkMode: boolean;
   healthStatus: string;
+  cartCount: number;
+  onCartClick: () => void;
 }
 
 const AlertraLogo = (props: React.SVGProps<SVGSVGElement>) => (
@@ -29,7 +31,7 @@ const AlertraLogo = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 )
 
-export default function Header({ onMenuClick, isDarkMode, healthStatus }: HeaderProps) {
+export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCount, onCartClick }: HeaderProps) {
   const themeClasses = isDarkMode
     ? 'bg-[#36454F] text-white border-slate-700'
     : 'bg-white text-slate-900 border-gray-200';
@@ -61,13 +63,29 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus }: Header
           title={`Health Status: ${healthStatus}`}
         ></div>
       </div>
-      <button 
-        onClick={onMenuClick}
-        className={cn('p-2 rounded-full', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
-        aria-label="Open settings menu"
-      >
-        <Settings size={24} />
-      </button>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onCartClick}
+          className={cn('p-2 rounded-full relative', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          aria-label="Open cart"
+        >
+          <ShoppingCart size={24} />
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              {cartCount}
+            </span>
+          )}
+        </button>
+        <button 
+          onClick={onMenuClick}
+          className={cn('p-2 rounded-full', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          aria-label="Open settings menu"
+        >
+          <Settings size={24} />
+        </button>
+      </div>
     </header>
   );
 }
+
+    

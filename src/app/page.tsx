@@ -184,6 +184,7 @@ export default function App() {
     setShowPaymentConfirmation(false);
   };
 
+  const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const renderPage = () => {
     if (showCheckoutPage) {
@@ -207,7 +208,7 @@ export default function App() {
       case 'Medicine':
         return <MedicinePage 
                   isDarkMode={isDarkMode} 
-                  cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
+                  cartCount={cartItemCount}
                   onShowCart={() => setShowCartModal(true)}
                   wishlist={wishlist}
                   toggleWishlist={toggleWishlist}
@@ -230,7 +231,13 @@ export default function App() {
 
   return (
     <div className={`flex flex-col h-screen ${themeClasses} transition-colors duration-300`}>
-      <Header onMenuClick={() => setShowBurgerMenu(true)} isDarkMode={isDarkMode} healthStatus={healthStatus} />
+      <Header 
+        onMenuClick={() => setShowBurgerMenu(true)} 
+        isDarkMode={isDarkMode} 
+        healthStatus={healthStatus}
+        cartCount={cartItemCount}
+        onCartClick={() => setShowCartModal(true)}
+      />
       <div className="flex-1 relative">
         <main className="h-full overflow-y-auto p-4 pb-24">
           {renderPage()}
@@ -308,3 +315,5 @@ export default function App() {
 const MessageCircle = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
 )
+
+    
