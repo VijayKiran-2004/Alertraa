@@ -14,7 +14,6 @@ interface HomePageProps {
 }
 
 const Gauge = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
-const Footprints = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M4 16v-2.38c0-.97.5-1.84 1.3-2.39l1.4-1.05a2.5 2.5 0 0 1 3.6 0l1.4 1.05c.8.55 1.3 1.42 1.3 2.39V16"/><path d="M12 16v-2.38c0-.97.5-1.84 1.3-2.39l1.4-1.05a2.5 2.5 0 0 1 3.6 0l1.4 1.05c.8.55 1.3 1.42 1.3 2.39V16"/><path d="M4.68 12.55a2.5 2.5 0 0 1 0-5.1"/><path d="M12.68 12.55a2.5 2.5 0 0 1 0-5.1"/></svg>
 const Moon = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, isDarkMode }: HomePageProps) {
@@ -35,7 +34,6 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
     { name: 'Heart Rate', value: vitals.heartRate, icon: <Heart size={24} className="text-red-500 animate-beat" />, onClick: () => onMetricClick('Heart Rate') },
     { name: 'Blood Pressure', value: vitals.bloodPressure, icon: <Gauge size={24} className="text-primary animate-pulse-fast" />, onClick: () => onMetricClick('Blood Pressure') },
     { name: 'Blood Oxygen', value: vitals.bloodOxygen, icon: <Droplet size={24} className="text-red-500" />, onClick: () => onMetricClick('Blood Oxygen') },
-    { name: 'Steps Walked', value: mockData.dailyActivity.steps, icon: <Footprints size={24} className="text-pink-500" />, onClick: () => onMetricClick('Steps') },
     { name: 'Distance Walked', value: mockData.dailyActivity.distanceWalked, icon: <Route size={24} className="text-orange-500" />, onClick: () => onMetricClick('Distance Walked') },
     { name: 'Calories Burnt', value: mockData.dailyActivity.caloriesBurnt, icon: <Flame size={24} className="text-lime-500" />, onClick: () => onMetricClick('Calories Burnt') },
     { name: 'Sleep Hours', value: mockData.dailyActivity.sleepHours, icon: <Moon size={24} className="text-indigo-500" />, onClick: () => onMetricClick('Sleep Hours') },
