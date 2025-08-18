@@ -8,11 +8,13 @@ import type { Medicine } from '@/types';
 
 interface ECommercePageProps {
   isDarkMode: boolean;
+  wishlist: number[];
+  toggleWishlist: (medicineId: number) => void;
+  onAddToCart: (medicine: Medicine) => void;
 }
 
-export default function ECommercePage({ isDarkMode }: ECommercePageProps) {
+export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, onAddToCart }: ECommercePageProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [wishlist, setWishlist] = useState([1, 2]);
 
   const medicines = mockData.eCommerce.medicines;
   const filteredMedicines = medicines.filter(
@@ -23,19 +25,6 @@ export default function ECommercePage({ isDarkMode }: ECommercePageProps) {
 
   const frequentlyBought = filteredMedicines.filter((m) => m.frequentlyBought);
   const otherMedicines = filteredMedicines.filter((m) => !m.frequentlyBought);
-
-  const handleBuy = (medicine: Medicine) => {
-    console.log(`Buying ${medicine.name} for $${medicine.price}`);
-    // Here you would add logic to add to cart, process payment, etc.
-  };
-
-  const toggleWishlist = (medicineId: number) => {
-    setWishlist((prevWishlist) =>
-      prevWishlist.includes(medicineId)
-        ? prevWishlist.filter((id) => id !== medicineId)
-        : [...prevWishlist, medicineId]
-    );
-  };
 
   const isWishlisted = (medicineId: number) => wishlist.includes(medicineId);
 
@@ -69,10 +58,10 @@ export default function ECommercePage({ isDarkMode }: ECommercePageProps) {
             <Heart size={20} fill={isWishlisted(medicine.id) ? 'currentColor' : 'none'} />
           </button>
           <button
-            onClick={() => handleBuy(medicine)}
+            onClick={() => onAddToCart(medicine)}
             className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity"
           >
-            Buy Now
+            Add to Cart
           </button>
         </div>
       </div>

@@ -17,7 +17,8 @@ import type {
   Appointment,
   Medicine,
   Prescription,
-  SettingsContent
+  SettingsContent,
+  CartItem,
 } from '@/types';
 
 import Header from '@/components/header';
@@ -37,6 +38,9 @@ import SettingsModal from '@/components/settings-modal';
 import BurgerMenu from '@/components/burger-menu';
 import ChatbotModal from '@/components/chatbot-modal';
 import BookingModal from '@/components/booking-modal';
+import CartModal from '@/components/cart-modal';
+import CheckoutPage from '@/components/checkout-page';
+import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 
 type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
 
@@ -56,6 +60,13 @@ export default function App() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [healthStatus, setHealthStatus] = useState('normal');
   const [isClient, setIsClient] = useState(false);
+
+  // E-commerce state
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [wishlist, setWishlist] = useState<number[]>([1, 2]);
+  const [showCartModal, setShowCartModal] = useState(false);
+  const [showCheckoutPage, setShowCheckoutPage] = useState(false);
+  const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -132,7 +143,55 @@ export default function App() {
 
   const handleCancelSos = () => setShowSosModal(false);
 
+  // E-commerce handlers
+  const handleAddToCart = (medicine: Medicine) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === medicine.id);
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === medicine.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [...prevCart, { ...medicine, quantity: 1 }];
+    });
+  };
+
+  const handleUpdateCartQuantity = (medicineId: number, quantity: number) => {
+    if (quantity <= 0) {
+      setCart((prevCart) => prevCart.filter((item) => item.id !== medicineId));
+    } else {
+      setCart((prevCart) =>
+        prevCart.map((item) => (item.id === medicineId ? { ...item, quantity } : item))
+      );
+    }
+  };
+
+  const toggleWishlist = (medicineId: number) => {
+    setWishlist((prev) =>
+      prev.includes(medicineId) ? prev.filter((id) => id !== medicineId) : [...prev, medicineId]
+    );
+  };
+  
+  const handleProceedToCheckout = () => {
+    setShowCartModal(false);
+    setShowCheckoutPage(true);
+  };
+
+  const handleConfirmPayment = () => {
+    setShowCheckoutPage(false);
+    setShowPaymentConfirmation(true);
+    setCart([]);
+  };
+
+  const handleClosePaymentConfirmation = () => {
+    setShowPaymentConfirmation(false);
+  };
+
+
   const renderPage = () => {
+    if (showCheckoutPage) {
+      return <CheckoutPage cart={cart} onConfirmPayment={handleConfirmPayment} onBack={() => { setShowCheckoutPage(false); setShowCartModal(true); }} isDarkMode={isDarkMode} />;
+    }
     switch (currentPage) {
       case 'Home':
         return (
@@ -149,7 +208,14 @@ export default function App() {
       case 'User':
         return <ProfilePage onShowHealthHistory={() => setShowHealthHistory(true)} onShowAddModal={setShowAddModal} onEmergencyClick={setSelectedEmergency} isDarkMode={isDarkMode} />;
       case 'Medicine':
-        return <MedicinePage isDarkMode={isDarkMode} />;
+        return <MedicinePage 
+                  isDarkMode={isDarkMode} 
+                  cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
+                  onShowCart={() => setShowCartModal(true)}
+                  wishlist={wishlist}
+                  toggleWishlist={toggleWishlist}
+                  onAddToCart={handleAddToCart}
+                />;
       default:
         return (
           <HomePage
@@ -221,6 +287,20 @@ export default function App() {
         )}
         {showBookingModal && createPortal(
           <BookingModal onClose={() => setShowBookingModal(false)} isDarkMode={isDarkMode} />,
+          document.body
+        )}
+        {showCartModal && createPortal(
+          <CartModal 
+            cart={cart}
+            onClose={() => setShowCartModal(false)} 
+            onUpdateQuantity={handleUpdateCartQuantity}
+            onCheckout={handleProceedToCheckout}
+            isDarkMode={isDarkMode} 
+          />,
+          document.body
+        )}
+        {showPaymentConfirmation && createPortal(
+          <PaymentConfirmationModal onClose={handleClosePaymentConfirmation} isDarkMode={isDarkMode} />,
           document.body
         )}
       </>}

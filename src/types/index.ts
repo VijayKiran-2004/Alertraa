@@ -105,6 +105,10 @@ export interface Medicine {
     frequentlyBought: boolean;
 }
 
+export interface CartItem extends Medicine {
+    quantity: number;
+}
+
 export interface ECommerce {
     medicines: Medicine[];
 }
