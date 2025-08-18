@@ -27,6 +27,7 @@ import HomePage from '@/components/home-page';
 import AppointmentsPage from '@/components/appointments-page';
 import ProfilePage from '@/components/profile-page';
 import MedicinePage from '@/components/medicine-page';
+import LoginPage from '@/components/login-page';
 
 import SosModal from '@/components/sos-modal';
 import MetricDetailsModal from '@/components/metric-details-modal';
@@ -46,6 +47,7 @@ import NotificationPopover from '@/components/notification-popover';
 type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('Home');
   const [showSosModal, setShowSosModal] = useState(false);
   const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
@@ -186,7 +188,19 @@ export default function App() {
     setShowPaymentConfirmation(false);
   };
 
+  const handleLogin = (username: string, password: string) => {
+    if (username === 'admin' && password === '12345') {
+      setIsAuthenticated(true);
+    } else {
+      alert('Invalid credentials');
+    }
+  };
+
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
+  }
 
   const renderPage = () => {
     if (showCheckoutPage) {
