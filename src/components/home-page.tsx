@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Globe, AlertTriangle, Route, ChevronRight, MapPin } from 'lucide-react';
+import { Heart, AlertTriangle, Route, ChevronRight, MapPin, Droplet, Flame } from 'lucide-react';
 import SectionCard from './section-card';
 import GoogleMap from './google-map';
 import { mockData } from '@/lib/mock-data';
@@ -16,7 +16,6 @@ interface HomePageProps {
 const Gauge = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
 const Footprints = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M4 16v-2.38c0-.97.5-1.84 1.3-2.39l1.4-1.05a2.5 2.5 0 0 1 3.6 0l1.4 1.05c.8.55 1.3 1.42 1.3 2.39V16"/><path d="M12 16v-2.38c0-.97.5-1.84 1.3-2.39l1.4-1.05a2.5 2.5 0 0 1 3.6 0l1.4 1.05c.8.55 1.3 1.42 1.3 2.39V16"/><path d="M4.68 12.55a2.5 2.5 0 0 1 0-5.1"/><path d="M12.68 12.55a2.5 2.5 0 0 1 0-5.1"/></svg>
 const Moon = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-const LifeBuoy = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
@@ -35,10 +34,10 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
   const metrics = [
     { name: 'Heart Rate', value: vitals.heartRate, icon: <Heart size={24} className="text-red-500 animate-beat" />, onClick: () => onMetricClick('Heart Rate') },
     { name: 'Blood Pressure', value: vitals.bloodPressure, icon: <Gauge size={24} className="text-primary animate-pulse-fast" />, onClick: () => onMetricClick('Blood Pressure') },
-    { name: 'Blood Oxygen', value: vitals.bloodOxygen, icon: <Globe size={24} className="text-cyan-500" />, onClick: () => onMetricClick('Blood Oxygen') },
+    { name: 'Blood Oxygen', value: vitals.bloodOxygen, icon: <Droplet size={24} className="text-red-500" />, onClick: () => onMetricClick('Blood Oxygen') },
     { name: 'Steps Walked', value: mockData.dailyActivity.steps, icon: <Footprints size={24} className="text-pink-500" />, onClick: () => onMetricClick('Steps') },
     { name: 'Distance Walked', value: mockData.dailyActivity.distanceWalked, icon: <Route size={24} className="text-orange-500" />, onClick: () => onMetricClick('Distance Walked') },
-    { name: 'Calories Burnt', value: mockData.dailyActivity.caloriesBurnt, icon: <LifeBuoy size={24} className="text-lime-500" />, onClick: () => onMetricClick('Calories Burnt') },
+    { name: 'Calories Burnt', value: mockData.dailyActivity.caloriesBurnt, icon: <Flame size={24} className="text-lime-500" />, onClick: () => onMetricClick('Calories Burnt') },
     { name: 'Sleep Hours', value: mockData.dailyActivity.sleepHours, icon: <Moon size={24} className="text-indigo-500" />, onClick: () => onMetricClick('Sleep Hours') },
   ];
 

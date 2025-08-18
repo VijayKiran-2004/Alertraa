@@ -70,9 +70,6 @@ export default function App() {
 
   useEffect(() => {
     setIsClient(true);
-    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDarkMode(true);
-    }
   }, []);
   
   useEffect(() => {
