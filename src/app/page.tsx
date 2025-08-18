@@ -248,10 +248,8 @@ export default function App() {
     }
   };
 
-  const themeClasses = isDarkMode ? 'bg-[#2A343D] text-white' : 'bg-[#F1F5F9] text-slate-900';
-
   return (
-    <div className={`flex flex-col h-screen ${themeClasses} transition-colors duration-300`}>
+    <div className="flex flex-col h-screen transition-colors duration-300">
       <Header 
         onMenuClick={() => setShowBurgerMenu(true)} 
         isDarkMode={isDarkMode} 

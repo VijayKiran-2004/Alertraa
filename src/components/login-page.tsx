@@ -27,13 +27,12 @@ export default function LoginPage({ onLogin, isDarkMode }: LoginPageProps) {
     onLogin(username, password);
   };
 
-  const themeClasses = isDarkMode ? 'bg-[#2A343D] text-white' : 'bg-[#F1F5F9] text-slate-900';
   const cardClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
   const inputBgClasses = isDarkMode ? 'bg-slate-700 border-slate-600 text-white' : 'bg-gray-100 border-gray-300 text-slate-900';
   const labelTextClasses = isDarkMode ? 'text-gray-300' : 'text-gray-700';
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-4 ${themeClasses} transition-colors duration-300`}>
+    <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
       <div className={`w-full max-w-md p-8 space-y-8 rounded-2xl shadow-xl ${cardClasses}`}>
         <div className="text-center">
             <AlertraLogo className="mx-auto mb-4" />
