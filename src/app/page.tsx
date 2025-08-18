@@ -203,6 +203,10 @@ export default function App() {
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
+  if (!isClient) {
+    return null;
+  }
+  
   if (!isAuthenticated) {
     return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
   }
@@ -272,73 +276,71 @@ export default function App() {
       </div>
       <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} onSosClick={handleSosClick} isDarkMode={isDarkMode} />
       
-      {isClient && <>
-        {showSosModal && createPortal(
-          <SosModal onConfirm={handleConfirmSos} onCancel={handleCancelSos} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {selectedMetric && createPortal(
-          <MetricDetailsModal metric={selectedMetric} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {selectedEmergency && createPortal(
-          <EmergencyDetailsModal emergency={selectedEmergency} onClose={() => setSelectedEmergency(null)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {isMapEnlarged && createPortal(
-          <EnlargedMapModal onClose={() => setIsMapEnlarged(false)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {showHealthHistory && createPortal(
-          <HealthHistoryModal onClose={() => setShowHealthHistory(false)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {showAddModal && createPortal(
-          <AddInfoModal type={showAddModal} onClose={() => setShowAddModal(null)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {showSettingsModal && createPortal(
-          <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} theme={theme} setTheme={setTheme} />,
-          document.body
-        )}
-        {showBurgerMenu && createPortal(
-          <BurgerMenu onClose={() => setShowBurgerMenu(false)} onShowSettingsModal={setShowSettingsModal} isDarkMode={isDarkMode} onLogout={handleLogout} />,
-          document.body
-        )}
-        {showChatbotModal && createPortal(
-          <ChatbotModal onClose={() => setShowChatbotModal(false)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {showBookingModal && createPortal(
-          <BookingModal onClose={() => setShowBookingModal(false)} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {showCartModal && createPortal(
-          <CartModal 
-            cart={cart}
-            onClose={() => setShowCartModal(false)} 
-            onUpdateQuantity={handleUpdateCartQuantity}
-            onCheckout={handleProceedToCheckout}
-            isDarkMode={isDarkMode} 
-          />,
-          document.body
-        )}
-        {showPaymentConfirmation && createPortal(
-          <PaymentConfirmationModal onClose={handleClosePaymentConfirmation} isDarkMode={isDarkMode} />,
-          document.body
-        )}
-        {showNotificationPopover && createPortal(
-          <NotificationPopover
-            onClose={() => setShowNotificationPopover(false)}
-            isDarkMode={isDarkMode}
-            onShowSettings={() => {
-              setShowNotificationPopover(false);
-              setShowSettingsModal('Notifications');
-            }}
-          />,
-          document.body
-        )}
-      </>}
+      {showSosModal && createPortal(
+        <SosModal onConfirm={handleConfirmSos} onCancel={handleCancelSos} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {selectedMetric && createPortal(
+        <MetricDetailsModal metric={selectedMetric} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {selectedEmergency && createPortal(
+        <EmergencyDetailsModal emergency={selectedEmergency} onClose={() => setSelectedEmergency(null)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {isMapEnlarged && createPortal(
+        <EnlargedMapModal onClose={() => setIsMapEnlarged(false)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showHealthHistory && createPortal(
+        <HealthHistoryModal onClose={() => setShowHealthHistory(false)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showAddModal && createPortal(
+        <AddInfoModal type={showAddModal} onClose={() => setShowAddModal(null)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showSettingsModal && createPortal(
+        <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} theme={theme} setTheme={setTheme} />,
+        document.body
+      )}
+      {showBurgerMenu && createPortal(
+        <BurgerMenu onClose={() => setShowBurgerMenu(false)} onShowSettingsModal={setShowSettingsModal} isDarkMode={isDarkMode} onLogout={handleLogout} />,
+        document.body
+      )}
+      {showChatbotModal && createPortal(
+        <ChatbotModal onClose={() => setShowChatbotModal(false)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showBookingModal && createPortal(
+        <BookingModal onClose={() => setShowBookingModal(false)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showCartModal && createPortal(
+        <CartModal 
+          cart={cart}
+          onClose={() => setShowCartModal(false)} 
+          onUpdateQuantity={handleUpdateCartQuantity}
+          onCheckout={handleProceedToCheckout}
+          isDarkMode={isDarkMode} 
+        />,
+        document.body
+      )}
+      {showPaymentConfirmation && createPortal(
+        <PaymentConfirmationModal onClose={handleClosePaymentConfirmation} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showNotificationPopover && createPortal(
+        <NotificationPopover
+          onClose={() => setShowNotificationPopover(false)}
+          isDarkMode={isDarkMode}
+          onShowSettings={() => {
+            setShowNotificationPopover(false);
+            setShowSettingsModal('Notifications');
+          }}
+        />,
+        document.body
+      )}
     </div>
   );
 }
