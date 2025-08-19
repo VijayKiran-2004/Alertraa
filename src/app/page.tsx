@@ -25,7 +25,7 @@ import type {
 import Header from '@/components/header';
 import Navbar from '@/components/navbar';
 import HomePage from '@/components/home-page';
-import AppointmentsPage from '@/components/appointments-page';
+import BookingPage from '@/components/booking-page';
 import ProfilePage from '@/components/profile-page';
 import MedicinePage from '@/components/medicine-page';
 import LoginPage from '@/components/login-page';
@@ -45,7 +45,7 @@ import CheckoutPage from '@/components/checkout-page';
 import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 
-type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
+type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
 
 export default function App() {
@@ -227,8 +227,8 @@ export default function App() {
             isDarkMode={isDarkMode}
           />
         );
-      case 'Appointments':
-        return <AppointmentsPage onBookVisit={() => setShowBookingModal(true)} isDarkMode={isDarkMode} />;
+      case 'Booking':
+        return <BookingPage onBookVisit={() => setShowBookingModal(true)} isDarkMode={isDarkMode} />;
       case 'User':
         return <ProfilePage onShowHealthHistory={() => setShowHealthHistory(true)} onShowAddModal={setShowAddModal} onEmergencyClick={setSelectedEmergency} isDarkMode={isDarkMode} />;
       case 'Medicine':

@@ -3,7 +3,7 @@
 import { Heart, User, Pill } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type Page = 'Home' | 'Appointments' | 'User' | 'Medicine';
+type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 
 interface NavbarProps {
   currentPage: Page;
@@ -19,7 +19,7 @@ const CalendarDays = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDarkMode }: NavbarProps) {
   const navItems = [
     { name: 'Home', icon: <Heart size={24} />, page: 'Home' },
-    { name: 'Appointments', icon: <CalendarDays size={24} />, page: 'Appointments' },
+    { name: 'Booking', icon: <CalendarDays size={24} />, page: 'Booking' },
     { name: 'Medicine', icon: <Pill size={24} />, page: 'Medicine' },
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
