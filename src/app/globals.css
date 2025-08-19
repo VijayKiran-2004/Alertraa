@@ -45,8 +45,8 @@ body {
 
   .blue-yonder {
     --background: 223 35% 96%;
-    --primary: 223 35% 52%;
-    --accent: 223 35% 25%;
+    --primary: 223 35% 25%;
+    --accent: 223 35% 52%;
     --foreground: 222.2 84% 4.9%;
     --primary-foreground: 0 0% 98%;
     --card: 223 35% 10%;
@@ -59,8 +59,8 @@ body {
   }
   .american-blue {
     --background: 251 41% 96%;
-    --primary: 251 41% 31%;
-    --accent: 251 41% 20%;
+    --primary: 251 41% 20%;
+    --accent: 251 41% 31%;
     --foreground: 222.2 84% 4.9%;
     --primary-foreground: 0 0% 98%;
     --card: 251 41% 10%;
@@ -73,8 +73,8 @@ body {
   }
   .eerie-black {
     --background: 276 31% 96%;
-    --primary: 276 31% 20%;
-    --accent: 276 31% 15%;
+    --primary: 276 31% 15%;
+    --accent: 276 31% 20%;
     --foreground: 222.2 84% 4.9%;
     --primary-foreground: 0 0% 98%;
     --card: 276 31% 5%;
@@ -137,10 +137,10 @@ body {
 
   .dark.blue-yonder {
     --background: 223 35% 10%;
-    --primary: 223 35% 52%;
-    --accent: 223 35% 85%;
+    --primary: 223 35% 85%;
+    --accent: 223 35% 52%;
     --foreground: 0 0% 98%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
     --card: 223 35% 96%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 223 35% 96%;
@@ -151,10 +151,10 @@ body {
   }
   .dark.american-blue {
     --background: 251 41% 10%;
-    --primary: 251 41% 31%;
-    --accent: 251 41% 85%;
+    --primary: 251 41% 85%;
+    --accent: 251 41% 31%;
     --foreground: 0 0% 98%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
     --card: 251 41% 96%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 251 41% 96%;
@@ -165,10 +165,10 @@ body {
   }
   .dark.eerie-black {
     --background: 276 31% 5%;
-    --primary: 276 31% 10%;
-    --accent: 276 31% 85%;
+    --primary: 276 31% 85%;
+    --accent: 276 31% 10%;
     --foreground: 0 0% 98%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
     --card: 276 31% 96%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 276 31% 96%;
@@ -182,7 +182,7 @@ body {
     --primary: 340 82% 65%;
     --accent: 340 82% 55%;
     --foreground: 0 0% 98%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
     --card: 350 100% 98%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 350 100% 98%;
