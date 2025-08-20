@@ -22,10 +22,10 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
   const itemBg = isDarkMode ? 'bg-slate-700' : 'bg-slate-100';
 
   const metrics = [
-    { name: 'Heart Rate', value: 72, progress: 72, unit: 'bpm' },
-    { name: 'Sleep', value: 80, progress: 80, unit: '%' },
-    { name: 'Recovery', value: 70, progress: 70, unit: '%' },
-    { name: 'Strain', value: 14.2, progress: (14.2/20 * 100), unit: '' },
+    { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" /> },
+    { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Droplet size={24} className="text-blue-500" /> },
+    { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Flame size={24} className="text-orange-500" /> },
+    { name: 'Sleep', value: '8h 15m', progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
   ];
 
   return (
@@ -35,11 +35,11 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
       </div>
       <div className={`grid grid-cols-4 gap-3 p-4 rounded-2xl shadow-md ${cardBg}`}>
         {metrics.map(metric => (
-          <div key={metric.name} className="flex flex-col items-center gap-2">
+          <div key={metric.name} className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => onMetricClick(metric.name)}>
             <ProgressRing progress={metric.progress} isDarkMode={isDarkMode}/>
             <div className='text-center'>
                 <p className={`text-xs font-bold ${textClasses}`}>{metric.name}</p>
-                <p className={`text-xs ${secondaryTextClasses}`}>{metric.value}{metric.unit}</p>
+                <p className={`text-xs ${secondaryTextClasses}`}>{metric.value}</p>
             </div>
           </div>
         ))}
