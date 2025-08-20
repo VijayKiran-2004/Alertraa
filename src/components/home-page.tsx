@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Droplet, Flame, Moon, ChevronRight, CheckSquare, Brain, FileText, Clock, Footprints } from 'lucide-react';
+import { Heart, Droplet, Flame, Moon, ChevronRight, CheckSquare, Brain, FileText, Clock, Footprints, Wind } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
@@ -24,14 +24,12 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
   const cardBg = isDarkMode ? 'bg-slate-800' : 'bg-white';
   const itemBg = isDarkMode ? 'bg-slate-700' : 'bg-slate-100';
 
-  const Fire = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10.66 12.21a12.21 12.21 0 0 0 7.13-7.13C16.8 3.31 16.24 3 16 3l-1.4.52a9.58 9.58 0 0 0-4.08 4.08L10 9c.05.24.3.8.79 1.29.78.78 2 1.33 3.21 1.06Z"/><path d="M12.44 14.33a9.42 9.42 0 0 0-1.52-2.33l-.2-.3-2.12-2.12-1.2-1.2a5.4 5.4 0 0 0-7.64 0c0 3 2.08 5.43 4.29 6.2 2.54.9 5.39.14 6.84-1.31Z"/></svg>
-
   const metrics = [
     { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" /> },
     { name: 'Sleep', value: dailyActivity.sleepHours, progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
     { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Droplet size={24} className="text-blue-500" /> },
-    { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Fire size={24} className="text-red-500" /> },
-    { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Flame size={24} className="text-orange-500" /> },
+    { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Flame size={24} className="text-orange-500" /> },
+    { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Wind size={24} className="text-cyan-500" /> },
     { name: 'Distance Walked', value: dailyActivity.distanceWalked, progress: 75, icon: <Footprints size={24} className="text-green-500" /> },
   ];
 
