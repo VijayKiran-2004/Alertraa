@@ -26,7 +26,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
 
   const metrics = [
     { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" /> },
-    { name: 'Sleep', value: dailyActivity.sleepHours, progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
+    { name: 'Sleep Hours', value: dailyActivity.sleepHours, progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
     { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Droplet size={24} className="text-blue-500" /> },
     { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Flame size={24} className="text-orange-500" /> },
     { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Wind size={24} className="text-cyan-500" /> },
@@ -86,20 +86,11 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
       </div>
 
       <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
-        <h3 className={`font-bold mb-2 ${textClasses}`}>My Day</h3>
-        <button onClick={onShowDailyPlan} className={`w-full p-3 rounded-lg flex items-center gap-3 text-left ${itemBg}`}>
-            <FileText size={24} className='text-primary'/>
-            <span className={`flex-1 font-semibold ${textClasses}`}>Your Daily plan</span>
-            <ChevronRight size={20}/>
-        </button>
-      </div>
-
-      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
         <div className='flex justify-between items-center mb-2'>
             <h3 className={`font-bold ${textClasses}`}>TODAY'S ACTIVITIES</h3>
             <button><ChevronRight size={20}/></button>
         </div>
-        <div className={`p-3 rounded-lg ${itemBg}`}>
+        <div className={`p-3 rounded-lg ${itemBg} mb-2`}>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     <div className={cn('p-2 rounded-md', isDarkMode ? 'bg-slate-900' : 'bg-slate-600 text-white')}>
@@ -116,8 +107,12 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
                 </div>
             </div>
         </div>
+        <button onClick={onShowDailyPlan} className={`w-full p-3 rounded-lg flex items-center gap-3 text-left ${itemBg} mt-2`}>
+            <FileText size={24} className='text-primary'/>
+            <span className={`flex-1 font-semibold ${textClasses}`}>Your Daily plan</span>
+            <ChevronRight size={20}/>
+        </button>
       </div>
-
     </div>
   );
 }

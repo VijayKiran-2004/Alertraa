@@ -23,7 +23,7 @@ export default function ProgressRing({ progress, isDarkMode, icon }: ProgressRin
       <svg
         height={radius * 2}
         width={radius * 2}
-        className="transform -rotate-90 absolute"
+        className="transform -rotate-90"
       >
         <circle
           stroke={trackColor}
@@ -38,7 +38,7 @@ export default function ProgressRing({ progress, isDarkMode, icon }: ProgressRin
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={`${circumference} ${circumference}`}
-          style={{ strokeDashoffset }}
+          style={{ strokeDashoffset, transition: 'stroke-dashoffset 0.5s ease-out' }}
           strokeLinecap="round"
           r={normalizedRadius}
           cx={radius}
