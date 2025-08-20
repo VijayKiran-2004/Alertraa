@@ -1,9 +1,10 @@
 'use client';
 
-import { Heart, AlertTriangle, Route, ChevronRight, MapPin, Droplet, Flame } from 'lucide-react';
+import { Heart, Route, MapPin, Droplet, Flame, Moon, ChevronRight, CheckSquare, Brain, FileText, Clock } from 'lucide-react';
 import SectionCard from './section-card';
-import GoogleMap from './google-map';
 import { mockData } from '@/lib/mock-data';
+import ProgressRing from './progress-ring';
+import { cn } from '@/lib/utils';
 
 interface HomePageProps {
   onMetricClick: (metric: string) => void;
@@ -13,84 +14,105 @@ interface HomePageProps {
   isDarkMode: boolean;
 }
 
-const Gauge = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
-const Moon = (props: React.SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
-  const hoverClasses = isDarkMode ? 'hover:bg-slate-800' : 'hover:bg-gray-100';
-
-  const getSeverityIconColor = (severity: string) => {
-    switch (severity) {
-      case 'critical': return 'text-red-500';
-      case 'major': return 'text-orange-500';
-      case 'minor': return 'text-yellow-400';
-      default: return 'text-gray-500';
-    }
-  };
+  const cardBg = isDarkMode ? 'bg-slate-800' : 'bg-white';
+  const itemBg = isDarkMode ? 'bg-slate-700' : 'bg-slate-100';
 
   const metrics = [
-    { name: 'Heart Rate', value: vitals.heartRate, icon: <Heart size={24} className="text-red-500 animate-beat" />, onClick: () => onMetricClick('Heart Rate') },
-    { name: 'Blood Pressure', value: vitals.bloodPressure, icon: <Gauge size={24} className="text-primary animate-pulse-fast" />, onClick: () => onMetricClick('Blood Pressure') },
-    { name: 'Blood Oxygen', value: vitals.bloodOxygen, icon: <Droplet size={24} className="text-red-500" />, onClick: () => onMetricClick('Blood Oxygen') },
-    { name: 'Distance Walked', value: mockData.dailyActivity.distanceWalked, icon: <Route size={24} className="text-orange-500" />, onClick: () => onMetricClick('Distance Walked') },
-    { name: 'Calories Burnt', value: mockData.dailyActivity.caloriesBurnt, icon: <Flame size={24} className="text-lime-500" />, onClick: () => onMetricClick('Calories Burnt') },
-    { name: 'Sleep Hours', value: mockData.dailyActivity.sleepHours, icon: <Moon size={24} className="text-indigo-500" />, onClick: () => onMetricClick('Sleep Hours') },
+    { name: 'Heart Rate', value: 72, progress: 72, unit: 'bpm' },
+    { name: 'Sleep', value: 80, progress: 80, unit: '%' },
+    { name: 'Recovery', value: 70, progress: 70, unit: '%' },
+    { name: 'Strain', value: 14.2, progress: (14.2/20 * 100), unit: '' },
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <SectionCard title="Health & Activity Summary" isDarkMode={isDarkMode}>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {metrics.map(metric => (
-                 <button key={metric.name} onClick={metric.onClick} className={`flex items-center space-x-3 text-left p-3 rounded-lg transition-colors ${hoverClasses}`}>
-                    {metric.icon}
-                    <div>
-                        <p className={`text-sm ${secondaryTextClasses}`}>{metric.name}</p>
-                        <p className={`text-lg font-semibold ${textClasses}`}>{metric.value}</p>
-                    </div>
-                </button>
-            ))}
-        </div>
-      </SectionCard>
-
-      <SectionCard title="Live Location" isDarkMode={isDarkMode}>
-        <button onClick={onMapClick} className="w-full relative block">
-          <div className="w-full h-48 rounded-xl overflow-hidden shadow-inner cursor-pointer relative">
-            <GoogleMap location={mockData.location} showControls={false} isDarkMode={isDarkMode} />
+    <div className="space-y-4 animate-fade-in pb-10">
+      <div className='text-center mb-4'>
+        <h1 className='text-xl font-bold text-primary'>ALERTRA</h1>
+      </div>
+      <div className={`grid grid-cols-4 gap-3 p-4 rounded-2xl shadow-md ${cardBg}`}>
+        {metrics.map(metric => (
+          <div key={metric.name} className="flex flex-col items-center gap-2">
+            <ProgressRing progress={metric.progress} isDarkMode={isDarkMode}/>
+            <div className='text-center'>
+                <p className={`text-xs font-bold ${textClasses}`}>{metric.name}</p>
+                <p className={`text-xs ${secondaryTextClasses}`}>{metric.value}{metric.unit}</p>
+            </div>
           </div>
+        ))}
+      </div>
+      
+      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+        <div className='flex justify-between items-start'>
+            <div>
+                <h3 className={`font-bold ${textClasses}`}>Maintaining Heart rate</h3>
+                <p className={`text-xs mt-1 ${secondaryTextClasses}`}>You're maintaining heart rate by entering your optimal Strain range. Keep pushing yourself towards your target of 15.5 to see even greater results.</p>
+            </div>
+            <div className='flex-shrink-0 ml-2'>
+                <CheckSquare size={32} className='text-primary'/>
+            </div>
+        </div>
+      </div>
+
+      <div className='grid grid-cols-2 gap-4'>
+         <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+            <h4 className='text-sm font-bold flex justify-between items-center'>HEALTH MONITOR <ChevronRight size={18}/></h4>
+            <div className='flex items-center gap-2 mt-2'>
+                <CheckSquare size={24} className='text-primary'/>
+                <div>
+                    <p className={`text-xs font-semibold ${textClasses}`}>WITHIN RANGE</p>
+                    <p className={`text-xs ${secondaryTextClasses}`}>5/5 Metrics</p>
+                </div>
+            </div>
+         </div>
+         <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+            <h4 className='text-sm font-bold flex justify-between items-center'>STRESS LEVEL <ChevronRight size={18}/></h4>
+             <div className='flex items-center gap-2 mt-2'>
+                <Brain size={24} className='text-primary'/>
+                <div>
+                    <p className={`text-xs font-semibold ${textClasses}`}>WITHIN RANGE</p>
+                    <p className={`text-xs ${secondaryTextClasses}`}>2/5 Stress</p>
+                </div>
+            </div>
+         </div>
+      </div>
+
+      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+        <h3 className={`font-bold mb-2 ${textClasses}`}>My Day</h3>
+        <button className={`w-full p-3 rounded-lg flex items-center gap-3 text-left ${itemBg}`}>
+            <FileText size={24} className='text-primary'/>
+            <span className={`flex-1 font-semibold ${textClasses}`}>Your Daily plan</span>
+            <ChevronRight size={20}/>
         </button>
-        <div className="flex items-start space-x-3 mt-4">
-          <MapPin size={24} className="text-primary mt-1 flex-shrink-0" />
-          <div>
-            <p className={`text-sm ${secondaryTextClasses}`}>Current Location</p>
-            <p className={`text-lg font-semibold ${textClasses}`}>{mockData.location.address}</p>
-          </div>
-        </div>
-      </SectionCard>
+      </div>
 
-      <SectionCard title="Recent Emergencies" isDarkMode={isDarkMode}>
-        {mockData.emergencies.length > 0 ? (
-          <ul className="space-y-2">
-            {mockData.emergencies.map((event, index) => (
-              <li
-                key={index}
-                className={`flex items-center space-x-3 p-3 rounded-xl cursor-pointer transition-colors ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-gray-100 hover:bg-gray-200'}`}
-                onClick={() => onEmergencyClick(event.date)}
-              >
-                <AlertTriangle size={18} className={getSeverityIconColor(event.severity)} />
-                <p className={`text-sm flex-1 ${textClasses}`}>
-                  <span className='font-semibold'>{event.date}</span>: {event.summary}
-                </p>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-sm text-gray-500">No recent emergencies.</p>
-        )}
-      </SectionCard>
+      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+        <div className='flex justify-between items-center mb-2'>
+            <h3 className={`font-bold ${textClasses}`}>TODAY'S ACTIVITIES</h3>
+            <button><ChevronRight size={20}/></button>
+        </div>
+        <div className={`p-3 rounded-lg ${itemBg}`}>
+            <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                    <div className={cn('p-2 rounded-md', isDarkMode ? 'bg-slate-900' : 'bg-slate-600 text-white')}>
+                        <Clock size={20}/>
+                    </div>
+                    <div>
+                        <p className={`text-xs font-bold ${textClasses}`}>6:18 Hrs</p>
+                        <p className={`text-xs ${secondaryTextClasses}`}>SLEEP</p>
+                    </div>
+                </div>
+                <div className='text-right'>
+                    <p className={`text-xs ${secondaryTextClasses}`}>11:08 PM</p>
+                    <p className={`text-xs ${secondaryTextClasses}`}>05:34 AM</p>
+                </div>
+            </div>
+        </div>
+      </div>
+
     </div>
   );
 }

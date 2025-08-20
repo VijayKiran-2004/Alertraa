@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, User, Pill } from 'lucide-react';
+import { Heart, User, Pill, FileText, Link as LinkIcon} from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
@@ -19,8 +19,8 @@ const CalendarDays = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDarkMode }: NavbarProps) {
   const navItems = [
     { name: 'Home', icon: <Heart size={24} />, page: 'Home' },
-    { name: 'Booking', icon: <CalendarDays size={24} />, page: 'Booking' },
-    { name: 'Medicine', icon: <Pill size={24} />, page: 'Medicine' },
+    { name: 'Booking', icon: <FileText size={24} />, page: 'Booking' },
+    { name: 'Medicine', icon: <LinkIcon size={24} />, page: 'Medicine' },
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
 
@@ -39,19 +39,19 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
                 <button
                 key={item.name}
                 onClick={() => setCurrentPage(item.page as Page)}
-                className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16 rounded-full', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
+                className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
                 aria-current={currentPage === item.page ? 'page' : undefined}
                 >
-                <div className={cn('w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary text-white scale-110 -translate-y-6 shadow-lg' : '')}>
+                <div className={cn('w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary/20 scale-110 -translate-y-4 shadow-lg' : '')}>
                     {item.icon}
                 </div>
-                <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-0' : 'opacity-100')}>{item.name}</span>
+                <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-100 font-bold' : 'opacity-100')}>{item.name}</span>
                 </button>
             ))}
         </div>
 
         {/* SOS Button placeholder */}
-        <div className="w-20" />
+        <div className="w-16" />
 
         {/* Right items */}
         <div className="flex-1 flex justify-evenly items-center pl-10">
@@ -59,13 +59,13 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
                  <button
                  key={item.name}
                  onClick={() => setCurrentPage(item.page as Page)}
-                 className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16 rounded-full', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
+                className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
                  aria-current={currentPage === item.page ? 'page' : undefined}
                  >
-                 <div className={cn('w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary text-white scale-110 -translate-y-6 shadow-lg' : '')}>
+                 <div className={cn('w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary/20 scale-110 -translate-y-4 shadow-lg' : '')}>
                      {item.icon}
                  </div>
-                 <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-0' : 'opacity-100')}>{item.name}</span>
+                 <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-100 font-bold' : 'opacity-100')}>{item.name}</span>
                  </button>
             ))}
         </div>
@@ -75,8 +75,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
             <button
                 onClick={onSosClick}
                 className={cn(
-                    "bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center font-bold text-xl shadow-xl transition-transform transform hover:scale-105 active:scale-95 ring-4 ring-red-300/50",
-                    ringOffsetClass
+                    "bg-red-600 text-white rounded-xl w-16 h-10 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95",
                 )}
                 aria-label="SOS Emergency Button"
             >

@@ -46,7 +46,7 @@ import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
-type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
+type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,7 +81,7 @@ export default function App() {
   
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
-    document.documentElement.classList.remove('default', 'blue-yonder', 'american-blue', 'eerie-black', 'pink-delight');
+    document.documentElement.classList.remove('default', 'blue-yonder', 'american-blue', 'eerie-black', 'pink');
     document.documentElement.classList.add(theme);
   }, [isDarkMode, theme]);
 
@@ -254,7 +254,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen transition-colors duration-300">
+    <div className={`flex flex-col h-screen transition-colors duration-300 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       <Header 
         onMenuClick={() => setShowBurgerMenu(true)} 
         isDarkMode={isDarkMode} 
