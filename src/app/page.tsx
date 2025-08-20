@@ -44,6 +44,7 @@ import CartModal from '@/components/cart-modal';
 import CheckoutPage from '@/components/checkout-page';
 import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
+import DailyPlanModal from '@/components/daily-plan-modal';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
@@ -67,6 +68,7 @@ export default function App() {
   const [healthStatus, setHealthStatus] = useState('normal');
   const [isClient, setIsClient] = useState(false);
   const [showNotificationPopover, setShowNotificationPopover] = useState(false);
+  const [showDailyPlanModal, setShowDailyPlanModal] = useState(false);
 
   // E-commerce state
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -224,6 +226,7 @@ export default function App() {
             onMapClick={() => setIsMapEnlarged(true)}
             vitals={vitals}
             onEmergencyClick={setSelectedEmergency}
+            onShowDailyPlan={() => setShowDailyPlanModal(true)}
             isDarkMode={isDarkMode}
           />
         );
@@ -247,6 +250,7 @@ export default function App() {
             onMapClick={() => setIsMapEnlarged(true)}
             vitals={vitals}
             onEmergencyClick={setSelectedEmergency}
+            onShowDailyPlan={() => setShowDailyPlanModal(true)}
             isDarkMode={isDarkMode}
           />
         );
@@ -340,6 +344,10 @@ export default function App() {
             setShowSettingsModal('Notifications');
           }}
         />,
+        document.body
+      )}
+      {showDailyPlanModal && createPortal(
+        <DailyPlanModal onClose={() => setShowDailyPlanModal(false)} isDarkMode={isDarkMode} />,
         document.body
       )}
     </div>

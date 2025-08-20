@@ -12,10 +12,11 @@ interface HomePageProps {
   vitals: { heartRate: string; bloodPressure: string; bloodOxygen: string };
   onEmergencyClick: (date: string) => void;
   isDarkMode: boolean;
+  onShowDailyPlan: () => void;
 }
 
 
-export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, isDarkMode }: HomePageProps) {
+export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergencyClick, onShowDailyPlan, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const cardBg = isDarkMode ? 'bg-slate-800' : 'bg-white';
@@ -36,7 +37,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
       <div className={`grid grid-cols-4 gap-3 p-4 rounded-2xl shadow-md ${cardBg}`}>
         {metrics.map(metric => (
           <div key={metric.name} className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => onMetricClick(metric.name)}>
-            <ProgressRing progress={metric.progress} isDarkMode={isDarkMode}/>
+            <ProgressRing progress={metric.progress} isDarkMode={isDarkMode} icon={metric.icon} />
             <div className='text-center'>
                 <p className={`text-xs font-bold ${textClasses}`}>{metric.name}</p>
                 <p className={`text-xs ${secondaryTextClasses}`}>{metric.value}</p>
@@ -82,7 +83,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, onEmergenc
 
       <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
         <h3 className={`font-bold mb-2 ${textClasses}`}>My Day</h3>
-        <button className={`w-full p-3 rounded-lg flex items-center gap-3 text-left ${itemBg}`}>
+        <button onClick={onShowDailyPlan} className={`w-full p-3 rounded-lg flex items-center gap-3 text-left ${itemBg}`}>
             <FileText size={24} className='text-primary'/>
             <span className={`flex-1 font-semibold ${textClasses}`}>Your Daily plan</span>
             <ChevronRight size={20}/>

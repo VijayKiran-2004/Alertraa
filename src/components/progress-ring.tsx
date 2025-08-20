@@ -1,11 +1,14 @@
 'use client';
 
+import React from 'react';
+
 interface ProgressRingProps {
   progress: number;
   isDarkMode: boolean;
+  icon?: React.ReactNode;
 }
 
-export default function ProgressRing({ progress, isDarkMode }: ProgressRingProps) {
+export default function ProgressRing({ progress, isDarkMode, icon }: ProgressRingProps) {
   const stroke = 4;
   const radius = 30;
   const normalizedRadius = radius - stroke * 2;
@@ -16,11 +19,11 @@ export default function ProgressRing({ progress, isDarkMode }: ProgressRingProps
   const trackColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
 
   return (
-    <div className="relative">
+    <div className="relative flex items-center justify-center" style={{ height: radius * 2, width: radius * 2 }}>
       <svg
         height={radius * 2}
         width={radius * 2}
-        className="transform -rotate-90"
+        className="transform -rotate-90 absolute"
       >
         <circle
           stroke={trackColor}
@@ -42,6 +45,7 @@ export default function ProgressRing({ progress, isDarkMode }: ProgressRingProps
           cy={radius}
         />
       </svg>
+      {icon && <div className="absolute flex items-center justify-center">{icon}</div>}
     </div>
   );
 }
