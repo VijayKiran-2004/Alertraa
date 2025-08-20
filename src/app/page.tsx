@@ -58,6 +58,7 @@ export default function App() {
   const [selectedEmergency, setSelectedEmergency] = useState<string | null>(null);
   const [showHealthHistory, setShowHealthHistory] = useState(false);
   const [vitals, setVitals] = useState(mockData.vitals);
+  const [dailyActivity, setDailyActivity] = useState(mockData.dailyActivity);
   const [showAddModal, setShowAddModal] = useState<string | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -104,17 +105,27 @@ export default function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       const newVitals = {
-        ...mockData.vitals,
+        ...vitals,
         heartRate: `${Math.floor(Math.random() * 80) + 50} bpm`, // 50-130
         bloodPressure: `${Math.floor(Math.random() * 60) + 90}/${Math.floor(Math.random() * 40) + 60} mmHg`, // 90-150 / 60-100
         bloodOxygen: `${Math.floor(Math.random() * 10) + 90}%`, // 90-99%
       };
       setVitals(newVitals);
       setHealthStatus(checkVitalsStatus(newVitals));
+
+      const newActivity = {
+        ...dailyActivity,
+        steps: `${Math.floor(Math.random() * 5000) + 5000} steps`,
+        sleepHours: `${(Math.random() * 4 + 4).toFixed(1)} hrs`,
+        caloriesBurnt: `${Math.floor(Math.random() * 400) + 300} kcal`,
+        distanceWalked: `${(Math.random() * 4 + 2).toFixed(1)} km`,
+      };
+      setDailyActivity(newActivity);
+
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [vitals, dailyActivity]);
 
   const handleSosClick = () => setShowSosModal(true);
   
@@ -225,6 +236,7 @@ export default function App() {
             onMetricClick={setSelectedMetric}
             onMapClick={() => setIsMapEnlarged(true)}
             vitals={vitals}
+            dailyActivity={dailyActivity}
             onEmergencyClick={setSelectedEmergency}
             onShowDailyPlan={() => setShowDailyPlanModal(true)}
             isDarkMode={isDarkMode}
@@ -249,6 +261,7 @@ export default function App() {
             onMetricClick={setSelectedMetric}
             onMapClick={() => setIsMapEnlarged(true)}
             vitals={vitals}
+            dailyActivity={dailyActivity}
             onEmergencyClick={setSelectedEmergency}
             onShowDailyPlan={() => setShowDailyPlanModal(true)}
             isDarkMode={isDarkMode}
