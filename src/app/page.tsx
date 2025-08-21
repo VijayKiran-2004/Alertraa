@@ -281,7 +281,7 @@ export default function App() {
         onNotificationClick={() => setShowNotificationPopover(!showNotificationPopover)}
       />
       <div className="flex-1 relative">
-        <main className="h-full overflow-y-auto p-4 pb-28">
+        <main className="h-full overflow-y-auto p-4">
           {renderPage()}
         </main>
         <button
