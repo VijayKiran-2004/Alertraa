@@ -2,6 +2,7 @@
 
 import { Heart, User, Pill, FileText, Link as LinkIcon} from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 
@@ -12,10 +13,6 @@ interface NavbarProps {
   isDarkMode: boolean;
 }
 
-const CalendarDays = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
-)
-
 export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDarkMode }: NavbarProps) {
   const navItems = [
     { name: 'Home', icon: <Heart size={24} />, page: 'Home' },
@@ -23,59 +20,52 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     { name: 'Medicine', icon: <LinkIcon size={24} />, page: 'Medicine' },
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
+  
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const newIndex = navItems.findIndex(item => item.page === currentPage);
+    setActiveIndex(newIndex);
+  }, [currentPage, navItems]);
 
   const themeClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
   const iconActiveClasses = isDarkMode ? 'text-white' : 'text-primary';
   const iconInactiveClasses = isDarkMode ? 'text-slate-400 hover:text-white' : 'text-gray-500 hover:text-primary';
-  const ringOffsetClass = isDarkMode ? 'dark:ring-offset-[#36454F]' : 'ring-offset-white';
+  const bumpPosition = ['left-[12.5%]', 'left-[37.5%]', 'left-[62.5%]', 'left-[87.5%]'];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 h-24 px-4 z-30 flex justify-center items-center">
-      <div className={cn('relative w-full max-w-lg h-16 rounded-full flex items-center justify-evenly shadow-lg', themeClasses)}>
+      <div className={cn('relative w-full max-w-md h-16 rounded-full flex items-center justify-around shadow-lg', themeClasses)}>
+
+        <div 
+            className={cn(
+                "absolute -bottom-2 w-16 h-8 bg-primary transition-all duration-500 ease-in-out transform -translate-x-1/2", 
+                bumpPosition[activeIndex]
+            )}
+            style={{
+                clipPath: 'path("M 0 10 C 5 25, 59 25, 64 10 C 64 10, 64 32, 0 32 Z")'
+            }}
+        />
         
-        {/* Left items */}
-        <div className="flex-1 flex justify-evenly items-center pr-10">
-            {navItems.slice(0, 2).map((item) => (
-                <button
-                key={item.name}
-                onClick={() => setCurrentPage(item.page as Page)}
-                className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
-                aria-current={currentPage === item.page ? 'page' : undefined}
-                >
-                <div className={cn('w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary/20 scale-110 -translate-y-4 shadow-lg' : '')}>
-                    {item.icon}
-                </div>
-                <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-100 font-bold' : 'opacity-100')}>{item.name}</span>
-                </button>
-            ))}
-        </div>
+        {navItems.map((item) => (
+            <button
+            key={item.name}
+            onClick={() => setCurrentPage(item.page as Page)}
+            className={cn('flex flex-col items-center justify-center transition-colors duration-300 z-10 w-16 h-16', currentPage === item.page ? iconActiveClasses : iconInactiveClasses)}
+            aria-current={currentPage === item.page ? 'page' : undefined}
+            >
+            <div className={cn('w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'scale-110 -translate-y-1' : '')}>
+                {item.icon}
+            </div>
+            </button>
+        ))}
 
-        {/* SOS Button placeholder */}
-        <div className="w-16" />
-
-        {/* Right items */}
-        <div className="flex-1 flex justify-evenly items-center pl-10">
-            {navItems.slice(2, 4).map((item) => (
-                 <button
-                 key={item.name}
-                 onClick={() => setCurrentPage(item.page as Page)}
-                className={cn('flex flex-col items-center justify-center transition-colors duration-300 w-16 h-16', currentPage === item.page ? 'text-primary' : iconInactiveClasses)}
-                 aria-current={currentPage === item.page ? 'page' : undefined}
-                 >
-                 <div className={cn('w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300', currentPage === item.page ? 'bg-primary/20 scale-110 -translate-y-4 shadow-lg' : '')}>
-                     {item.icon}
-                 </div>
-                 <span className={cn('text-xs mt-1 transition-opacity duration-300', currentPage === item.page ? 'opacity-100 font-bold' : 'opacity-100')}>{item.name}</span>
-                 </button>
-            ))}
-        </div>
-
-        {/* Central SOS Button */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
             <button
                 onClick={onSosClick}
                 className={cn(
-                    "bg-red-600 text-white rounded-xl w-16 h-10 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95",
+                    "bg-red-600 text-white rounded-full w-14 h-14 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4",
+                    isDarkMode ? 'border-[#36454F]' : 'border-white'
                 )}
                 aria-label="SOS Emergency Button"
             >

@@ -281,12 +281,12 @@ export default function App() {
         onNotificationClick={() => setShowNotificationPopover(!showNotificationPopover)}
       />
       <div className="flex-1 relative">
-        <main className="h-full overflow-y-auto p-4 pb-24">
+        <main className="h-full overflow-y-auto p-4 pb-28">
           {renderPage()}
         </main>
         <button
           onClick={() => setShowChatbotModal(true)}
-          className="fixed bottom-24 right-4 bg-gradient-to-r from-primary to-accent text-white rounded-full p-4 shadow-xl transition-transform transform hover:scale-110 active:scale-95 z-40 animate-gradient-xy"
+          className="fixed bottom-28 right-4 bg-gradient-to-r from-primary to-accent text-white rounded-full p-4 shadow-xl transition-transform transform hover:scale-110 active:scale-95 z-40 animate-gradient-xy"
           aria-label="Open Chatbot"
         >
           <MessageCircle size={24} />
