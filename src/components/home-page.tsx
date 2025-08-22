@@ -51,41 +51,6 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
       </div>
       
       <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
-        <div className='flex justify-between items-start'>
-            <div>
-                <h3 className={`font-bold ${textClasses}`}>Maintaining Heart rate</h3>
-                <p className={`text-xs mt-1 ${secondaryTextClasses}`}>You're maintaining heart rate by entering your optimal Strain range. Keep pushing yourself towards your target of 15.5 to see even greater results.</p>
-            </div>
-            <div className='flex-shrink-0 ml-2'>
-                <CheckSquare size={32} className='text-primary'/>
-            </div>
-        </div>
-      </div>
-
-      <div className='grid grid-cols-2 gap-4'>
-         <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
-            <h4 className='text-sm font-bold flex justify-between items-center'>HEALTH MONITOR <ChevronRight size={18}/></h4>
-            <div className='flex items-center gap-2 mt-2'>
-                <CheckSquare size={24} className='text-primary'/>
-                <div>
-                    <p className={`text-xs font-semibold ${textClasses}`}>WITHIN RANGE</p>
-                    <p className={`text-xs ${secondaryTextClasses}`}>5/5 Metrics</p>
-                </div>
-            </div>
-         </div>
-         <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
-            <h4 className='text-sm font-bold flex justify-between items-center'>STRESS LEVEL <ChevronRight size={18}/></h4>
-             <div className='flex items-center gap-2 mt-2'>
-                <Brain size={24} className='text-primary'/>
-                <div>
-                    <p className={`text-xs font-semibold ${textClasses}`}>WITHIN RANGE</p>
-                    <p className={`text-xs ${secondaryTextClasses}`}>2/5 Stress</p>
-                </div>
-            </div>
-         </div>
-      </div>
-
-      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
         <div className='flex justify-between items-center mb-2'>
             <h3 className={`font-bold ${textClasses}`}>TODAY'S ACTIVITIES</h3>
             <button><ChevronRight size={20}/></button>
