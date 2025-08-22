@@ -133,9 +133,10 @@ export default {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
-        'pulse': {
-            '0%, 100%': { opacity: '1' },
-            '50%': { opacity: '.5' },
+        'flame-flicker': {
+          '0%, 100%': { transform: 'scaleY(1) scaleX(1)', opacity: '1' },
+          '50%': { transform: 'scaleY(1.1) scaleX(1.05)', opacity: '0.8' },
+          '75%': { transform: 'scaleY(0.95) scaleX(0.9)', opacity: '1' },
         }
       },
       animation: {
@@ -148,7 +149,7 @@ export default {
         'ecg-pulse': 'ecg-pulse var(--animation-duration, 1s) infinite',
         'meter-needle': 'meter-needle 0.5s ease-out forwards',
         'oxygen-wave': 'oxygen-wave 2s linear infinite',
-        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'flame-flicker': 'flame-flicker 1.5s ease-in-out infinite',
       },
     },
   },

@@ -23,7 +23,7 @@ interface HomePageProps {
 
 const FlameAnimation = () => (
     <div className="w-20 h-10 flex items-center justify-center">
-      <Flame size={32} className="text-orange-500 animate-pulse" />
+      <Flame size={32} className="text-orange-500 animate-flame-flicker" />
     </div>
   );
 
