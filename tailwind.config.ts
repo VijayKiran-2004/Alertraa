@@ -121,6 +121,14 @@ export default {
             transform: 'scale(1.05)',
           },
         },
+        'meter-needle': {
+          from: {
+            transform: 'rotate(var(--from-angle, 0deg))'
+          },
+          to: {
+            transform: 'rotate(var(--to-angle, 0deg))'
+          }
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -130,6 +138,7 @@ export default {
         'gradient-xy': 'gradient-xy 1.5s linear infinite',
         'ecg-draw': 'ecg-draw var(--animation-duration, 1s) ease-out infinite',
         'ecg-pulse': 'ecg-pulse var(--animation-duration, 1s) infinite',
+        'meter-needle': 'meter-needle 0.5s ease-out forwards',
       },
     },
   },

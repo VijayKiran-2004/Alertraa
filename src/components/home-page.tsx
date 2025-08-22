@@ -7,6 +7,7 @@ import ProgressRing from './progress-ring';
 import { cn } from '@/lib/utils';
 import type { DailyActivity } from '@/types';
 import EcgBeat from './ecg-beat';
+import BpMeter from './bp-meter';
 
 interface HomePageProps {
   onMetricClick: (metric: string) => void;
@@ -34,6 +35,8 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
     { name: 'Distance Walked', value: dailyActivity.distanceWalked, progress: 75, icon: <Footprints size={24} className="text-green-500" /> },
   ];
 
+  const systolic = parseInt(vitals.bloodPressure.split('/')[0]);
+
   return (
     <div className="space-y-4 animate-fade-in pb-10">
       <div className={`grid grid-cols-2 gap-4 p-4 rounded-2xl shadow-md ${cardBg}`}>
@@ -49,6 +52,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
               </div>
             </div>
             {metric.name === 'Heart Rate' && <EcgBeat bpm={parseInt(vitals.heartRate)} />}
+            {metric.name === 'Blood Pressure' && <BpMeter systolic={systolic} />}
           </div>
         ))}
       </div>
