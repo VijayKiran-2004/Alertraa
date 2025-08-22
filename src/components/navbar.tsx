@@ -45,7 +45,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
                 onClick={onSosClick}
                 className={cn(
                     "bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4 border-background",
-                    'absolute -top-4'
+                    'absolute -top-8'
                 )}
                 aria-label="SOS Emergency Button"
             >
