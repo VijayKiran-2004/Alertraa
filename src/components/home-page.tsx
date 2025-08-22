@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind } from 'lucide-react';
+import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
@@ -28,7 +28,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
   const metrics = [
     { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" /> },
     { name: 'Sleep Hours', value: dailyActivity.sleepHours, progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
-    { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Droplet size={24} className="text-blue-500" /> },
+    { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Gauge size={24} className="text-blue-500" /> },
     { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Wind size={24} className="text-cyan-500" /> },
     { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Flame size={24} className="text-orange-500" /> },
     { name: 'Distance Walked', value: dailyActivity.distanceWalked, progress: 75, icon: <Footprints size={24} className="text-green-500" /> },
