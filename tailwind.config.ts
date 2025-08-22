@@ -108,6 +108,19 @@ export default {
             'background-position': 'right center',
           },
         },
+        'ecg-draw': {
+          to: {
+            'stroke-dashoffset': '0',
+          },
+        },
+        'ecg-pulse': {
+          '0%, 100%': {
+            transform: 'scale(1)',
+          },
+          '50%': {
+            transform: 'scale(1.05)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -115,6 +128,8 @@ export default {
         beat: 'beat 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in': 'fadeIn 0.3s ease-out',
         'gradient-xy': 'gradient-xy 1.5s linear infinite',
+        'ecg-draw': 'ecg-draw var(--animation-duration, 1s) ease-out infinite',
+        'ecg-pulse': 'ecg-pulse var(--animation-duration, 1s) infinite',
       },
     },
   },

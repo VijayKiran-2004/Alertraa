@@ -6,6 +6,7 @@ import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
 import { cn } from '@/lib/utils';
 import type { DailyActivity } from '@/types';
+import EcgBeat from './ecg-beat';
 
 interface HomePageProps {
   onMetricClick: (metric: string) => void;
@@ -37,14 +38,17 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
     <div className="space-y-4 animate-fade-in pb-10">
       <div className={`grid grid-cols-2 gap-4 p-4 rounded-2xl shadow-md ${cardBg}`}>
         {metrics.map(metric => (
-          <div key={metric.name} className={`p-4 rounded-xl flex items-center gap-3 cursor-pointer ${itemBg}`} onClick={() => onMetricClick(metric.name)}>
-            <ProgressRing progress={metric.progress} isDarkMode={isDarkMode} icon={metric.icon} />
-            <div className='text-left'>
-                <p className={`text-sm font-bold ${textClasses}`}>{metric.name}</p>
-                 <div className="flex items-center gap-2">
-                  <p className={`text-sm ${secondaryTextClasses}`}>{metric.value}</p>
-                </div>
+          <div key={metric.name} className={`p-4 rounded-xl flex items-center justify-between gap-3 cursor-pointer ${itemBg}`} onClick={() => onMetricClick(metric.name)}>
+            <div className="flex items-center gap-3">
+              <ProgressRing progress={metric.progress} isDarkMode={isDarkMode} icon={metric.icon} />
+              <div className='text-left'>
+                  <p className={`text-sm font-bold ${textClasses}`}>{metric.name}</p>
+                   <div className="flex items-center gap-2">
+                    <p className={`text-sm ${secondaryTextClasses}`}>{metric.value}</p>
+                  </div>
+              </div>
             </div>
+            {metric.name === 'Heart Rate' && <EcgBeat bpm={parseInt(vitals.heartRate)} />}
           </div>
         ))}
       </div>
