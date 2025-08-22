@@ -116,16 +116,6 @@ export default {
             'background-position': 'right center',
           },
         },
-        'live-pulse': {
-          '0%, 100%': {
-            transform: 'scale(1)',
-            boxShadow: '0 0 0 0 rgba(239, 68, 68, 0.7)',
-          },
-          '50%': {
-            transform: 'scale(1.1)',
-            boxShadow: '0 0 0 5px rgba(239, 68, 68, 0)',
-          },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -135,7 +125,6 @@ export default {
         'fade-in': 'fadeIn 0.3s ease-out',
         blink: 'blink 1s step-end infinite',
         'gradient-xy': 'gradient-xy 5s ease infinite',
-        'live-pulse': 'live-pulse 2s infinite',
       },
     },
   },

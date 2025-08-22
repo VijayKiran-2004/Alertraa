@@ -46,7 +46,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
                 <p className={`text-sm font-bold ${textClasses}`}>{metric.name}</p>
                  <div className="flex items-center gap-2">
                   <p className={`text-sm ${secondaryTextClasses}`}>{metric.value}</p>
-                  {metric.hasAnimation && <div className="w-2 h-2 bg-red-500 rounded-full animate-live-pulse" />}
+                  {metric.hasAnimation && <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse-fast" />}
                 </div>
             </div>
           </div>
