@@ -114,7 +114,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         beat: 'beat 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in': 'fadeIn 0.3s ease-out',
-        'gradient-xy': 'gradient-xy 5s linear infinite',
+        'gradient-xy': 'gradient-xy 3s linear infinite',
       },
     },
   },
