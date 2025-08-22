@@ -20,13 +20,13 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
 
-  const themeClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
-  const iconActiveClasses = isDarkMode ? 'text-white bg-primary' : 'text-white bg-primary';
-  const iconInactiveClasses = isDarkMode ? 'text-slate-400 hover:text-white' : 'text-gray-500 hover:text-primary';
+  const navBarBgClasses = 'bg-gradient-to-r from-blue-400 via-emerald-300 to-slate-100 dark:from-blue-600 dark:via-emerald-500 dark:to-slate-800';
+  const iconActiveClasses = isDarkMode ? 'text-primary bg-white/20' : 'text-primary bg-black/10';
+  const iconInactiveClasses = isDarkMode ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-black/5';
 
   return (
     <nav className={cn('fixed bottom-0 left-0 right-0 h-20 px-4 z-30 flex items-center justify-center')}>
-      <div className={cn('w-full max-w-md h-16 rounded-full flex items-center justify-around shadow-lg', themeClasses)}>
+      <div className={cn('w-full max-w-md h-16 rounded-full flex items-center justify-around shadow-lg animate-gradient-xy', navBarBgClasses)}>
         <div className="flex-1 flex justify-around items-center">
           {navItems.slice(0, 2).map((item) => (
             <button
@@ -44,8 +44,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
             <button
                 onClick={onSosClick}
                 className={cn(
-                    "bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4",
-                    isDarkMode ? 'border-[#36454F]' : 'border-white',
+                    "bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4 border-background",
                     'absolute -top-4'
                 )}
                 aria-label="SOS Emergency Button"
