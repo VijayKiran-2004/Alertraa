@@ -20,23 +20,10 @@ export default function BpMeter({ systolic }: BpMeterProps) {
           fill="none"
           strokeLinecap="round"
         />
-        {/* Gauge colored sections */}
+        {/* Gauge active arc */}
         <path
-          d="M 10 50 A 40 40 0 0 1 30 18"
+          d="M 10 50 A 40 40 0 0 1 90 50"
           stroke="#3b82f6"
-          strokeWidth="8"
-          fill="none"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 30 18 A 40 40 0 0 1 70 18"
-          stroke="#22c55e"
-          strokeWidth="8"
-          fill="none"
-        />
-         <path
-          d="M 70 18 A 40 40 0 0 1 90 50"
-          stroke="#ef4444"
           strokeWidth="8"
           fill="none"
           strokeLinecap="round"
