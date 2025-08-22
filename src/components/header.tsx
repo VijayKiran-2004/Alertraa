@@ -45,6 +45,7 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
     <header className={cn('p-4 flex items-center justify-between sticky top-0 z-20', themeClasses)}>
       <div className="flex items-center space-x-3">
          <Image src="https://placehold.co/40x40.png" alt="User Avatar" width={40} height={40} className="rounded-full" data-ai-hint="user avatar" />
+         <AlertraLogo />
       </div>
 
       <div className="flex-1" />

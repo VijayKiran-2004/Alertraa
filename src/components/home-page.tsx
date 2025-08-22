@@ -28,16 +28,13 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
     { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" /> },
     { name: 'Sleep Hours', value: dailyActivity.sleepHours, progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
     { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Droplet size={24} className="text-blue-500" /> },
-    { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Flame size={24} className="text-orange-500" /> },
-    { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Wind size={24} className="text-cyan-500" /> },
+    { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Wind size={24} className="text-cyan-500" /> },
+    { name: 'Blood Oxygen', value: vitals.bloodOxygen, progress: parseInt(vitals.bloodOxygen), icon: <Flame size={24} className="text-orange-500" /> },
     { name: 'Distance Walked', value: dailyActivity.distanceWalked, progress: 75, icon: <Footprints size={24} className="text-green-500" /> },
   ];
 
   return (
     <div className="space-y-4 animate-fade-in pb-10">
-      <div className='text-center mb-4'>
-        <h1 className='text-xl font-bold text-primary'>ALERTRA</h1>
-      </div>
       <div className={`grid grid-cols-2 gap-4 p-4 rounded-2xl shadow-md ${cardBg}`}>
         {metrics.map(metric => (
           <div key={metric.name} className={`p-4 rounded-xl flex items-center gap-3 cursor-pointer ${itemBg}`} onClick={() => onMetricClick(metric.name)}>
