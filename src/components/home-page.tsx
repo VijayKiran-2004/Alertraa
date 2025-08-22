@@ -9,6 +9,7 @@ import type { DailyActivity } from '@/types';
 import EcgBeat from './ecg-beat';
 import BpMeter from './bp-meter';
 import OxygenWave from './oxygen-wave';
+import SleepChart from './sleep-chart';
 
 interface HomePageProps {
   onMetricClick: (metric: string) => void;
@@ -38,6 +39,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
 
   const systolic = parseInt(vitals.bloodPressure.split('/')[0]);
   const oxygen = parseInt(vitals.bloodOxygen);
+  const sleepData = mockData.dailyActivity.pastReadings.filter(r => r.type === 'Sleep Hours');
 
   return (
     <div className="space-y-4 animate-fade-in pb-10">
@@ -56,6 +58,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             {metric.name === 'Heart Rate' && <EcgBeat bpm={parseInt(vitals.heartRate)} />}
             {metric.name === 'Blood Pressure' && <BpMeter systolic={systolic} />}
             {metric.name === 'Blood Oxygen' && <OxygenWave percentage={oxygen} />}
+            {metric.name === 'Sleep Hours' && <SleepChart data={sleepData} isDarkMode={isDarkMode} />}
           </div>
         ))}
       </div>
