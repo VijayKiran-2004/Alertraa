@@ -21,7 +21,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   ];
 
   const navBarBgClasses = 'bg-gradient-to-r from-blue-200 via-emerald-200 to-slate-100 dark:from-blue-400 dark:via-emerald-400 dark:to-slate-800';
-  const iconActiveClasses = isDarkMode ? 'text-primary bg-white/20' : 'text-primary bg-black/10';
+  const iconActiveClasses = 'bg-gradient-to-r from-primary to-accent text-white animate-gradient-xy';
   const iconInactiveClasses = isDarkMode ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-black/5';
 
   return (
