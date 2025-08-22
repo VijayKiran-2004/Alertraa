@@ -47,11 +47,7 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
          <Image src="https://placehold.co/40x40.png" alt="User Avatar" width={40} height={40} className="rounded-full" data-ai-hint="user avatar" />
       </div>
 
-      <div className='flex items-center gap-2'>
-        <button className='p-1 rounded-full'><ChevronLeft size={20}/></button>
-        <span className='text-sm font-semibold'>Today, 12-08-25</span>
-        <button className='p-1 rounded-full'><ChevronRight size={20}/></button>
-      </div>
+      <div className="flex-1" />
 
       <div className="flex items-center gap-2">
         <button
