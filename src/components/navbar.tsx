@@ -16,7 +16,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const navItems = [
     { name: 'Home', icon: <Heart size={24} />, page: 'Home' },
     { name: 'Booking', icon: <FileText size={24} />, page: 'Booking' },
-    { name: 'Medicine', icon: <LinkIcon size={24} />, page: 'Medicine' },
+    { name: 'Medicine', icon: <Pill size={24} />, page: 'Medicine' },
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
 
@@ -45,7 +45,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
                 onClick={onSosClick}
                 className={cn(
                     "bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4 border-background",
-                    'absolute -top-8'
+                    'absolute -top-10'
                 )}
                 aria-label="SOS Emergency Button"
             >
