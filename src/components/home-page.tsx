@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Droplet, Flame, Moon, ChevronRight, CheckSquare, Brain, FileText, Clock, Footprints, Wind } from 'lucide-react';
+import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
@@ -25,7 +25,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
   const itemBg = isDarkMode ? 'bg-slate-700' : 'bg-slate-100';
 
   const metrics = [
-    { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" /> },
+    { name: 'Heart Rate', value: vitals.heartRate, progress: parseInt(vitals.heartRate), icon: <Heart size={24} className="text-red-500" />, hasAnimation: true },
     { name: 'Sleep Hours', value: dailyActivity.sleepHours, progress: 82, icon: <Moon size={24} className="text-indigo-500" /> },
     { name: 'Blood Pressure', value: vitals.bloodPressure, progress: parseInt(vitals.bloodPressure.split('/')[0]), icon: <Droplet size={24} className="text-blue-500" /> },
     { name: 'Calories Burnt', value: dailyActivity.caloriesBurnt, progress: 65, icon: <Flame size={24} className="text-orange-500" /> },
@@ -44,7 +44,10 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             <ProgressRing progress={metric.progress} isDarkMode={isDarkMode} icon={metric.icon} />
             <div className='text-left'>
                 <p className={`text-sm font-bold ${textClasses}`}>{metric.name}</p>
-                <p className={`text-sm ${secondaryTextClasses}`}>{metric.value}</p>
+                 <div className="flex items-center gap-2">
+                  <p className={`text-sm ${secondaryTextClasses}`}>{metric.value}</p>
+                  {metric.hasAnimation && <div className="w-2 h-2 bg-red-500 rounded-full animate-live-pulse" />}
+                </div>
             </div>
           </div>
         ))}
