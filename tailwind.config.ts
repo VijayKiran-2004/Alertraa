@@ -88,10 +88,6 @@ export default {
             height: '0',
           },
         },
-        pulse: {
-          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.7', transform: 'scale(1.05)' },
-        },
         beat: {
           '0%, 100%': { transform: 'scale(1)' },
           '25%': { transform: 'scale(1.1)' },
@@ -120,7 +116,6 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         beat: 'beat 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in': 'fadeIn 0.3s ease-out',
         blink: 'blink 1s step-end infinite',
