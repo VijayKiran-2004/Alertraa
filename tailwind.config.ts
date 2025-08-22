@@ -130,9 +130,13 @@ export default {
           }
         },
         'oxygen-wave': {
-          from: { transform: 'translateX(-50%)' },
-          to: { transform: 'translateX(0)' },
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
+        'pulse': {
+            '0%, 100%': { opacity: '1' },
+            '50%': { opacity: '.5' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -144,6 +148,7 @@ export default {
         'ecg-pulse': 'ecg-pulse var(--animation-duration, 1s) infinite',
         'meter-needle': 'meter-needle 0.5s ease-out forwards',
         'oxygen-wave': 'oxygen-wave 2s linear infinite',
+        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

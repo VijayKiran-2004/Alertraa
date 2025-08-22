@@ -21,6 +21,11 @@ interface HomePageProps {
   onShowDailyPlan: () => void;
 }
 
+const FlameAnimation = () => (
+    <div className="w-20 h-10 flex items-center justify-center">
+      <Flame size={32} className="text-orange-500 animate-pulse" />
+    </div>
+  );
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActivity, onEmergencyClick, onShowDailyPlan, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
@@ -59,6 +64,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             {metric.name === 'Blood Pressure' && <BpMeter systolic={systolic} />}
             {metric.name === 'Blood Oxygen' && <OxygenWave percentage={oxygen} />}
             {metric.name === 'Sleep Hours' && <SleepChart data={sleepData} isDarkMode={isDarkMode} />}
+            {metric.name === 'Calories Burnt' && <FlameAnimation />}
           </div>
         ))}
       </div>
