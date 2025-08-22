@@ -8,7 +8,7 @@ export default function EcgBeat({ bpm }: EcgBeatProps) {
   const animationDuration = 60 / bpm;
 
   return (
-    <div className="w-16 h-8">
+    <div className="w-20 h-10">
       <svg
         viewBox="0 0 100 40"
         className="w-full h-full animate-ecg-pulse"
