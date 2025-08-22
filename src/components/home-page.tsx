@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import type { DailyActivity } from '@/types';
 import EcgBeat from './ecg-beat';
 import BpMeter from './bp-meter';
+import OxygenWave from './oxygen-wave';
 
 interface HomePageProps {
   onMetricClick: (metric: string) => void;
@@ -36,6 +37,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
   ];
 
   const systolic = parseInt(vitals.bloodPressure.split('/')[0]);
+  const oxygen = parseInt(vitals.bloodOxygen);
 
   return (
     <div className="space-y-4 animate-fade-in pb-10">
@@ -53,6 +55,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             </div>
             {metric.name === 'Heart Rate' && <EcgBeat bpm={parseInt(vitals.heartRate)} />}
             {metric.name === 'Blood Pressure' && <BpMeter systolic={systolic} />}
+            {metric.name === 'Blood Oxygen' && <OxygenWave percentage={oxygen} />}
           </div>
         ))}
       </div>

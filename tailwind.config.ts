@@ -128,7 +128,15 @@ export default {
           to: {
             transform: 'rotate(var(--to-angle, 0deg))'
           }
-        }
+        },
+        'oxygen-wave': {
+          '0%': {
+            transform: 'translateX(-40px)',
+          },
+          '100%': {
+            transform: 'translateX(0px)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -139,6 +147,7 @@ export default {
         'ecg-draw': 'ecg-draw var(--animation-duration, 1s) ease-out infinite',
         'ecg-pulse': 'ecg-pulse var(--animation-duration, 1s) infinite',
         'meter-needle': 'meter-needle 0.5s ease-out forwards',
+        'oxygen-wave': 'oxygen-wave 2s linear infinite',
       },
     },
   },
