@@ -119,7 +119,7 @@ export default {
         beat: 'beat 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in': 'fadeIn 0.3s ease-out',
         blink: 'blink 1s step-end infinite',
-        'gradient-xy': 'gradient-xy 5s ease infinite',
+        'gradient-xy': 'gradient-xy 15s ease infinite',
       },
     },
   },
