@@ -130,12 +130,8 @@ export default {
           }
         },
         'oxygen-wave': {
-          '0%': {
-            transform: 'translateX(-40px)',
-          },
-          '100%': {
-            transform: 'translateX(0px)',
-          },
+          from: { transform: 'translateX(-50%)' },
+          to: { transform: 'translateX(0)' },
         },
       },
       animation: {
