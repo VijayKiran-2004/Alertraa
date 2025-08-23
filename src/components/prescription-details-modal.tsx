@@ -1,6 +1,6 @@
 'use client';
 
-import { X, Pill, Stethoscope } from 'lucide-react';
+import { X, Pill, Stethoscope, ShoppingCart } from 'lucide-react';
 import type { Prescription } from '@/types';
 import { mockData } from '@/lib/mock-data';
 
@@ -8,9 +8,10 @@ interface PrescriptionDetailsModalProps {
   prescription: Prescription;
   onClose: () => void;
   isDarkMode: boolean;
+  onAddToCart: () => void;
 }
 
-export default function PrescriptionDetailsModal({ prescription, onClose, isDarkMode }: PrescriptionDetailsModalProps) {
+export default function PrescriptionDetailsModal({ prescription, onClose, isDarkMode, onAddToCart }: PrescriptionDetailsModalProps) {
   const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
   const textMuted = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const paperBg = isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200';
@@ -32,9 +33,6 @@ export default function PrescriptionDetailsModal({ prescription, onClose, isDark
           <header className="flex justify-between items-start pb-4 border-b border-dashed">
             <div>
               <h3 className="font-bold text-lg">{doctorDetails.name}</h3>
-              <p className={`text-sm ${textMuted}`}>{doctorDetails.clinic}</p>
-              <p className={`text-sm ${textMuted}`}>{doctorDetails.address}</p>
-              <p className={`text-sm ${textMuted}`}>Tel: {doctorDetails.phone}</p>
             </div>
             <div className="text-primary">
               <Stethoscope size={40} />
@@ -75,9 +73,18 @@ export default function PrescriptionDetailsModal({ prescription, onClose, isDark
             </div>
           </section>
 
-          <footer className="pt-8 text-right">
-            <p className="font-bold">{doctorDetails.name}</p>
-            <p className={`text-sm ${textMuted}`}>License: {doctorDetails.license}</p>
+          <footer className="pt-8 flex justify-between items-end">
+             <button
+              onClick={onAddToCart}
+              className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg shadow-md hover:opacity-90 transition-opacity flex items-center space-x-2 animate-gradient-xy"
+            >
+              <ShoppingCart size={18} />
+              <span>Add to Cart</span>
+            </button>
+            <div className="text-right">
+                <p className="font-bold">{doctorDetails.name}</p>
+                <p className={`text-sm ${textMuted}`}>License: {doctorDetails.license}</p>
+            </div>
           </footer>
         </div>
 

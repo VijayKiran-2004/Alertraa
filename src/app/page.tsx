@@ -371,7 +371,15 @@ export default function App() {
         document.body
       )}
       {selectedPrescription && createPortal(
-        <PrescriptionDetailsModal prescription={selectedPrescription} onClose={() => setSelectedPrescription(null)} isDarkMode={isDarkMode} />,
+        <PrescriptionDetailsModal 
+          prescription={selectedPrescription} 
+          onClose={() => setSelectedPrescription(null)} 
+          isDarkMode={isDarkMode}
+          onAddToCart={() => {
+            handleAddToCart(selectedPrescription);
+            setSelectedPrescription(null);
+          }}
+        />,
         document.body
       )}
     </div>
