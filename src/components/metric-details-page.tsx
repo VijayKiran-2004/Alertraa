@@ -163,7 +163,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
 
     return () => clearInterval(interval);
 
-  }, [metric, data, isRealtime, yAxisDomain]);
+  }, [metric, isRealtime, data, yAxisDomain]);
 
 
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
