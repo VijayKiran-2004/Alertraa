@@ -187,6 +187,11 @@ export interface Appointment {
     date: string;
     time: string;
     summary: string;
+    details?: {
+        notes: string;
+        prescriptions: { name: string; dosage: string }[];
+        vitals: { heartRate: string; bloodPressure: string };
+    }
 }
 
 export interface AppointmentsData {

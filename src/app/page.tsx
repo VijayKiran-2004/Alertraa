@@ -45,6 +45,7 @@ import CheckoutPage from '@/components/checkout-page';
 import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 import DailyPlanModal from '@/components/daily-plan-modal';
+import PastVisitDetailsModal from '@/components/past-visit-details-modal';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
@@ -70,6 +71,7 @@ export default function App() {
   const [isClient, setIsClient] = useState(false);
   const [showNotificationPopover, setShowNotificationPopover] = useState(false);
   const [showDailyPlanModal, setShowDailyPlanModal] = useState(false);
+  const [selectedPastVisit, setSelectedPastVisit] = useState<Appointment | null>(null);
 
   // E-commerce state
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -245,7 +247,7 @@ export default function App() {
           />
         );
       case 'Booking':
-        return <BookingPage onBookVisit={() => setShowBookingModal(true)} isDarkMode={isDarkMode} />;
+        return <BookingPage onBookVisit={() => setShowBookingModal(true)} onPastVisitClick={setSelectedPastVisit} isDarkMode={isDarkMode} />;
       case 'User':
         return <ProfilePage onShowHealthHistory={() => setShowHealthHistory(true)} onShowAddModal={setShowAddModal} onEmergencyClick={setSelectedEmergency} isDarkMode={isDarkMode} />;
       case 'Medicine':
@@ -359,6 +361,10 @@ export default function App() {
       )}
       {showDailyPlanModal && createPortal(
         <DailyPlanModal onClose={() => setShowDailyPlanModal(false)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {selectedPastVisit && createPortal(
+        <PastVisitDetailsModal visit={selectedPastVisit} onClose={() => setSelectedPastVisit(null)} isDarkMode={isDarkMode} />,
         document.body
       )}
     </div>

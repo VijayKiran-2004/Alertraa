@@ -3,13 +3,15 @@
 import { CalendarDays, ClipboardCheck } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
+import type { Appointment } from '@/types';
 
 interface BookingPageProps {
   onBookVisit: () => void;
+  onPastVisitClick: (visit: Appointment) => void;
   isDarkMode: boolean;
 }
 
-export default function BookingPage({ onBookVisit, isDarkMode }: BookingPageProps) {
+export default function BookingPage({ onBookVisit, onPastVisitClick, isDarkMode }: BookingPageProps) {
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const listBgClasses = isDarkMode ? 'bg-slate-700' : 'bg-gray-100';
   const listTextClasses = isDarkMode ? 'text-white' : 'text-gray-700';
@@ -55,7 +57,7 @@ export default function BookingPage({ onBookVisit, isDarkMode }: BookingPageProp
         {mockData.appointments.pastVisits.length > 0 ? (
           <ul className="space-y-2">
             {mockData.appointments.pastVisits.map((visit, index) => (
-              <li key={index} className={`p-4 rounded-xl shadow-sm ${listBgClasses}`}>
+              <li key={index} onClick={() => onPastVisitClick(visit)} className={`p-4 rounded-xl shadow-sm cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors ${listBgClasses}`}>
                 <div className="flex items-center space-x-3">
                   <ClipboardCheck size={20} className="text-gray-500" />
                   <div>

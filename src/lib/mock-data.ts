@@ -254,8 +254,28 @@ export const mockData: MockData = {
   appointments: {
     tokens: 3,
     pastVisits: [
-      { date: '2023-10-25', time: '11:00 AM', summary: 'Annual check-up by nurse Lisa.' },
-      { date: '2023-07-12', time: '02:30 PM', summary: 'Blood pressure check-up by nurse Mike.' },
+      { 
+        date: '2023-10-25', 
+        time: '11:00 AM', 
+        summary: 'Annual check-up by nurse Lisa.',
+        details: {
+          notes: 'Patient is in good overall health. Discussed importance of maintaining a balanced diet and regular exercise. No new prescriptions. Advised to continue with current medication plan.',
+          prescriptions: [],
+          vitals: { heartRate: '70 bpm', bloodPressure: '118/78 mmHg' }
+        }
+      },
+      { 
+        date: '2023-07-12', 
+        time: '02:30 PM', 
+        summary: 'Blood pressure check-up by nurse Mike.',
+        details: {
+          notes: 'Blood pressure is slightly elevated. Patient reports stress at work. Recommended stress management techniques and a follow-up in 3 months. Prescribed a low-dose of Amlodipine.',
+          prescriptions: [
+            { name: 'Amlodipine', dosage: '5mg, once daily' },
+          ],
+          vitals: { heartRate: '78 bpm', bloodPressure: '135/85 mmHg' }
+        }
+      },
     ],
     upcomingBookings: [
       { date: '2023-11-20', time: '10:00 AM', summary: 'General health check with nurse Jane.' },
