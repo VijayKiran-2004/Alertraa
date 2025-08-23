@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/accordion"
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
+import { Switch } from './ui/switch';
 
 interface HomePageProps {
   onMetricClick: (metric: string) => void;
@@ -57,6 +58,7 @@ const PlanItem = ({ time, description, isDarkMode, id }: { time: string, descrip
             <span className={`font-medium ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>{time}</span>
             <span className={`ml-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>{description}</span>
         </Label>
+        <Switch id={`switch-${id}`} />
     </div>
 );
 
