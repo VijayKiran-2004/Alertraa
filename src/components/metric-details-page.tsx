@@ -56,7 +56,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'km',
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-green-400' : 'text-green-500',
-          yAxisDomain: [0, 10] as [number, number],
+          yAxisDomain: [0, 12] as [number, number],
         };
       case 'Sleep Hours':
         return {
@@ -93,6 +93,39 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const recommendation = data.recommendations[metric] || "No recommendations available.";
+
+  const maintenanceTips = {
+    'Heart Rate': [
+      'Engage in regular aerobic exercise like brisk walking or swimming.',
+      'Manage stress through techniques like meditation or yoga.',
+      'Avoid smoking and limit alcohol and caffeine intake.',
+    ],
+    'Blood Pressure': [
+      'Follow a balanced diet low in sodium and high in potassium.',
+      'Maintain a healthy weight through regular physical activity.',
+      'Limit alcohol consumption and avoid tobacco.',
+    ],
+    'Blood Oxygen': [
+      'Practice deep breathing exercises to improve lung capacity.',
+      'Ensure good indoor air quality and get fresh air regularly.',
+      'Stay hydrated and avoid smoking.',
+    ],
+    'Calories Burnt': [
+      'Incorporate a mix of cardio and strength training into your routine.',
+      'Stay hydrated and eat a balanced diet to fuel your activity.',
+      'Listen to your body and allow for adequate rest and recovery.',
+    ],
+    'Distance Walked': [
+      'Wear comfortable, supportive shoes for walking.',
+      'Gradually increase your walking distance and pace over time.',
+      'Walk with a friend or listen to music to stay motivated.',
+    ],
+    'Sleep Hours': [
+      'Stick to a consistent sleep schedule, even on weekends.',
+      'Create a dark, quiet, and cool sleeping environment.',
+      'Avoid screens and large meals before bedtime.',
+    ],
+  };
 
   return (
     <div className={`h-full flex flex-col animate-fade-in ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
@@ -134,6 +167,15 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           <p className={textClasses}>
             {recommendation} For personalized nutrition guidance and optimal health outcomes, please contact a doctor or certified dietitian.
           </p>
+        </SectionCard>
+
+        <SectionCard isDarkMode={isDarkMode}>
+          <h3 className={`font-bold mb-2 ${textClasses}`}>For Good Maintenance of {metric}, Do These Things:</h3>
+          <ul className={`list-disc list-inside space-y-1 ${textClasses}`}>
+            {(maintenanceTips[metric as keyof typeof maintenanceTips] || []).map((tip, index) => (
+              <li key={index}>{tip}</li>
+            ))}
+          </ul>
         </SectionCard>
       </main>
     </div>

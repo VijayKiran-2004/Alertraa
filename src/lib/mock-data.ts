@@ -44,9 +44,9 @@ export const mockData: MockData = {
       { date: '6PM', value: 98, yesterdayValue: 97, pastDaysValue: 98, type: 'Blood Oxygen' },
     ],
     recommendations: {
-      'Heart Rate': 'Maintain a balanced diet rich in fruits and vegetables to support cardiovascular health.',
-      'Blood Pressure': 'Reduce sodium intake and incorporate potassium-rich foods like bananas and sweet potatoes.',
-      'Blood Oxygen': 'Ensure adequate ventilation and practice deep breathing exercises.',
+      'Heart Rate': 'Maintain a balanced diet rich in fruits, vegetables, and whole grains to support cardiovascular health.',
+      'Blood Pressure': 'Reduce sodium intake by avoiding processed foods and incorporate potassium-rich foods like bananas, spinach, and sweet potatoes.',
+      'Blood Oxygen': 'Ensure adequate ventilation in your living spaces and practice deep breathing exercises to improve lung capacity and oxygen intake.',
     },
   },
   dailyActivity: {
@@ -85,10 +85,10 @@ export const mockData: MockData = {
       { date: 'Sun', value: 5.5, yesterdayValue: 4.2, pastDaysValue: 4.8, type: 'Distance Walked' },
     ],
     recommendations: {
-      'Steps': 'Aim for at least 10,000 steps daily. Consider adding a short walk after dinner.',
-      'Sleep Hours': 'Establish a consistent sleep schedule and create a relaxing bedtime routine for better sleep quality.',
-      'Calories Burnt': 'To increase calorie burn, incorporate high-intensity interval training (HIIT) into your routine.',
-      'Distance Walked': 'Try a new scenic walking route to stay motivated and engaged in your daily activity.',
+      'Steps': 'Aim for at least 10,000 steps daily. Consider adding a short walk after dinner to aid digestion and reach your goal.',
+      'Sleep Hours': 'Establish a consistent sleep schedule and create a relaxing bedtime routine for better sleep quality. Avoid screens before bed.',
+      'Calories Burnt': 'To increase calorie burn, incorporate high-intensity interval training (HIIT) into your routine 2-3 times a week.',
+      'Distance Walked': 'Try a new scenic walking route or include some inclines to stay motivated and challenge your muscles.',
     },
   },
   location: {
