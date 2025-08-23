@@ -62,7 +62,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
   };
 
   return (
-    <div className="space-y-4 animate-fade-in pb-10">
+    <div className="space-y-4 animate-fade-in pb-24">
       <div className={`grid grid-cols-3 gap-2 p-2 rounded-2xl shadow-md ${cardBg}`}>
         {metrics.map(metric => (
           <div key={metric.name} className={`p-2 rounded-xl flex flex-col items-center justify-between gap-2 cursor-pointer ${itemBg}`} onClick={() => onMetricClick(metric.name)}>
