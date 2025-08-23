@@ -1,8 +1,7 @@
 'use client';
 
-import { Settings, ShoppingCart, Bell, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Settings, ShoppingCart, Bell } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -51,6 +50,18 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
       <div className="flex-1" />
 
       <div className="flex items-center gap-2">
+        <button
+          onClick={onCartClick}
+          className={cn('p-2 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          aria-label="Open shopping cart"
+        >
+          <ShoppingCart size={24} />
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {cartCount}
+            </span>
+          )}
+        </button>
         <button
           onClick={onNotificationClick}
           className={cn('p-2 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
