@@ -6,11 +6,12 @@ interface ProgressRingProps {
   progress: number;
   isDarkMode: boolean;
   icon?: React.ReactNode;
+  size?: number;
 }
 
-export default function ProgressRing({ progress, isDarkMode, icon }: ProgressRingProps) {
+export default function ProgressRing({ progress, isDarkMode, icon, size = 60 }: ProgressRingProps) {
   const stroke = 4;
-  const radius = 30;
+  const radius = size / 2;
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
@@ -19,10 +20,10 @@ export default function ProgressRing({ progress, isDarkMode, icon }: ProgressRin
   const trackColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
 
   return (
-    <div className="relative flex items-center justify-center" style={{ height: radius * 2, width: radius * 2 }}>
+    <div className="relative flex items-center justify-center" style={{ height: size, width: size }}>
       <svg
-        height={radius * 2}
-        width={radius * 2}
+        height={size}
+        width={size}
         className="transform -rotate-90"
       >
         <circle
