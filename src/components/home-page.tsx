@@ -55,7 +55,7 @@ const PlanItem = ({ time, description, isDarkMode, id }: { time: string, descrip
         <Checkbox id={id} className="border-slate-400"/>
         <Label htmlFor={id} className="flex-1">
             <span className={`font-medium ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>{time}</span>
-            <p className={`${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>{description}</p>
+            <span className={`ml-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>{description}</span>
         </Label>
     </div>
 );
