@@ -5,6 +5,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 interface MetricAreaChartProps {
   data: any[];
   isDarkMode: boolean;
+  yAxisDomain?: [number, number];
 }
 
 const CustomTooltip = ({ active, payload, label, isDarkMode }: any) => {
@@ -23,7 +24,7 @@ const CustomTooltip = ({ active, payload, label, isDarkMode }: any) => {
   return null;
 };
 
-export default function MetricAreaChart({ data, isDarkMode }: MetricAreaChartProps) {
+export default function MetricAreaChart({ data, isDarkMode, yAxisDomain }: MetricAreaChartProps) {
   const textColor = isDarkMode ? '#cbd5e1' : '#475569';
 
   return (
@@ -40,7 +41,7 @@ export default function MetricAreaChart({ data, isDarkMode }: MetricAreaChartPro
         >
           <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#334155' : '#e2e8f0'} />
           <XAxis dataKey="time" tick={{ fill: textColor, fontSize: 12 }} />
-          <YAxis tick={{ fill: textColor, fontSize: 12 }} domain={[50, 200]} />
+          <YAxis tick={{ fill: textColor, fontSize: 12 }} domain={yAxisDomain} />
           <Tooltip content={<CustomTooltip isDarkMode={isDarkMode} />} />
           <Legend wrapperStyle={{ fontSize: '12px' }}/>
           <defs>

@@ -117,7 +117,6 @@ export default function App() {
         ...dailyActivity,
         steps: `${Math.floor(Math.random() * 5000) + 5000} steps`,
         caloriesBurnt: `${Math.floor(Math.random() * 400) + 300} kcal`,
-        distanceWalked: `${(Math.random() * 4 + 2).toFixed(1)} km`,
       };
       setDailyActivity(newActivity);
 

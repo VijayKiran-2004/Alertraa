@@ -24,6 +24,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'bpm',
           data: mockData.vitals,
           color: isDarkMode ? 'text-red-400' : 'text-red-500',
+          yAxisDomain: [50, 150] as [number, number],
         };
       case 'Blood Pressure':
         return {
@@ -31,6 +32,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'mmHg',
           data: mockData.vitals,
           color: isDarkMode ? 'text-blue-400' : 'text-blue-500',
+          yAxisDomain: [60, 180] as [number, number],
         };
       case 'Blood Oxygen':
         return {
@@ -38,6 +40,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: '%',
           data: mockData.vitals,
           color: isDarkMode ? 'text-cyan-400' : 'text-cyan-500',
+          yAxisDomain: [80, 100] as [number, number],
         };
       case 'Calories Burnt':
          return {
@@ -45,6 +48,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'kcal',
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-orange-400' : 'text-orange-500',
+          yAxisDomain: [0, 800] as [number, number],
         };
       case 'Distance Walked':
         return {
@@ -52,6 +56,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'km',
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-green-400' : 'text-green-500',
+          yAxisDomain: [0, 10] as [number, number],
         };
       case 'Sleep Hours':
         return {
@@ -59,6 +64,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'hrs',
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-indigo-400' : 'text-indigo-500',
+          yAxisDomain: [0, 12] as [number, number],
         };
       default:
         return {
@@ -66,11 +72,12 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: '',
           data: mockData.vitals,
           color: isDarkMode ? 'text-white' : 'text-black',
+          yAxisDomain: undefined,
         };
     }
   };
 
-  const { value, unit, data, color } = getMetricData();
+  const { value, unit, data, color, yAxisDomain } = getMetricData();
   
   const chartData = data.pastReadings
     .filter((r) => r.type === metric)
@@ -105,14 +112,14 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
             <ProgressRing progress={value} isDarkMode={isDarkMode} size={160} />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
               <span className={`text-5xl font-bold ${color}`}>{value}</span>
-              <span className={`text-sm ${secondaryTextClasses}`}>{metric} ({unit})</span>
+              <span className={`text-sm ${secondaryTextClasses} max-w-[100px] break-words`}>{metric} ({unit})</span>
             </div>
           </div>
         </div>
         
         <SectionCard isDarkMode={isDarkMode}>
             <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>{metric} in Graph</h2>
-            <MetricAreaChart data={chartData} isDarkMode={isDarkMode} />
+            <MetricAreaChart data={chartData} isDarkMode={isDarkMode} yAxisDomain={yAxisDomain} />
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
