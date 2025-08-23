@@ -3,6 +3,8 @@ export interface Reading {
   date: string;
   value: number;
   type: string;
+  yesterdayValue?: number;
+  pastDaysValue?: number;
 }
 
 export interface Vital {

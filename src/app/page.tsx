@@ -29,9 +29,9 @@ import BookingPage from '@/components/booking-page';
 import ProfilePage from '@/components/profile-page';
 import MedicinePage from '@/components/medicine-page';
 import LoginPage from '@/components/login-page';
+import MetricDetailsPage from '@/components/metric-details-page';
 
 import SosModal from '@/components/sos-modal';
-import MetricDetailsModal from '@/components/metric-details-modal';
 import EmergencyDetailsModal from '@/components/emergency-details-modal';
 import EnlargedMapModal from '@/components/enlarged-map-modal';
 import HealthHistoryModal from '@/components/health-history-modal';
@@ -223,6 +223,10 @@ export default function App() {
   if (!isAuthenticated) {
     return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
   }
+  
+  if (selectedMetric) {
+    return <MetricDetailsPage metric={selectedMetric} vitals={vitals} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />;
+  }
 
   const renderPage = () => {
     if (showCheckoutPage) {
@@ -295,10 +299,6 @@ export default function App() {
       
       {showSosModal && createPortal(
         <SosModal onConfirm={handleConfirmSos} onCancel={handleCancelSos} isDarkMode={isDarkMode} />,
-        document.body
-      )}
-      {selectedMetric && createPortal(
-        <MetricDetailsModal metric={selectedMetric} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />,
         document.body
       )}
       {selectedEmergency && createPortal(
