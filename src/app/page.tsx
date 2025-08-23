@@ -225,7 +225,7 @@ export default function App() {
   }
   
   if (selectedMetric) {
-    return <MetricDetailsPage metric={selectedMetric} vitals={vitals} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />;
+    return <MetricDetailsPage metric={selectedMetric} vitals={vitals} dailyActivity={dailyActivity} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />;
   }
 
   const renderPage = () => {
