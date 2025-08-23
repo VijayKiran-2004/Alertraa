@@ -36,7 +36,7 @@ export default function CheckoutPage({ cart, onConfirmPayment, onBack, isDarkMod
   const labelTextClasses = isDarkMode ? 'text-gray-300' : 'text-gray-700';
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in pb-24">
       <SectionCard isDarkMode={isDarkMode}>
         <div className="flex items-center gap-4 mb-4">
           <button onClick={onBack} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>

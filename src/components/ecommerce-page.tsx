@@ -69,7 +69,7 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-24">
       <SectionCard isDarkMode={isDarkMode}>
         <div className="mb-4">
           <h2 className="text-xl font-headline font-bold">Buy Medicines</h2>
@@ -90,7 +90,7 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
       {wishlist.length > 0 && (
         <SectionCard title="My Wishlist" isDarkMode={isDarkMode}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {medicines.filter((m) => isWishlisted(m.id)).map(renderMedicineCard)}
           </div>
         </SectionCard>
@@ -98,14 +98,14 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
       {frequentlyBought.length > 0 && (
         <SectionCard title="Frequently Bought" isDarkMode={isDarkMode}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {frequentlyBought.map(renderMedicineCard)}
           </div>
         </SectionCard>
       )}
 
       <SectionCard title="All Medicines" isDarkMode={isDarkMode}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {otherMedicines.map(renderMedicineCard)}
         </div>
       </SectionCard>
