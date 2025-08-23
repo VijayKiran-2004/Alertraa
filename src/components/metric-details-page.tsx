@@ -103,7 +103,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
         <div className="flex flex-col items-center">
           <div className="relative">
             <ProgressRing progress={value} isDarkMode={isDarkMode} size={160} />
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
               <span className={`text-5xl font-bold ${color}`}>{value}</span>
               <span className={`text-sm ${secondaryTextClasses}`}>{metric} ({unit})</span>
             </div>
