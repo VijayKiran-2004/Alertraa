@@ -1,24 +1,29 @@
 'use client';
 
 import { useState } from 'react';
-import { Upload } from 'lucide-react';
+import { Upload, ShoppingCart } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
-import type { Prescription } from '@/types';
+import type { Prescription, Medicine } from '@/types';
 
 interface PrescribedMedicinePageProps {
   isDarkMode: boolean;
+  onAddToCart: (medicine: Medicine) => void;
 }
 
-export default function PrescribedMedicinePage({ isDarkMode }: PrescribedMedicinePageProps) {
+export default function PrescribedMedicinePage({ isDarkMode, onAddToCart }: PrescribedMedicinePageProps) {
   const [prescriptions, setPrescriptions] = useState<Prescription[]>(mockData.userDetails.prescriptions);
 
   const handleUpload = () => {
     const newPrescription: Prescription = {
+      id: Math.random(),
       name: `Prescription from Dr. House`,
       date: new Date().toISOString().slice(0, 10),
       doctor: 'Dr. House',
       file: 'new_rx.pdf',
+      price: '25.00',
+      description: 'Newly uploaded prescription.',
+      frequentlyBought: false,
     };
     setPrescriptions([...prescriptions, newPrescription]);
     console.log('Prescription uploaded successfully!');
@@ -43,17 +48,25 @@ export default function PrescribedMedicinePage({ isDarkMode }: PrescribedMedicin
         </div>
         <ul className="space-y-3">
           {prescriptions.length > 0 ? (
-            prescriptions.map((prescription, index) => (
-              <li key={index} className={`p-4 rounded-xl shadow-sm ${listBgClasses}`}>
+            prescriptions.map((prescription) => (
+              <li key={prescription.id} className={`p-4 rounded-xl shadow-sm ${listBgClasses}`}>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className={`font-semibold ${textClasses}`}>{prescription.name}</p>
-
                     <p className={`text-sm ${secondaryTextClasses}`}>From {prescription.doctor} on {prescription.date}</p>
                   </div>
-                  <a href="#" className="text-sm font-medium text-primary hover:underline">
-                    View PDF
-                  </a>
+                  <div className="flex items-center space-x-3">
+                    <a href="#" className="text-sm font-medium text-primary hover:underline">
+                      View PDF
+                    </a>
+                    <button
+                      onClick={() => onAddToCart(prescription)}
+                      className="p-2 rounded-full bg-primary/20 text-primary hover:bg-primary/30 transition-colors"
+                      aria-label={`Add ${prescription.name} to cart`}
+                    >
+                      <ShoppingCart size={18} />
+                    </button>
+                  </div>
                 </div>
               </li>
             ))

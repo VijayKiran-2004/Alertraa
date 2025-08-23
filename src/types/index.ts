@@ -76,8 +76,7 @@ export interface Medication {
   condition: string;
 }
 
-export interface Prescription {
-    name: string;
+export interface Prescription extends Medicine {
     date: string;
     doctor: string;
     file: string;

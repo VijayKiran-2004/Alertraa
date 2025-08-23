@@ -50,7 +50,7 @@ export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishli
         </div>
       </div>
       {activeTab === 'Prescriptions' ? (
-        <PrescribedMedicinePage isDarkMode={isDarkMode} />
+        <PrescribedMedicinePage isDarkMode={isDarkMode} onAddToCart={onAddToCart} />
       ) : (
         <ECommercePage isDarkMode={isDarkMode} wishlist={wishlist} toggleWishlist={toggleWishlist} onAddToCart={onAddToCart} />
       )}
