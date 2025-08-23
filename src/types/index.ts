@@ -175,6 +175,13 @@ export interface AppointmentsData {
     upcomingBookings: Appointment[];
 }
 
+export interface MaintenanceTip {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  text: string;
+}
+
 export interface MockData {
   vitals: Vital;
   dailyActivity: DailyActivity;

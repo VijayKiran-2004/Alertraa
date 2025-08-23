@@ -1,61 +1,63 @@
 'use client';
 
-import { ArrowLeft, Info, Heart, Droplet, Wind, Flame, Footprints, Moon, Dumbbell, BookOpen, Salad, ShieldCheck } from 'lucide-react';
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { ArrowLeft, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon } from 'lucide-react';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
+import RecommendationModal from './recommendation-modal';
+import WeeklyReportModal from './weekly-report-modal';
 import { mockData } from '@/lib/mock-data';
-import type { DailyActivity, Vital } from '@/types';
+import type { DailyActivity, Vital, MaintenanceTip } from '@/types';
 
-interface MetricDetailsPageProps {
-  metric: string;
-  vitals: { heartRate: string; bloodPressure: string; bloodOxygen: string };
-  dailyActivity: { steps: string; sleepHours: string; caloriesBurnt: string; distanceWalked: string };
-  onClose: () => void;
-  isDarkMode: boolean;
-}
-
-const maintenanceTips: Record<string, { icon: React.ReactNode, text: string }[]> = {
+const maintenanceTips: Record<string, MaintenanceTip[]> = {
     'Heart Rate': [
-      { icon: <Dumbbell size={24} />, text: 'Regular exercise' },
-      { icon: <Salad size={24} />, text: 'Balanced diet' },
-      { icon: <BookOpen size={24} />, text: 'Stress management' },
+      { id: 'hr1', icon: <Dumbbell size={24} />, title: 'Regular exercise', text: 'Engage in at least 30 minutes of moderate-intensity aerobic activity, like brisk walking or cycling, most days of the week. This strengthens your heart and improves circulation.' },
+      { id: 'hr2', icon: <Salad size={24} />, title: 'Balanced diet', text: 'Focus on a diet rich in fruits, vegetables, whole grains, and lean proteins. Limit processed foods, sodium, and unhealthy fats to maintain a healthy heart.' },
+      { id: 'hr3', icon: <BookOpen size={24} />, title: 'Stress management', text: 'Practice relaxation techniques like deep breathing, meditation, or yoga. Chronic stress can contribute to a higher resting heart rate.' },
     ],
     'Blood Pressure': [
-      { icon: <Salad size={24} />, text: 'Low-sodium diet' },
-      { icon: <Dumbbell size={24} />, text: 'Maintain healthy weight' },
-      { icon: <ShieldCheck size={24} />, text: 'Limit alcohol' },
+      { id: 'bp1', icon: <Salad size={24} />, title: 'Low-sodium diet', text: 'Reducing your sodium intake is crucial. Avoid processed foods, canned soups, and fast food. Cook with herbs and spices instead of salt.' },
+      { id: 'bp2', icon: <Dumbbell size={24} />, title: 'Maintain healthy weight', text: 'Losing even a small amount of weight can make a significant difference in your blood pressure. Combine a balanced diet with regular physical activity.' },
+      { id: 'bp3', icon: <ShieldCheck size={24} />, title: 'Limit alcohol', text: 'Drinking too much alcohol can raise your blood pressure. If you drink, do so in moderation—up to one drink per day for women, two for men.' },
     ],
     'Blood Oxygen': [
-      { icon: <Wind size={24} />, text: 'Breathing exercises' },
-      { icon: <ShieldCheck size={24} />, text: 'Stay hydrated' },
-      { icon: <Flame size={24} />, text: 'Avoid smoking' },
+      { id: 'bo1', icon: <Wind size={24} />, title: 'Breathing exercises', text: 'Practice pursed-lip and diaphragmatic (belly) breathing. These techniques can help you empty your lungs more effectively and take in more fresh air.' },
+      { id: 'bo2', icon: <ShieldCheck size={24} />, title: 'Stay hydrated', text: 'Proper hydration supports lung function and ensures that your blood can efficiently transport oxygen throughout your body. Drink plenty of water daily.' },
+      { id: 'bo3', icon: <Flame size={24} />, title: 'Avoid smoking', text: 'Smoking damages your lungs and reduces their ability to absorb oxygen. Quitting is the single most important step you can take for your lung health.' },
     ],
     'Calories Burnt': [
-      { icon: <Dumbbell size={24} />, text: 'Cardio & strength' },
-      { icon: <Salad size={24} />, text: 'Balanced diet' },
-      { icon: <ShieldCheck size={24} />, text: 'Stay hydrated' },
+      { id: 'cb1', icon: <Dumbbell size={24} />, title: 'Cardio & strength', text: 'Combine cardiovascular exercises like running or swimming with strength training. Building muscle mass increases your resting metabolic rate, helping you burn more calories.' },
+      { id: 'cb2', icon: <Salad size={24} />, title: 'Balanced diet', text: 'Fuel your body with a mix of macronutrients—protein, carbs, and healthy fats. Protein, in particular, has a higher thermic effect, meaning your body burns more calories digesting it.' },
+      { id: 'cb3', icon: <ShieldCheck size={24} />, title: 'Stay hydrated', text: 'Drinking enough water can temporarily boost your metabolism. Aim for around 8 glasses a day, more if you are active.' },
     ],
     'Distance Walked': [
-      { icon: <Footprints size={24} />, text: 'Supportive shoes' },
-      { icon: <Dumbbell size={24} />, text: 'Increase pace gradually' },
-      { icon: <ShieldCheck size={24} />, text: 'Stay motivated' },
+      { id: 'dw1', icon: <Footprints size={24} />, title: 'Supportive shoes', text: 'Invest in good-quality walking shoes that provide proper support and cushioning. This helps prevent injuries and makes walking more comfortable.' },
+      { id: 'dw2', icon: <Dumbbell size={24} />, title: 'Increase pace gradually', text: 'Challenge yourself by gradually increasing your walking speed or incorporating intervals of brisk walking. This improves cardiovascular fitness.' },
+      { id: 'dw3', icon: <ShieldCheck size={24} />, title: 'Stay motivated', text: 'Walk with a friend, listen to music or a podcast, or explore new routes to keep your routine interesting and enjoyable.' },
     ],
     'Sleep Hours': [
-      { icon: <Moon size={24} />, text: 'Consistent schedule' },
-      { icon: <BookOpen size={24} />, text: 'Relaxing routine' },
-      { icon: <ShieldCheck size={24} />, text: 'Avoid screens' },
+      { id: 'sh1', icon: <Moon size={24} />, title: 'Consistent schedule', text: 'Go to bed and wake up at the same time every day, even on weekends. This helps regulate your body`s internal clock.' },
+      { id: 'sh2', icon: <BookOpen size={24} />, title: 'Relaxing routine', text: 'Develop a calming pre-sleep routine. This could include reading a book, taking a warm bath, or listening to soothing music.' },
+      { id: 'sh3', icon: <ShieldCheck size={24} />, title: 'Avoid screens', text: 'The blue light from phones, tablets, and computers can interfere with melatonin production. Put screens away at least an hour before bedtime.' },
     ],
 };
 
-const TipCard = ({ icon, text, isDarkMode }: { icon: React.ReactNode, text: string, isDarkMode: boolean }) => (
-    <div className={`flex flex-col items-center justify-center text-center p-4 rounded-lg ${isDarkMode ? 'bg-slate-800' : 'bg-gray-100'}`}>
-        <div className="text-primary mb-2">{icon}</div>
-        <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{text}</p>
+const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode: boolean, onClick: () => void }) => (
+    <div 
+        className={`flex flex-col items-center justify-center text-center p-4 rounded-lg cursor-pointer transition-transform hover:scale-105 ${isDarkMode ? 'bg-slate-800' : 'bg-gray-100'}`}
+        onClick={onClick}
+    >
+        <div className="text-primary mb-2">{tip.icon}</div>
+        <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{tip.title}</p>
     </div>
 );
 
 export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClose, isDarkMode }: MetricDetailsPageProps) {
+  const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
+  const [showWeeklyReport, setShowWeeklyReport] = useState(false);
+
   const getMetricData = () => {
     switch (metric) {
       case 'Heart Rate':
@@ -142,7 +144,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           <ArrowLeft size={24} />
         </button>
         <h1 className="text-xl font-headline font-bold">Today</h1>
-        <button className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
+        <button onClick={() => setShowWeeklyReport(true)} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
           <Info size={24} />
         </button>
       </header>
@@ -180,8 +182,8 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
         <SectionCard isDarkMode={isDarkMode}>
           <h3 className={`font-bold mb-4 text-center ${textClasses}`}>For Good Maintenance of {metric}</h3>
           <div className="grid grid-cols-3 gap-4">
-            {tips.map((tip, index) => (
-              <TipCard key={index} icon={tip.icon} text={tip.text} isDarkMode={isDarkMode} />
+            {tips.map((tip) => (
+              <TipCard key={tip.id} tip={tip} isDarkMode={isDarkMode} onClick={() => setSelectedTip(tip)} />
             ))}
           </div>
           <p className={`text-xs text-center mt-4 ${secondaryTextClasses}`}>
@@ -189,6 +191,15 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           </p>
         </SectionCard>
       </main>
+
+      {selectedTip && createPortal(
+        <RecommendationModal tip={selectedTip} onClose={() => setSelectedTip(null)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {showWeeklyReport && createPortal(
+        <WeeklyReportModal onClose={() => setShowWeeklyReport(false)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
     </div>
   );
 }
