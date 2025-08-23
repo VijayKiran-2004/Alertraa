@@ -76,9 +76,18 @@ export interface Medication {
   condition: string;
 }
 
+export interface DoctorDetails {
+  name: string;
+  clinic: string;
+  address: string;
+  phone: string;
+  license: string;
+}
+
 export interface Prescription extends Medicine {
     date: string;
     doctor: string;
+    doctorDetails: DoctorDetails;
     file: string;
 }
 

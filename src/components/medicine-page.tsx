@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Pill, ShoppingCart } from 'lucide-react';
 import PrescribedMedicinePage from './prescribed-medicine-page';
 import ECommercePage from './ecommerce-page';
-import type { Medicine } from '@/types';
+import type { Medicine, Prescription } from '@/types';
 
 interface MedicinePageProps {
   isDarkMode: boolean;
@@ -13,9 +13,10 @@ interface MedicinePageProps {
   wishlist: number[];
   toggleWishlist: (medicineId: number) => void;
   onAddToCart: (medicine: Medicine) => void;
+  onViewPrescription: (prescription: Prescription) => void;
 }
 
-export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishlist, toggleWishlist, onAddToCart }: MedicinePageProps) {
+export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishlist, toggleWishlist, onAddToCart, onViewPrescription }: MedicinePageProps) {
   const [activeTab, setActiveTab] = useState('Prescriptions');
 
   const activeTabClasses = 'border-b-2 border-primary text-primary font-bold';
@@ -50,7 +51,7 @@ export default function MedicinePage({ isDarkMode, cartCount, onShowCart, wishli
         </div>
       </div>
       {activeTab === 'Prescriptions' ? (
-        <PrescribedMedicinePage isDarkMode={isDarkMode} onAddToCart={onAddToCart} />
+        <PrescribedMedicinePage isDarkMode={isDarkMode} onAddToCart={onAddToCart} onViewPrescription={onViewPrescription} />
       ) : (
         <ECommercePage isDarkMode={isDarkMode} wishlist={wishlist} toggleWishlist={toggleWishlist} onAddToCart={onAddToCart} />
       )}

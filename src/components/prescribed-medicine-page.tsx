@@ -9,17 +9,26 @@ import type { Prescription, Medicine } from '@/types';
 interface PrescribedMedicinePageProps {
   isDarkMode: boolean;
   onAddToCart: (medicine: Medicine) => void;
+  onViewPrescription: (prescription: Prescription) => void;
 }
 
-export default function PrescribedMedicinePage({ isDarkMode, onAddToCart }: PrescribedMedicinePageProps) {
+export default function PrescribedMedicinePage({ isDarkMode, onAddToCart, onViewPrescription }: PrescribedMedicinePageProps) {
   const [prescriptions, setPrescriptions] = useState<Prescription[]>(mockData.userDetails.prescriptions);
 
   const handleUpload = () => {
+    // This is a mock upload. In a real app, this would involve file handling.
     const newPrescription: Prescription = {
       id: Math.random(),
       name: `Prescription from Dr. House`,
       date: new Date().toISOString().slice(0, 10),
       doctor: 'Dr. House',
+      doctorDetails: {
+        name: 'Dr. Gregory House',
+        clinic: 'Princeton-Plainsboro',
+        address: '123 Hospital St, Princeton, NJ',
+        phone: '(555) 123-7890',
+        license: 'MD-98765'
+      },
       file: 'new_rx.pdf',
       price: '25.00',
       description: 'Newly uploaded prescription.',
@@ -56,9 +65,9 @@ export default function PrescribedMedicinePage({ isDarkMode, onAddToCart }: Pres
                     <p className={`text-sm ${secondaryTextClasses}`}>From {prescription.doctor} on {prescription.date}</p>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <a href="#" className="text-sm font-medium text-primary hover:underline">
+                    <button onClick={() => onViewPrescription(prescription)} className="text-sm font-medium text-primary hover:underline">
                       View PDF
-                    </a>
+                    </button>
                     <button
                       onClick={() => onAddToCart(prescription)}
                       className="p-2 rounded-full bg-primary/20 text-primary hover:bg-primary/30 transition-colors"

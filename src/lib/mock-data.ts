@@ -137,8 +137,40 @@ export const mockData: MockData = {
       { name: 'Metformin', dosage: '500mg', frequency: 'Twice daily', duration: 'Ongoing', condition: 'Type 2 Diabetes' },
     ],
     prescriptions: [
-      { id: 1, name: 'Lisinopril 10mg', date: '2023-10-25', doctor: 'Dr. Smith', file: 'lisinopril_rx.pdf', price: '12.50', description: 'For hypertension management.', frequentlyBought: true },
-      { id: 2, name: 'Metformin 500mg', date: '2022-03-20', doctor: 'Dr. Jones', file: 'metformin_rx.pdf', price: '15.75', description: 'For Type 2 Diabetes.', frequentlyBought: true },
+      { 
+        id: 1, 
+        name: 'Lisinopril 10mg', 
+        date: '2023-10-25', 
+        doctor: 'Dr. Smith', 
+        doctorDetails: {
+          name: 'Dr. Evelyn Smith',
+          clinic: 'City Central Health Clinic',
+          address: '456 Health Ave, Meditown',
+          phone: '(555) 123-4567',
+          license: 'MD-12345'
+        },
+        file: 'lisinopril_rx.pdf', 
+        price: '12.50', 
+        description: 'For hypertension management.', 
+        frequentlyBought: true 
+      },
+      { 
+        id: 2, 
+        name: 'Metformin 500mg', 
+        date: '2022-03-20', 
+        doctor: 'Dr. Jones',
+        doctorDetails: {
+          name: 'Dr. Robert Jones',
+          clinic: 'Community Medical Group',
+          address: '789 Wellness Blvd, Healthville',
+          phone: '(555) 987-6543',
+          license: 'MD-54321'
+        },
+        file: 'metformin_rx.pdf', 
+        price: '15.75', 
+        description: 'For Type 2 Diabetes.', 
+        frequentlyBought: true 
+      },
     ],
     allergies: [
       { name: 'Penicillin', reaction: 'Hives, swelling', precaution: 'Avoid all penicillin-based antibiotics.' },

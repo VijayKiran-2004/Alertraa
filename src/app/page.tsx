@@ -46,6 +46,7 @@ import PaymentConfirmationModal from '@/components/payment-confirmation-modal';
 import NotificationPopover from '@/components/notification-popover';
 import DailyPlanModal from '@/components/daily-plan-modal';
 import PastVisitDetailsModal from '@/components/past-visit-details-modal';
+import PrescriptionDetailsModal from '@/components/prescription-details-modal';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
@@ -72,6 +73,7 @@ export default function App() {
   const [showNotificationPopover, setShowNotificationPopover] = useState(false);
   const [showDailyPlanModal, setShowDailyPlanModal] = useState(false);
   const [selectedPastVisit, setSelectedPastVisit] = useState<Appointment | null>(null);
+  const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
 
   // E-commerce state
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -258,6 +260,7 @@ export default function App() {
                   wishlist={wishlist}
                   toggleWishlist={toggleWishlist}
                   onAddToCart={handleAddToCart}
+                  onViewPrescription={setSelectedPrescription}
                 />;
       default:
         return (
@@ -365,6 +368,10 @@ export default function App() {
       )}
       {selectedPastVisit && createPortal(
         <PastVisitDetailsModal visit={selectedPastVisit} onClose={() => setSelectedPastVisit(null)} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {selectedPrescription && createPortal(
+        <PrescriptionDetailsModal prescription={selectedPrescription} onClose={() => setSelectedPrescription(null)} isDarkMode={isDarkMode} />,
         document.body
       )}
     </div>
