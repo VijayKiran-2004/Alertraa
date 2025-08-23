@@ -29,14 +29,7 @@ const FlameAnimation = () => (
 
 const WalkingAnimation = () => (
   <div className="w-20 h-10 flex items-center justify-center">
-    <svg viewBox="0 0 40 40" className="w-8 h-8">
-      <g className="text-green-500" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <circle cx="20" cy="10" r="4" fill="currentColor" />
-        <line x1="20" y1="14" x2="20" y2="26" />
-        <line x1="20" y1="26" x2="15" y2="35" className="animate-walk-leg-1" />
-        <line x1="20" y1="26" x2="25" y2="35" className="animate-walk-leg-2" />
-      </g>
-    </svg>
+    <Footprints size={32} className="text-green-500 animate-pulse" />
   </div>
 );
 
@@ -65,7 +58,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
         {metrics.map(metric => (
           <div key={metric.name} className={`p-2 rounded-xl flex flex-col items-center justify-between gap-2 cursor-pointer ${itemBg}`} onClick={() => onMetricClick(metric.name)}>
             <div className="flex flex-col items-center gap-2">
-              <ProgressRing progress={metric.progress} isDarkMode={isDarkMode} icon={metric.icon} size={40} />
+              <ProgressRing progress={metric.progress} isDarkMode={isDarkMode} icon={metric.icon} size={50} />
               <div className='text-center'>
                   <p className={`text-xs font-bold ${textClasses}`}>{metric.name}</p>
                    <div className="flex items-center gap-1">
