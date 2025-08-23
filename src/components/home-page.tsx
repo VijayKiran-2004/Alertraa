@@ -1,6 +1,6 @@
 'use client';
 
-import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge } from 'lucide-react';
+import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge, AlertTriangle } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
@@ -51,6 +51,15 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
   const systolic = parseInt(vitals.bloodPressure.split('/')[0]);
   const oxygen = parseInt(vitals.bloodOxygen);
   const sleepData = mockData.dailyActivity.pastReadings.filter(r => r.type === 'Sleep Hours');
+  
+  const getSeverityIconColor = (severity: string) => {
+    switch (severity) {
+      case 'critical': return 'text-red-500';
+      case 'major': return 'text-orange-500';
+      case 'minor': return 'text-yellow-400';
+      default: return 'text-gray-500';
+    }
+  };
 
   return (
     <div className="space-y-4 animate-fade-in pb-10">
@@ -103,6 +112,31 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             <span className={`flex-1 font-semibold ${textClasses}`}>Your Daily plan</span>
             <ChevronRight size={20}/>
         </button>
+      </div>
+
+      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+        <div className='flex justify-between items-center mb-2'>
+            <h3 className={`font-bold ${textClasses}`}>Recent Emergencies</h3>
+            <button><ChevronRight size={20}/></button>
+        </div>
+        <ul className="space-y-2">
+          {mockData.emergencies.slice(0, 3).map((emergency, index) => (
+            <li
+              key={index}
+              onClick={() => onEmergencyClick(emergency.date)}
+              className={`p-3 rounded-lg flex items-center justify-between cursor-pointer ${itemBg}`}
+            >
+              <div className="flex items-center space-x-3">
+                <AlertTriangle size={20} className={getSeverityIconColor(emergency.severity)} />
+                <div>
+                  <p className={`font-medium text-sm ${textClasses}`}>{emergency.summary}</p>
+                  <p className={`text-xs ${secondaryTextClasses}`}>{emergency.date}</p>
+                </div>
+              </div>
+              <ChevronRight size={20} className={secondaryTextClasses} />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
