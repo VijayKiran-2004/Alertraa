@@ -137,7 +137,15 @@ export default {
           '0%, 100%': { transform: 'scaleY(1) scaleX(1)', opacity: '1' },
           '50%': { transform: 'scaleY(1.1) scaleX(1.05)', opacity: '0.8' },
           '75%': { transform: 'scaleY(0.95) scaleX(0.9)', opacity: '1' },
-        }
+        },
+        'walk-leg-1': {
+          '0%, 100%': { transform: 'rotate(-25deg)', transformOrigin: '20px 26px' },
+          '50%': { transform: 'rotate(25deg)', transformOrigin: '20px 26px' },
+        },
+        'walk-leg-2': {
+          '0%, 100%': { transform: 'rotate(25deg)', transformOrigin: '20px 26px' },
+          '50%': { transform: 'rotate(-25deg)', transformOrigin: '20px 26px' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -150,6 +158,8 @@ export default {
         'meter-needle': 'meter-needle 0.5s ease-out forwards',
         'oxygen-wave': 'oxygen-wave 2s linear infinite',
         'flame-flicker': 'flame-flicker 1.5s ease-in-out infinite',
+        'walk-leg-1': 'walk-leg-1 1s ease-in-out infinite',
+        'walk-leg-2': 'walk-leg-2 1s ease-in-out infinite',
       },
     },
   },

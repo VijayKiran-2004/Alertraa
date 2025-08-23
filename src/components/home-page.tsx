@@ -25,7 +25,20 @@ const FlameAnimation = () => (
     <div className="w-20 h-10 flex items-center justify-center">
       <Flame size={32} className="text-orange-500 animate-flame-flicker" />
     </div>
-  );
+);
+
+const WalkingAnimation = () => (
+  <div className="w-20 h-10 flex items-center justify-center">
+    <svg viewBox="0 0 40 40" className="w-8 h-8">
+      <g className="text-green-500" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <circle cx="20" cy="10" r="4" fill="currentColor" />
+        <line x1="20" y1="14" x2="20" y2="26" />
+        <line x1="20" y1="26" x2="15" y2="35" className="animate-walk-leg-1" />
+        <line x1="20" y1="26" x2="25" y2="35" className="animate-walk-leg-2" />
+      </g>
+    </svg>
+  </div>
+);
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActivity, onEmergencyClick, onShowDailyPlan, isDarkMode }: HomePageProps) {
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
@@ -65,6 +78,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             {metric.name === 'Blood Oxygen' && <OxygenWave percentage={oxygen} />}
             {metric.name === 'Sleep Hours' && <SleepChart data={sleepData} isDarkMode={isDarkMode} />}
             {metric.name === 'Calories Burnt' && <FlameAnimation />}
+            {metric.name === 'Distance Walked' && <WalkingAnimation />}
           </div>
         ))}
       </div>
