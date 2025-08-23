@@ -64,7 +64,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'bpm',
           data: mockData.vitals,
           color: isDarkMode ? 'text-red-400' : 'text-red-500',
-          yAxisDomain: [50, 150] as [number, number],
+          yAxisDomain: [40, 120] as [number, number],
         };
       case 'Blood Pressure':
         return {
