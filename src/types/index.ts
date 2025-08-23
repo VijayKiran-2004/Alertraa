@@ -7,6 +7,25 @@ export interface Reading {
   pastDaysValue?: number;
 }
 
+export interface SleepPerformanceData {
+  day: string;
+  'Normal Sleep': number;
+  'Average Sleep': number;
+  'Deep Sleep': number;
+}
+
+export interface SleepDetails {
+  performance: number;
+  hoursVsNeeded: {
+    actual: number;
+    needed: number;
+  };
+  consistency: number;
+  efficiency: number;
+  highStress: number;
+  weeklyPerformance: SleepPerformanceData[];
+}
+
 export interface Vital {
   heartRate: string;
   bloodPressure: string;
@@ -22,6 +41,7 @@ export interface DailyActivity {
   distanceWalked: string;
   pastReadings: Reading[];
   recommendations: Record<string, string>;
+  sleepDetails: SleepDetails;
 }
 
 export interface Location {

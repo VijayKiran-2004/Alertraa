@@ -90,6 +90,21 @@ export const mockData: MockData = {
       'Calories Burnt': 'To increase calorie burn, incorporate high-intensity interval training (HIIT) into your routine 2-3 times a week.',
       'Distance Walked': 'Try a new scenic walking route or include some inclines to stay motivated and challenge your muscles.',
     },
+    sleepDetails: {
+      performance: 80,
+      hoursVsNeeded: { actual: 6, needed: 8 },
+      consistency: 45,
+      efficiency: 95,
+      highStress: 0,
+      weeklyPerformance: [
+        { day: 'Monday', 'Normal Sleep': 98, 'Average Sleep': 78, 'Deep Sleep': 58 },
+        { day: 'Tuesday', 'Normal Sleep': 98, 'Average Sleep': 58, 'Deep Sleep': 38 },
+        { day: 'Wednesday', 'Normal Sleep': 98, 'Average Sleep': 58, 'Deep Sleep': 78 },
+        { day: 'Thursday', 'Normal Sleep': 98, 'Average Sleep': 98, 'Deep Sleep': 68 },
+        { day: 'Friday', 'Normal Sleep': 98, 'Average Sleep': 38, 'Deep Sleep': 18 },
+        { day: 'Saturday', 'Normal Sleep': 98, 'Average Sleep': 78, 'Deep Sleep': 38 },
+      ],
+    },
   },
   location: {
     latitude: 34.052235,

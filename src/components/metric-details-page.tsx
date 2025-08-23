@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowLeft, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon } from 'lucide-react';
+import { ArrowLeft, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
@@ -10,6 +10,7 @@ import RecommendationModal from './recommendation-modal';
 import WeeklyReportModal from './weekly-report-modal';
 import { mockData } from '@/lib/mock-data';
 import type { DailyActivity, Vital, MaintenanceTip } from '@/types';
+import SleepDetailsChart from './sleep-details-chart';
 
 const maintenanceTips: Record<string, MaintenanceTip[]> = {
     'Heart Rate': [
@@ -57,8 +58,7 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
 export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClose, isDarkMode }: MetricDetailsPageProps) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
   const [showWeeklyReport, setShowWeeklyReport] = useState(false);
-  const [chartData, setChartData] = useState<any[]>([]);
-
+  
   const getMetricData = () => {
     switch (metric) {
       case 'Heart Rate':
@@ -99,7 +99,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'km',
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-green-400' : 'text-green-500',
-          yAxisDomain: [0, 12] as [number, number],
+          yAxisDomain: [0, 8] as [number, number],
         };
       case 'Sleep Hours':
         return {
@@ -107,7 +107,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           unit: 'hrs',
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-indigo-400' : 'text-indigo-500',
-          yAxisDomain: [0, 12] as [number, number],
+          yAxisDomain: [0, 10] as [number, number],
         };
       default:
         return {
@@ -121,9 +121,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
   };
 
   const { value, unit, data, color, yAxisDomain } = getMetricData();
-  
-  useEffect(() => {
-    const initialChartData = data.pastReadings
+  const chartData = data.pastReadings
       .filter((r) => r.type === metric)
       .slice(0, 12)
       .map((r) => ({
@@ -133,14 +131,102 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
         past_days: r.pastDaysValue,
       }))
       .reverse();
-    setChartData(initialChartData);
-  }, [metric, data]);
-
 
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const recommendation = data.recommendations[metric] || "No recommendations available.";
   const tips = maintenanceTips[metric] || [];
+
+  if (metric === 'Sleep Hours') {
+    const sleepDetails = mockData.dailyActivity.sleepDetails;
+    const itemBgClasses = isDarkMode ? 'bg-slate-800' : 'bg-gray-100';
+
+    const sleepMetrics = [
+        { icon: <Clock size={20} />, label: 'Hours vs Needed', value: `${sleepDetails.hoursVsNeeded.actual} vs ${sleepDetails.hoursVsNeeded.needed}` },
+        { icon: <Zap size={20} />, label: 'Sleep Consistency', value: `${sleepDetails.consistency}%` },
+        { icon: <Moon size={20} />, label: 'Sleep Efficiency', value: `${sleepDetails.efficiency}%` },
+        { icon: <Info size={20} />, label: 'High sleep stress', value: `${sleepDetails.highStress}%` },
+    ];
+
+    return (
+        <div className={`h-full flex flex-col animate-fade-in ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+            <header className={`p-4 flex items-center justify-between sticky top-0 z-10 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+                <button onClick={onClose} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
+                    <ArrowLeft size={24} />
+                </button>
+                <h1 className="text-xl font-headline font-bold">Today</h1>
+                <button onClick={() => setShowWeeklyReport(true)} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
+                    <Info size={24} />
+                </button>
+            </header>
+      
+            <main className="flex-1 overflow-y-auto p-4 space-y-6">
+                <div className="flex flex-col items-center">
+                    <div className="relative">
+                        <ProgressRing progress={sleepDetails.performance} isDarkMode={isDarkMode} size={160} />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                            <span className={`text-5xl font-bold ${color}`}>{sleepDetails.performance}%</span>
+                            <span className={`text-sm tracking-wider ${secondaryTextClasses}`}>SLEEP<br/>PERFORMANCE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <SectionCard isDarkMode={isDarkMode}>
+                    <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>Sleep performance in Graph</h2>
+                    <SleepDetailsChart isDarkMode={isDarkMode} data={sleepDetails.weeklyPerformance} />
+                </SectionCard>
+
+                <SectionCard isDarkMode={isDarkMode}>
+                    <div className="space-y-3">
+                        {sleepMetrics.map(item => (
+                             <div key={item.label} className={`p-3 rounded-lg flex justify-between items-center ${itemBgClasses}`}>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-primary">{item.icon}</span>
+                                    <p className={textClasses}>{item.label}</p>
+                                </div>
+                                <p className={`font-semibold ${textClasses}`}>{item.value}</p>
+                            </div>
+                        ))}
+                    </div>
+                </SectionCard>
+
+                <SectionCard isDarkMode={isDarkMode}>
+                    <p className={textClasses}>
+                        your sleep performance is sufficient, but there's room to improve - sleep consistency could use attention to help you get to optimal sleep.
+                    </p>
+                </SectionCard>
+
+                <SectionCard isDarkMode={isDarkMode}>
+                  <h3 className={`font-bold mb-2 ${textClasses}`}>Diet Recommendations:</h3>
+                  <p className={textClasses}>
+                    {recommendation} For personalized nutrition guidance and optimal health outcomes, please contact a doctor or certified dietitian.
+                  </p>
+                </SectionCard>
+
+                <SectionCard isDarkMode={isDarkMode}>
+                  <h3 className={`font-bold mb-4 text-center ${textClasses}`}>For Good Maintenance of {metric}</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    {tips.map((tip) => (
+                      <TipCard key={tip.id} tip={tip} isDarkMode={isDarkMode} onClick={() => setSelectedTip(tip)} />
+                    ))}
+                  </div>
+                  <p className={`text-xs text-center mt-4 ${secondaryTextClasses}`}>
+                    Disclaimer: These are general recommendations. Consult with a healthcare professional for personalized advice.
+                  </p>
+                </SectionCard>
+            </main>
+
+            {selectedTip && createPortal(
+                <RecommendationModal tip={selectedTip} onClose={() => setSelectedTip(null)} isDarkMode={isDarkMode} />,
+                document.body
+            )}
+            {showWeeklyReport && createPortal(
+                <WeeklyReportModal onClose={() => setShowWeeklyReport(false)} isDarkMode={isDarkMode} />,
+                document.body
+            )}
+        </div>
+    );
+  }
 
   return (
     <div className={`h-full flex flex-col animate-fade-in ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
