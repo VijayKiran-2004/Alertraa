@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon } from 'lucide-react';
 import ProgressRing from './progress-ring';
@@ -57,6 +57,7 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
 export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClose, isDarkMode }: MetricDetailsPageProps) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
   const [showWeeklyReport, setShowWeeklyReport] = useState(false);
+  const [chartData, setChartData] = useState<any[]>([]);
 
   const getMetricData = () => {
     switch (metric) {
@@ -67,6 +68,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.vitals,
           color: isDarkMode ? 'text-red-400' : 'text-red-500',
           yAxisDomain: [40, 120] as [number, number],
+          isRealtime: true,
         };
       case 'Blood Pressure':
         return {
@@ -75,6 +77,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.vitals,
           color: isDarkMode ? 'text-blue-400' : 'text-blue-500',
           yAxisDomain: [60, 180] as [number, number],
+          isRealtime: true,
         };
       case 'Blood Oxygen':
         return {
@@ -83,6 +86,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.vitals,
           color: isDarkMode ? 'text-cyan-400' : 'text-cyan-500',
           yAxisDomain: [80, 100] as [number, number],
+          isRealtime: true,
         };
       case 'Calories Burnt':
          return {
@@ -91,6 +95,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-orange-400' : 'text-orange-500',
           yAxisDomain: [0, 800] as [number, number],
+          isRealtime: false,
         };
       case 'Distance Walked':
         return {
@@ -99,6 +104,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-green-400' : 'text-green-500',
           yAxisDomain: [0, 12] as [number, number],
+          isRealtime: false,
         };
       case 'Sleep Hours':
         return {
@@ -107,6 +113,7 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.dailyActivity,
           color: isDarkMode ? 'text-indigo-400' : 'text-indigo-500',
           yAxisDomain: [0, 12] as [number, number],
+          isRealtime: false,
         };
       default:
         return {
@@ -115,22 +122,49 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
           data: mockData.vitals,
           color: isDarkMode ? 'text-white' : 'text-black',
           yAxisDomain: undefined,
+          isRealtime: false,
         };
     }
   };
 
-  const { value, unit, data, color, yAxisDomain } = getMetricData();
+  const { value, unit, data, color, yAxisDomain, isRealtime } = getMetricData();
   
-  const chartData = data.pastReadings
-    .filter((r) => r.type === metric)
-    .slice(0, 12)
-    .map((r) => ({
-      time: r.date,
-      today: r.value,
-      yesterday: r.yesterdayValue,
-      past_days: r.pastDaysValue,
-    }))
-    .reverse();
+  useEffect(() => {
+    const initialChartData = data.pastReadings
+      .filter((r) => r.type === metric)
+      .slice(0, 12)
+      .map((r) => ({
+        time: r.date,
+        today: r.value,
+        yesterday: r.yesterdayValue,
+        past_days: r.pastDaysValue,
+      }))
+      .reverse();
+    setChartData(initialChartData);
+
+    if (!isRealtime) return;
+
+    const interval = setInterval(() => {
+        setChartData(prevData => {
+            const lastDataPoint = prevData[prevData.length - 1];
+            const newValue = lastDataPoint.today + Math.floor(Math.random() * 6) - 3;
+            const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            const newPoint = {
+                time: newTime,
+                today: Math.min(Math.max(newValue, yAxisDomain?.[0] || 0), yAxisDomain?.[1] || 150),
+                yesterday: lastDataPoint.yesterday + Math.floor(Math.random() * 4) - 2,
+                past_days: lastDataPoint.past_days + Math.floor(Math.random() * 4) - 2,
+            };
+            
+            return [...prevData.slice(1), newPoint];
+        });
+    }, 2000);
+
+    return () => clearInterval(interval);
+
+  }, [metric, data, isRealtime, yAxisDomain]);
+
 
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
