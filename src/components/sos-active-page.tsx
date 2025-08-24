@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, Bell } from 'lucide-react';
+import { X, Bell, User, Shield, Phone } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 import type { SosStage } from '@/types';
 import MapPlaceholder from './map-placeholder';
+import { mockData } from '@/lib/mock-data';
 
 interface SosActivePageProps {
   onClose: () => void;
@@ -107,7 +108,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
 
       <main className="relative flex-1 flex flex-col">
         <div className="h-1/2 relative">
-          <MapPlaceholder isDarkMode={isDarkMode} />
+          <MapPlaceholder isDarkMode={isDarkMode} showRoute={stage === 'en-route' || stage === 'arriving'} />
           
           {stage === 'searching' && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -131,16 +132,47 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
           )}
         </div>
         
-        <div className="flex-1 flex items-center justify-center p-4">
-            <div className={cn("p-6 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full max-w-sm text-center", textColor)}>
-                <div className="flex flex-col items-center gap-3">
-                    <RealisticAmbulanceIcon width={48} height={48} className="flex-shrink-0" />
-                    <div>
-                        <h2 className="text-4xl font-bold">{eta} min</h2>
-                        <p className="text-lg font-semibold">Estimated Time of Arrival</p>
-                        <p className="text-sm mt-2 opacity-80">Your location has been shared. Help is on the way. Please stay calm.</p>
+        <div className="flex-1 flex flex-col p-4 space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className={cn("p-4 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full text-center md:text-left", textColor)}>
+                    <div className="flex flex-col items-center md:items-start gap-2">
+                        <RealisticAmbulanceIcon width={32} height={32} className="flex-shrink-0" />
+                        <div>
+                            <p className="text-lg font-semibold">Estimated Arrival</p>
+                            <h2 className="text-4xl font-bold">{eta} min</h2>
+                        </div>
                     </div>
                 </div>
+
+                <div className={cn("p-4 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full", textColor)}>
+                    <h3 className="font-bold mb-2 flex items-center gap-2"><Phone size={16} /> Contacts Notified</h3>
+                    <ul className="space-y-1 text-sm">
+                       {mockData.emergencyContacts.map((contact) => (
+                         <li key={contact.name} className="flex justify-between items-center opacity-90">
+                           <span>{contact.name} ({contact.relationship})</span>
+                           <span>Notified</span>
+                         </li>
+                       ))}
+                    </ul>
+                </div>
+            </div>
+
+            <div className={cn("p-4 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full flex-1", textColor)}>
+                 <h3 className="font-bold mb-2 flex items-center gap-2"><Shield size={16} /> Critical Health Info</h3>
+                 <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                        <p className="font-semibold opacity-80">Allergies</p>
+                        <ul className="list-disc list-inside">
+                            {mockData.userDetails.allergies.map(a => <li key={a.name}>{a.name}</li>)}
+                        </ul>
+                    </div>
+                     <div>
+                        <p className="font-semibold opacity-80">Conditions</p>
+                        <ul className="list-disc list-inside">
+                            {mockData.userDetails.healthConditions.map(c => <li key={c.name}>{c.name}</li>)}
+                        </ul>
+                    </div>
+                 </div>
             </div>
         </div>
       </main>

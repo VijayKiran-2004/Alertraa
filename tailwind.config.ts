@@ -160,13 +160,13 @@ export default {
           '0%': { transform: 'scale(0.5)', opacity: '1' },
           '80%, 100%': { transform: 'scale(1.5)', opacity: '0' },
         },
-        'ambulance-move': {
-          '0%': { 'offset-distance': '0%' },
-          '100%': { 'offset-distance': '100%' },
-        },
         'ambulance-drive': {
-          '0%': { 'offset-distance': '0%' },
-          '100%': { 'offset-distance': '100%' },
+          '0%': { offsetDistance: '0%' },
+          '100%': { offsetDistance: '100%' },
+        },
+        'route-trace': {
+          from: { 'stroke-dashoffset': '1000' },
+          to: { 'stroke-dashoffset': '0' },
         },
       },
       animation: {
@@ -184,8 +184,8 @@ export default {
         'walk-leg-1': 'walk-leg-1 1s ease-in-out infinite',
         'walk-leg-2': 'walk-leg-2 1s ease-in-out infinite',
         'scan-ping': 'scan-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ambulance-move': 'ambulance-move 300s linear forwards',
         'ambulance-drive': 'ambulance-drive 12s linear forwards',
+        'route-trace': 'route-trace 12s linear forwards',
       },
     },
   },
