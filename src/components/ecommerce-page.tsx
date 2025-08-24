@@ -36,7 +36,7 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
     <div key={medicine.id} className={`p-2 sm:p-4 rounded-xl shadow-md ${cardClasses} flex flex-col justify-between`}>
       <div>
         <div className="flex items-start space-x-2 sm:space-x-3 mb-2 sm:mb-3">
-          <Pill size={24} className="text-primary flex-shrink-0 mt-1 sm:size-32" />
+          <Pill size={24} className="text-primary flex-shrink-0 mt-1" />
           <div>
             <h3 className={`text-sm sm:text-base font-headline font-bold ${textClasses}`}>{medicine.name}</h3>
             <p className={`text-xs ${secondaryTextClasses}`}>{medicine.description}</p>
@@ -90,7 +90,7 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
       {wishlist.length > 0 && (
         <SectionCard title="My Wishlist" isDarkMode={isDarkMode}>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {medicines.filter((m) => isWishlisted(m.id)).map(renderMedicineCard)}
           </div>
         </SectionCard>
@@ -98,14 +98,14 @@ export default function ECommercePage({ isDarkMode, wishlist, toggleWishlist, on
 
       {frequentlyBought.length > 0 && (
         <SectionCard title="Frequently Bought" isDarkMode={isDarkMode}>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {frequentlyBought.map(renderMedicineCard)}
           </div>
         </SectionCard>
       )}
 
       <SectionCard title="All Medicines" isDarkMode={isDarkMode}>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
           {otherMedicines.map(renderMedicineCard)}
         </div>
       </SectionCard>
