@@ -164,6 +164,10 @@ export default {
           from: { 'stroke-dashoffset': '1000' },
           to: { 'stroke-dashoffset': '0' },
         },
+        'glow': {
+          '0%, 100%': { filter: 'brightness(1)' },
+          '50%': { filter: 'brightness(1.5)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -181,6 +185,7 @@ export default {
         'walk-leg-2': 'walk-leg-2 1s ease-in-out infinite',
         'scan-ping': 'scan-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'route-trace': 'route-trace 12s linear forwards',
+        'glow': 'glow 2s ease-in-out infinite',
       },
     },
   },

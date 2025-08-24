@@ -1,10 +1,10 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { RadialBarChart, RadialBar, Legend, Tooltip, ResponsiveContainer, PolarAngleAxis } from 'recharts';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
@@ -13,6 +13,7 @@ import WeeklyReportModal from './weekly-report-modal';
 import { mockData } from '@/lib/mock-data';
 import type { DailyActivity, Vital, MaintenanceTip } from '@/types';
 import SleepDetailsChart from './sleep-details-chart';
+import { cn } from '@/lib/utils';
 
 const maintenanceTips: Record<string, MaintenanceTip[]> = {
     'Heart Rate': [
@@ -57,43 +58,77 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
     </div>
 );
 
-const MiniPieChart = ({ value, total = 100, label, unit, color, isDarkMode }: { value: number, total?: number, label: string, unit: string, color: string, isDarkMode: boolean }) => {
-  const data = [
-    { name: 'value', value: value },
-    { name: 'remaining', value: total - value },
-  ];
-  const remainingColor = isDarkMode ? '#475569' : '#e2e8f0';
-
-  return (
-    <div className="flex flex-col items-center text-center">
-      <div className="w-24 h-24 relative">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={'70%'}
-              outerRadius={'100%'}
+const AnimatedRadialChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boolean }) => {
+    const [activeIndex, setActiveIndex] = useState(0);
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setActiveIndex((prevIndex) => (prevIndex + 1) % data.length);
+      }, 2000); // Change highlight every 2 seconds
+      return () => clearInterval(interval);
+    }, [data.length]);
+  
+    return (
+      <div className="w-full h-64">
+        <ResponsiveContainer>
+          <RadialBarChart
+            cx="50%"
+            cy="50%"
+            innerRadius="10%"
+            outerRadius="80%"
+            barSize={10}
+            data={data}
+            startAngle={90}
+            endAngle={-270}
+          >
+            <PolarAngleAxis
+              type="number"
+              domain={[0, 100]}
+              angleAxisId={0}
+              tick={false}
+            />
+            <RadialBar
+              minAngle={15}
+              background
+              clockWise
               dataKey="value"
-              startAngle={90}
-              endAngle={450}
-              paddingAngle={0}
-              stroke="none"
+              angleAxisId={0}
             >
-              <Cell fill={color} />
-              <Cell fill={remainingColor} />
-            </Pie>
-          </PieChart>
+              {data.map((entry, index) => (
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill={entry.fill} 
+                  className={cn(
+                    'transition-opacity',
+                    activeIndex === index ? 'opacity-100 animate-glow' : 'opacity-50'
+                  )}
+                />
+              ))}
+            </RadialBar>
+            <Tooltip
+                contentStyle={{
+                    backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                }}
+            />
+            <Legend
+              iconSize={10}
+              layout="vertical"
+              verticalAlign="middle"
+              align="right"
+              formatter={(value, entry, index) => (
+                <span className={cn(isDarkMode ? 'text-white' : 'text-slate-800', activeIndex === index ? 'font-bold' : '')}>
+                  {value}
+                </span>
+              )}
+            />
+          </RadialBarChart>
         </ResponsiveContainer>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>{value}{unit}</span>
-        </div>
       </div>
-      <p className={`text-xs mt-2 ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>{label}</p>
-    </div>
-  );
-};
+    );
+  };
+  
 
 export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
@@ -225,6 +260,16 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
 
   const SleepContent = () => {
     const sleepDetails = mockData.dailyActivity.sleepDetails;
+    const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
+    const hoursPercentage = Math.round((hoursVsNeeded.actual / hoursVsNeeded.needed) * 100);
+
+    const sleepRadialData = [
+        { name: 'Hours vs Needed', value: hoursPercentage, fill: '#8b5cf6' },
+        { name: 'Consistency', value: consistency, fill: '#ef4444' },
+        { name: 'Efficiency', value: efficiency, fill: '#3b82f6' },
+        { name: 'High Stress', value: highStress, fill: '#f97316' },
+      ];
+
     return (
       <>
         <div className="flex flex-col items-center">
@@ -243,37 +288,7 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
-             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <MiniPieChart
-                    value={sleepDetails.hoursVsNeeded.actual}
-                    total={sleepDetails.hoursVsNeeded.needed}
-                    label="Hours vs Needed"
-                    unit="h"
-                    color="#8b5cf6"
-                    isDarkMode={isDarkMode}
-                />
-                <MiniPieChart
-                    value={sleepDetails.consistency}
-                    label="Consistency"
-                    unit="%"
-                    color="#ef4444"
-                    isDarkMode={isDarkMode}
-                />
-                <MiniPieChart
-                    value={sleepDetails.efficiency}
-                    label="Efficiency"
-                    unit="%"
-                    color="#3b82f6"
-                    isDarkMode={isDarkMode}
-                />
-                <MiniPieChart
-                    value={sleepDetails.highStress}
-                    label="High Stress"
-                    unit="%"
-                    color="#f97316"
-                    isDarkMode={isDarkMode}
-                />
-            </div>
+             <AnimatedRadialChart data={sleepRadialData} isDarkMode={isDarkMode} />
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
