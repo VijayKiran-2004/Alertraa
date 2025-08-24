@@ -26,12 +26,6 @@ const NotifPopup = ({ message, onAcknowledge }: { message: string, onAcknowledge
     </div>
 );
 
-const RealisticAmbulanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M19.5,8H17V6.5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5V8H12V6.5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5V8H4.5A2.5,2.5,0,0,0,2,10.5v6A2.5,2.5,0,0,0,4.5,19h.72a2,2,0,0,0,3.56,0h6.44a2,2,0,0,0,3.56,0H19.5A2.5,2.5,0,0,0,22,16.5v-6A2.5,2.5,0,0,0,19.5,8ZM7,18a1,1,0,1,1-1-1A1,1,0,0,1,7,18Zm4.5-5.5h-2a.5.5,0,0,1-.5-.5v-2a.5.5,0,0,1,.5-.5h2a.5.5,0,0,1,.5.5v2A.5.5,0,0,1,11.5,12.5Zm.5-6h2V8H12ZM17,18a1,1,0,1,1-1-1A1,1,0,0,1,17,18Z"/>
-    </svg>
-);
-
 export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProps) {
   const [stage, setStage] = useState<SosStage>('searching');
   const [eta, setEta] = useState(15);
@@ -96,6 +90,10 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
   };
 
   const { bgColor, textColor, statusText } = getStageConfig();
+  
+  const AmbulanceIconPaths = () => (
+    <path d="M19.5,8H17V6.5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5V8H12V6.5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5V8H4.5A2.5,2.5,0,0,0,2,10.5v6A2.5,2.5,0,0,0,4.5,19h.72a2,2,0,0,0,3.56,0h6.44a2,2,0,0,0,3.56,0H19.5A2.5,2.5,0,0,0,22,16.5v-6A2.5,2.5,0,0,0,19.5,8ZM7,18a1,1,0,1,1-1-1A1,1,0,0,1,7,18Zm4.5-5.5h-2a.5.5,0,0,1-.5-.5v-2a.5.5,0,0,1,.5-.5h2a.5.5,0,0,1,.5.5v2A.5.5,0,0,1,11.5,12.5Zm.5-6h2V8H12ZM17,18a1,1,0,1,1-1-1A1,1,0,0,1,17,18Z"/>
+  );
 
   return (
     <div className={cn('fixed inset-0 flex flex-col z-50 transition-colors duration-1000', bgColor)}>
@@ -124,12 +122,13 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                   <svg className="w-full h-full" viewBox="0 0 200 150">
                       <path id="ambulance-path" d="M 0 80 L 50 75 L 100 90 L 150 85 L 200 95" stroke="transparent" fill="none" />
-                      <g style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))' }}>
-                          <RealisticAmbulanceIcon width={16} height={16} className="text-white">
-                            <animateMotion dur="12s" repeatCount="1" fill="freeze">
-                                <mpath href="#ambulance-path" />
-                            </animateMotion>
-                          </RealisticAmbulanceIcon>
+                      <g fill="white" style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))' }}>
+                        <g transform="scale(0.7) translate(-12, -12)">
+                          <AmbulanceIconPaths />
+                        </g>
+                        <animateMotion dur="12s" repeatCount="1" fill="freeze">
+                            <mpath href="#ambulance-path" />
+                        </animateMotion>
                       </g>
                   </svg>
               </div>
@@ -140,7 +139,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className={cn("p-4 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full text-center md:text-left", textColor)}>
                     <div className="flex flex-col items-center md:items-start gap-2">
-                        <RealisticAmbulanceIcon width={32} height={32} className="flex-shrink-0" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 flex-shrink-0"><AmbulanceIconPaths /></svg>
                         <div>
                             <p className="text-lg font-semibold">Estimated Arrival</p>
                             <h2 className="text-4xl font-bold">{eta} min</h2>
