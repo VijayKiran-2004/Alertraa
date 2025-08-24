@@ -35,7 +35,7 @@ const RealisticAmbulanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProps) {
   const [stage, setStage] = useState<SosStage>('searching');
   const [eta, setEta] = useState(15);
-  const [showPopup, setShowPopup] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState<string | null>(false);
 
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
@@ -129,19 +129,23 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
                     <path d="M 10 90 Q 30 20 60 50 T 90 20" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
-                    <g className="animate-ambulance-move" style={{ filter: 'drop-shadow(2px 4px 6px black)' }}>
-                        <RealisticAmbulanceIcon width={8} height={8} className="text-white" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")', transform: 'rotate(90deg)' }} />
+                    <g className="animate-ambulance-move" style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))', transform: 'rotate(90deg) translateY(-2px) translateX(2px)' }}>
+                        <RealisticAmbulanceIcon width={8} height={8} className="text-white" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")' }} />
                     </g>
                 </svg>
             </div>
         )}
         
-        <div className="relative mt-auto p-4 text-center">
-            <div className={cn("p-4 rounded-2xl shadow-xl backdrop-blur-md bg-black/40", textColor)}>
-                <RealisticAmbulanceIcon width={36} height={36} className="mx-auto mb-2" />
-                <h2 className="text-2xl font-bold">{eta} minutes</h2>
-                <p className="font-semibold">Estimated Time of Arrival</p>
-                <p className="text-xs mt-2 opacity-80">Your location has been shared. Help is on the way. Please stay calm.</p>
+        <div className="relative mt-auto p-4 md:absolute md:bottom-4 md:left-4 md:mt-0">
+            <div className={cn("p-3 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full max-w-xs text-center md:text-left", textColor)}>
+                <div className="flex flex-col md:flex-row items-center gap-3">
+                    <RealisticAmbulanceIcon width={32} height={32} className="flex-shrink-0" />
+                    <div>
+                        <h2 className="text-xl font-bold">{eta} minutes</h2>
+                        <p className="text-sm font-semibold">Estimated Time of Arrival</p>
+                        <p className="text-xs mt-1 opacity-80">Your location has been shared. Help is on the way. Please stay calm.</p>
+                    </div>
+                </div>
             </div>
         </div>
       </main>
