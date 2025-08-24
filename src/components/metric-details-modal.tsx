@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
-import { RadialBarChart, RadialBar, Legend, Tooltip, ResponsiveContainer, PolarAngleAxis, Cell } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
@@ -58,77 +58,75 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
     </div>
 );
 
-const AnimatedRadialChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boolean }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setActiveIndex((prevIndex) => (prevIndex + 1) % data.length);
-      }, 2000); // Change highlight every 2 seconds
-      return () => clearInterval(interval);
-    }, [data.length]);
-  
-    return (
-      <div className="w-full h-64">
-        <ResponsiveContainer>
-          <RadialBarChart
+const AnimatedPieChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boolean }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % data.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [data.length]);
+
+  const activeData = data[activeIndex];
+  const textColor = isDarkMode ? 'white' : 'black';
+
+  return (
+    <div className="w-full h-64 relative">
+      <ResponsiveContainer>
+        <PieChart>
+          <Pie
+            data={data}
             cx="50%"
             cy="50%"
-            innerRadius="10%"
-            outerRadius="80%"
-            barSize={10}
-            data={data}
-            startAngle={90}
-            endAngle={-270}
+            labelLine={false}
+            innerRadius={60}
+            outerRadius={80}
+            dataKey="value"
+            stroke="none"
           >
-            <PolarAngleAxis
-              type="number"
-              domain={[0, 100]}
-              angleAxisId={0}
-              tick={false}
-            />
-            <RadialBar
-              minAngle={15}
-              background
-              clockWise
-              dataKey="value"
-              angleAxisId={0}
-            >
-              {data.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={entry.fill} 
-                  className={cn(
-                    'transition-opacity',
-                    activeIndex === index ? 'opacity-100 animate-glow' : 'opacity-50'
-                  )}
-                />
-              ))}
-            </RadialBar>
-            <Tooltip
-                contentStyle={{
-                    backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
-                    border: 'none',
-                    borderRadius: '0.5rem',
-                }}
-            />
-            <Legend
-              iconSize={10}
-              layout="vertical"
-              verticalAlign="middle"
-              align="right"
-              formatter={(value, entry, index) => (
-                <span className={cn(isDarkMode ? 'text-white' : 'text-slate-800', activeIndex === index ? 'font-bold' : '')}>
-                  {value}
-                </span>
-              )}
-            />
-          </RadialBarChart>
-        </ResponsiveContainer>
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.fill}
+                className={cn(
+                  'transition-opacity',
+                  activeIndex === index ? 'opacity-100 animate-glow' : 'opacity-40'
+                )}
+              />
+            ))}
+          </Pie>
+          <Tooltip
+            contentStyle={{
+              backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
+              border: 'none',
+              borderRadius: '0.5rem',
+            }}
+          />
+          <Legend
+            iconSize={10}
+            layout="vertical"
+            verticalAlign="middle"
+            align="right"
+            formatter={(value, entry, index) => (
+              <span className={cn(isDarkMode ? 'text-white' : 'text-slate-800', activeIndex === index ? 'font-bold' : '')}>
+                {value}
+              </span>
+            )}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <span className="text-2xl font-bold" style={{ color: activeData.fill }}>
+          {activeData.value}%
+        </span>
+        <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+          {activeData.name}
+        </span>
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
 
 export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
@@ -263,7 +261,7 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
     const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
     const hoursPercentage = Math.round((hoursVsNeeded.actual / hoursVsNeeded.needed) * 100);
 
-    const sleepRadialData = [
+    const sleepPieData = [
         { name: 'Hours vs Needed', value: hoursPercentage, fill: '#8b5cf6' },
         { name: 'Consistency', value: consistency, fill: '#ef4444' },
         { name: 'Efficiency', value: efficiency, fill: '#3b82f6' },
@@ -288,7 +286,7 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
-             <AnimatedRadialChart data={sleepRadialData} isDarkMode={isDarkMode} />
+             <AnimatedPieChart data={sleepPieData} isDarkMode={isDarkMode} />
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
