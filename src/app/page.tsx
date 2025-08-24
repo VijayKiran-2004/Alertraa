@@ -29,7 +29,7 @@ import BookingPage from '@/components/booking-page';
 import ProfilePage from '@/components/profile-page';
 import MedicinePage from '@/components/medicine-page';
 import LoginPage from '@/components/login-page';
-import MetricDetailsPage from '@/components/metric-details-page';
+import MetricDetailsModal from '@/components/metric-details-modal';
 
 import SosModal from '@/components/sos-modal';
 import EmergencyDetailsModal from '@/components/emergency-details-modal';
@@ -233,10 +233,6 @@ export default function App() {
     return <SosActivePage onClose={() => setSosActive(false)} isDarkMode={isDarkMode} />;
   }
 
-  if (selectedMetric) {
-    return <MetricDetailsPage metric={selectedMetric} vitals={vitals} dailyActivity={dailyActivity} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />;
-  }
-
   const renderPage = () => {
     if (showCheckoutPage) {
       return <CheckoutPage cart={cart} onConfirmPayment={handleConfirmPayment} onBack={() => { setShowCheckoutPage(false); setShowCartModal(true); }} isDarkMode={isDarkMode} />;
@@ -309,6 +305,10 @@ export default function App() {
       
       {showSosModal && createPortal(
         <SosModal onConfirm={handleConfirmSos} onCancel={handleCancelSos} isDarkMode={isDarkMode} />,
+        document.body
+      )}
+      {selectedMetric && createPortal(
+        <MetricDetailsModal metric={selectedMetric} vitals={vitals} dailyActivity={dailyActivity} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />,
         document.body
       )}
       {selectedEmergency && createPortal(

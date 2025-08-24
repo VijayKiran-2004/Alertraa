@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowLeft, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
+import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
@@ -55,7 +55,7 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
     </div>
 );
 
-export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClose, isDarkMode }: MetricDetailsPageProps) {
+export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
   const [showWeeklyReport, setShowWeeklyReport] = useState(false);
   
@@ -136,11 +136,56 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const recommendation = data.recommendations[metric] || "No recommendations available.";
   const tips = maintenanceTips[metric] || [];
+  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
 
-  if (metric === 'Sleep Hours') {
+  const MainContent = () => (
+    <>
+      <div className="flex flex-col items-center">
+        <div className="relative">
+          <ProgressRing progress={value} isDarkMode={isDarkMode} size={160} />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <span className={`text-5xl font-bold ${color}`}>{value}</span>
+            <span className={`text-sm ${secondaryTextClasses} max-w-[100px] break-words`}>{metric} ({unit})</span>
+          </div>
+        </div>
+      </div>
+      
+      <SectionCard isDarkMode={isDarkMode}>
+          <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>{metric} in Graph</h2>
+          <MetricAreaChart data={chartData} isDarkMode={isDarkMode} yAxisDomain={yAxisDomain} />
+      </SectionCard>
+
+      <SectionCard isDarkMode={isDarkMode}>
+        <h3 className={`font-bold mb-2 ${textClasses}`}>Analysis:</h3>
+        <p className={textClasses}>
+          Your {metric.toLowerCase()} is stable, but there's room to improve – maintaining consistency could help boost overall cardiovascular health and bring you closer to optimal performance.
+        </p>
+      </SectionCard>
+
+      <SectionCard isDarkMode={isDarkMode}>
+        <h3 className={`font-bold mb-2 ${textClasses}`}>Diet Recommendations:</h3>
+        <p className={textClasses}>
+          {recommendation} For personalized nutrition guidance and optimal health outcomes, please contact a doctor or certified dietitian.
+        </p>
+      </SectionCard>
+
+      <SectionCard isDarkMode={isDarkMode}>
+        <h3 className={`font-bold mb-4 text-center ${textClasses}`}>For Good Maintenance of {metric}</h3>
+        <div className="grid grid-cols-3 gap-4">
+          {tips.map((tip) => (
+            <TipCard key={tip.id} tip={tip} isDarkMode={isDarkMode} onClick={() => setSelectedTip(tip)} />
+          ))}
+        </div>
+        <p className={`text-xs text-center mt-4 ${secondaryTextClasses}`}>
+          Disclaimer: These are general recommendations. Consult with a healthcare professional for personalized advice.
+        </p>
+      </SectionCard>
+    </>
+  );
+
+  const SleepContent = () => {
     const sleepDetails = mockData.dailyActivity.sleepDetails;
     const itemBgClasses = isDarkMode ? 'bg-slate-800' : 'bg-gray-100';
-
     const sleepMetrics = [
         { icon: <Clock size={20} />, label: 'Hours vs Needed', value: `${sleepDetails.hoursVsNeeded.actual} vs ${sleepDetails.hoursVsNeeded.needed}` },
         { icon: <Zap size={20} />, label: 'Sleep Consistency', value: `${sleepDetails.consistency}%` },
@@ -149,118 +194,40 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
     ];
 
     return (
-        <div className={`h-full flex flex-col animate-fade-in ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
-            <header className={`p-4 flex items-center justify-between sticky top-0 z-10 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
-                <button onClick={onClose} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
-                    <ArrowLeft size={24} />
-                </button>
-                <h1 className="text-xl font-headline font-bold">Today</h1>
-                <button onClick={() => setShowWeeklyReport(true)} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
-                    <Info size={24} />
-                </button>
-            </header>
-      
-            <main className="flex-1 overflow-y-auto p-4 space-y-6">
-                <div className="flex flex-col items-center">
-                    <div className="relative">
-                        <ProgressRing progress={sleepDetails.performance} isDarkMode={isDarkMode} size={160} />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-                            <span className={`text-5xl font-bold ${color}`}>{sleepDetails.performance}%</span>
-                            <span className={`text-sm tracking-wider ${secondaryTextClasses}`}>SLEEP<br/>PERFORMANCE</span>
-                        </div>
-                    </div>
-                </div>
-
-                <SectionCard isDarkMode={isDarkMode}>
-                    <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>Sleep performance in Graph</h2>
-                    <SleepDetailsChart isDarkMode={isDarkMode} data={sleepDetails.weeklyPerformance} />
-                </SectionCard>
-
-                <SectionCard isDarkMode={isDarkMode}>
-                    <div className="space-y-3">
-                        {sleepMetrics.map(item => (
-                             <div key={item.label} className={`p-3 rounded-lg flex justify-between items-center ${itemBgClasses}`}>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-primary">{item.icon}</span>
-                                    <p className={textClasses}>{item.label}</p>
-                                </div>
-                                <p className={`font-semibold ${textClasses}`}>{item.value}</p>
-                            </div>
-                        ))}
-                    </div>
-                </SectionCard>
-
-                <SectionCard isDarkMode={isDarkMode}>
-                    <p className={textClasses}>
-                        your sleep performance is sufficient, but there's room to improve - sleep consistency could use attention to help you get to optimal sleep.
-                    </p>
-                </SectionCard>
-
-                <SectionCard isDarkMode={isDarkMode}>
-                  <h3 className={`font-bold mb-2 ${textClasses}`}>Diet Recommendations:</h3>
-                  <p className={textClasses}>
-                    {recommendation} For personalized nutrition guidance and optimal health outcomes, please contact a doctor or certified dietitian.
-                  </p>
-                </SectionCard>
-
-                <SectionCard isDarkMode={isDarkMode}>
-                  <h3 className={`font-bold mb-4 text-center ${textClasses}`}>For Good Maintenance of {metric}</h3>
-                  <div className="grid grid-cols-3 gap-4">
-                    {tips.map((tip) => (
-                      <TipCard key={tip.id} tip={tip} isDarkMode={isDarkMode} onClick={() => setSelectedTip(tip)} />
-                    ))}
-                  </div>
-                  <p className={`text-xs text-center mt-4 ${secondaryTextClasses}`}>
-                    Disclaimer: These are general recommendations. Consult with a healthcare professional for personalized advice.
-                  </p>
-                </SectionCard>
-            </main>
-
-            {selectedTip && createPortal(
-                <RecommendationModal tip={selectedTip} onClose={() => setSelectedTip(null)} isDarkMode={isDarkMode} />,
-                document.body
-            )}
-            {showWeeklyReport && createPortal(
-                <WeeklyReportModal onClose={() => setShowWeeklyReport(false)} isDarkMode={isDarkMode} />,
-                document.body
-            )}
-        </div>
-    );
-  }
-
-  return (
-    <div className={`h-full flex flex-col animate-fade-in ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
-      <header className={`p-4 flex items-center justify-between sticky top-0 z-10 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
-        <button onClick={onClose} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
-          <ArrowLeft size={24} />
-        </button>
-        <h1 className="text-xl font-headline font-bold">Today</h1>
-        <button onClick={() => setShowWeeklyReport(true)} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
-          <Info size={24} />
-        </button>
-      </header>
-      
-      <main className="flex-1 overflow-y-auto p-4 space-y-6">
+      <>
         <div className="flex flex-col items-center">
-          <div className="relative">
-            <ProgressRing progress={value} isDarkMode={isDarkMode} size={160} />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-              <span className={`text-5xl font-bold ${color}`}>{value}</span>
-              <span className={`text-sm ${secondaryTextClasses} max-w-[100px] break-words`}>{metric} ({unit})</span>
+            <div className="relative">
+                <ProgressRing progress={sleepDetails.performance} isDarkMode={isDarkMode} size={160} />
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                    <span className={`text-5xl font-bold ${color}`}>{sleepDetails.performance}%</span>
+                    <span className={`text-sm tracking-wider ${secondaryTextClasses}`}>SLEEP<br/>PERFORMANCE</span>
+                </div>
             </div>
-          </div>
         </div>
-        
+
         <SectionCard isDarkMode={isDarkMode}>
-            <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>{metric} in Graph</h2>
-            <MetricAreaChart data={chartData} isDarkMode={isDarkMode} yAxisDomain={yAxisDomain} />
+            <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>Sleep performance in Graph</h2>
+            <SleepDetailsChart isDarkMode={isDarkMode} data={sleepDetails.weeklyPerformance} />
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
-          <h3 className={`font-bold mb-2 ${textClasses}`}>Analysis:</h3>
-          <p className={textClasses}>
-            Your {metric.toLowerCase()} is stable, but there's room to improve – maintaining consistency could help boost overall cardiovascular health and bring you closer to optimal performance.
-          </p>
+            <div className="space-y-3">
+                {sleepMetrics.map(item => (
+                      <div key={item.label} className={`p-3 rounded-lg flex justify-between items-center ${itemBgClasses}`}>
+                        <div className="flex items-center gap-3">
+                            <span className="text-primary">{item.icon}</span>
+                            <p className={textClasses}>{item.label}</p>
+                        </div>
+                        <p className={`font-semibold ${textClasses}`}>{item.value}</p>
+                    </div>
+                ))}
+            </div>
+        </SectionCard>
+
+        <SectionCard isDarkMode={isDarkMode}>
+            <p className={textClasses}>
+                your sleep performance is sufficient, but there's room to improve - sleep consistency could use attention to help you get to optimal sleep.
+            </p>
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
@@ -281,16 +248,38 @@ export default function MetricDetailsPage({ metric, vitals, dailyActivity, onClo
             Disclaimer: These are general recommendations. Consult with a healthcare professional for personalized advice.
           </p>
         </SectionCard>
-      </main>
+      </>
+    );
+  }
 
-      {selectedTip && createPortal(
-        <RecommendationModal tip={selectedTip} onClose={() => setSelectedTip(null)} isDarkMode={isDarkMode} />,
-        document.body
-      )}
-      {showWeeklyReport && createPortal(
-        <WeeklyReportModal onClose={() => setShowWeeklyReport(false)} isDarkMode={isDarkMode} />,
-        document.body
-      )}
+  return (
+    <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">
+      <div className={`p-6 rounded-2xl shadow-xl max-w-2xl w-full flex flex-col space-y-4 max-h-[90vh] ${modalBgClasses}`}>
+        <header className="flex items-center justify-between sticky top-0">
+          <h1 className="text-xl font-headline font-bold">Today</h1>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setShowWeeklyReport(true)} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
+              <Info size={24} />
+            </button>
+            <button onClick={onClose} className={`p-2 rounded-full ${isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200'}`}>
+              <X size={24} />
+            </button>
+          </div>
+        </header>
+        
+        <main className="flex-1 overflow-y-auto space-y-6 pr-2">
+          {metric === 'Sleep Hours' ? <SleepContent /> : <MainContent />}
+        </main>
+
+        {selectedTip && createPortal(
+          <RecommendationModal tip={selectedTip} onClose={() => setSelectedTip(null)} isDarkMode={isDarkMode} />,
+          document.body
+        )}
+        {showWeeklyReport && createPortal(
+          <WeeklyReportModal onClose={() => setShowWeeklyReport(false)} isDarkMode={isDarkMode} />,
+          document.body
+        )}
+      </div>
     </div>
   );
 }
