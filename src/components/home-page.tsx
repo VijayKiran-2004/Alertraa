@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge, AlertTriangle, Sun, Utensils, Pill, Quote } from 'lucide-react';
+import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge, AlertTriangle, Sun, Utensils, Pill, Quote, MapPin } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
@@ -11,6 +11,7 @@ import EcgBeat from './ecg-beat';
 import BpMeter from './bp-meter';
 import OxygenWave from './oxygen-wave';
 import SleepChart from './sleep-chart';
+import GoogleMap from './google-map';
 import {
   Accordion,
   AccordionContent,
@@ -133,6 +134,20 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
           <p className={`text-sm mt-2 ${secondaryTextClasses}`}>- {currentQuote.author}</p>
         </div>
       </div>
+
+      <SectionCard isDarkMode={isDarkMode}>
+        <div className="flex justify-between items-center mb-4">
+            <h3 className={`font-bold ${textClasses} flex items-center gap-2`}><MapPin size={20}/> Live Location</h3>
+            <button onClick={onMapClick}><ChevronRight size={20}/></button>
+        </div>
+        <div className="h-48 cursor-pointer" onClick={onMapClick}>
+          <GoogleMap
+            location={mockData.location}
+            showControls={false}
+            isDarkMode={isDarkMode}
+          />
+        </div>
+      </SectionCard>
       
       <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
         <div className='flex justify-between items-center mb-2'>
