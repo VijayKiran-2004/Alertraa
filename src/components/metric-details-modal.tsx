@@ -1,8 +1,10 @@
+
 'use client';
 
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
@@ -54,6 +56,44 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
         <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{tip.title}</p>
     </div>
 );
+
+const MiniPieChart = ({ value, total = 100, label, unit, color, isDarkMode }: { value: number, total?: number, label: string, unit: string, color: string, isDarkMode: boolean }) => {
+  const data = [
+    { name: 'value', value: value },
+    { name: 'remaining', value: total - value },
+  ];
+  const remainingColor = isDarkMode ? '#475569' : '#e2e8f0';
+
+  return (
+    <div className="flex flex-col items-center text-center">
+      <div className="w-24 h-24 relative">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={'70%'}
+              outerRadius={'100%'}
+              dataKey="value"
+              startAngle={90}
+              endAngle={450}
+              paddingAngle={0}
+              stroke="none"
+            >
+              <Cell fill={color} />
+              <Cell fill={remainingColor} />
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>{value}{unit}</span>
+        </div>
+      </div>
+      <p className={`text-xs mt-2 ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>{label}</p>
+    </div>
+  );
+};
 
 export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
@@ -185,14 +225,6 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
 
   const SleepContent = () => {
     const sleepDetails = mockData.dailyActivity.sleepDetails;
-    const itemBgClasses = isDarkMode ? 'bg-slate-800' : 'bg-gray-100';
-    const sleepMetrics = [
-        { icon: <Clock size={20} />, label: 'Hours vs Needed', value: `${sleepDetails.hoursVsNeeded.actual} vs ${sleepDetails.hoursVsNeeded.needed}` },
-        { icon: <Zap size={20} />, label: 'Sleep Consistency', value: `${sleepDetails.consistency}%` },
-        { icon: <Moon size={20} />, label: 'Sleep Efficiency', value: `${sleepDetails.efficiency}%` },
-        { icon: <Info size={20} />, label: 'High sleep stress', value: `${sleepDetails.highStress}%` },
-    ];
-
     return (
       <>
         <div className="flex flex-col items-center">
@@ -211,16 +243,36 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
-            <div className="space-y-3">
-                {sleepMetrics.map(item => (
-                      <div key={item.label} className={`p-3 rounded-lg flex justify-between items-center ${itemBgClasses}`}>
-                        <div className="flex items-center gap-3">
-                            <span className="text-primary">{item.icon}</span>
-                            <p className={textClasses}>{item.label}</p>
-                        </div>
-                        <p className={`font-semibold ${textClasses}`}>{item.value}</p>
-                    </div>
-                ))}
+             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <MiniPieChart
+                    value={sleepDetails.hoursVsNeeded.actual}
+                    total={sleepDetails.hoursVsNeeded.needed}
+                    label="Hours vs Needed"
+                    unit="h"
+                    color="#8b5cf6"
+                    isDarkMode={isDarkMode}
+                />
+                <MiniPieChart
+                    value={sleepDetails.consistency}
+                    label="Consistency"
+                    unit="%"
+                    color="#ef4444"
+                    isDarkMode={isDarkMode}
+                />
+                <MiniPieChart
+                    value={sleepDetails.efficiency}
+                    label="Efficiency"
+                    unit="%"
+                    color="#3b82f6"
+                    isDarkMode={isDarkMode}
+                />
+                <MiniPieChart
+                    value={sleepDetails.highStress}
+                    label="High Stress"
+                    unit="%"
+                    color="#f97316"
+                    isDarkMode={isDarkMode}
+                />
             </div>
         </SectionCard>
 
