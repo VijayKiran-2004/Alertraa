@@ -120,7 +120,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
                     <path d="M 20 80 C 40 20, 60 20, 80 80" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
-                    <Ambulance size={12} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 20 80 C 40 20, 60 20, 80 80")' }} />
+                    <Ambulance size={8} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 20 80 C 40 20, 60 20, 80 80")' }} />
                 </svg>
             </div>
         )}

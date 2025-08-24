@@ -180,7 +180,7 @@ export default {
         'walk-leg-1': 'walk-leg-1 1s ease-in-out infinite',
         'walk-leg-2': 'walk-leg-2 1s ease-in-out infinite',
         'scan-ping': 'scan-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ambulance-move': 'ambulance-move 15s linear forwards',
+        'ambulance-move': 'ambulance-move 300s linear forwards',
       },
     },
   },
