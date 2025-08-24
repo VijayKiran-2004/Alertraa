@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import { mockData } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
 import type { SosStage } from '@/types';
-import MapPlaceholder from './map-placeholder';
+import GoogleMap from './google-map';
 
 interface SosActivePageProps {
   onClose: () => void;
@@ -108,7 +108,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
 
       <main className="relative flex-1 flex flex-col">
         <div className="absolute inset-0">
-          <MapPlaceholder isDarkMode={isDarkMode} />
+          <GoogleMap isDarkMode={isDarkMode} />
         </div>
         
         {stage === 'searching' && (
