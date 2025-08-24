@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Plus, Minus } from 'lucide-react';
 
 interface GoogleMapProps {
@@ -9,20 +10,19 @@ interface GoogleMapProps {
 }
 
 export default function GoogleMap({ location, showControls, isDarkMode }: GoogleMapProps) {
-  const mapUrl = `https://maps.google.com/maps?q=${location.latitude},${location.longitude}&z=15&output=embed&t=${isDarkMode ? 'k' : ''}`;
+  const mapImageUrl = `https://placehold.co/600x400.png`;
 
   return (
     <div className="w-full h-full relative overflow-hidden rounded-xl shadow-inner">
-      <iframe
-        width="100%"
-        height="100%"
-        style={{ border: 0, filter: isDarkMode ? 'invert(1) hue-rotate(180deg)' : 'none' }}
-        src={mapUrl}
-        allowFullScreen
-        aria-hidden="false"
-        tabIndex={0}
-        title="Google Map"
-      ></iframe>
+      <Image
+        src={mapImageUrl}
+        alt="Map view of user's location"
+        layout="fill"
+        objectFit="cover"
+        className={isDarkMode ? 'dark-map-filter' : ''}
+        data-ai-hint="street map"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
       {showControls && (
         <div className="absolute top-2 right-2 p-2 bg-background/70 backdrop-blur-sm rounded-lg shadow-md flex flex-col space-y-2">
           <button className="p-1 rounded-full bg-muted hover:bg-accent transition-colors" aria-label="Zoom in">
@@ -33,6 +33,11 @@ export default function GoogleMap({ location, showControls, isDarkMode }: Google
           </button>
         </div>
       )}
+      <style jsx>{`
+        .dark-map-filter {
+          filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(1.1);
+        }
+      `}</style>
     </div>
   );
 }
