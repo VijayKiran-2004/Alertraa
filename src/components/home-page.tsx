@@ -127,11 +127,7 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
         ))}
       </div>
 
-      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
-        <div className='flex justify-between items-center mb-2'>
-            <h3 className={`font-bold ${textClasses}`}>Quote of the Day</h3>
-            <Quote size={20} className={secondaryTextClasses}/>
-        </div>
+      <div className={`p-4 rounded-2xl shadow-md ${isDarkMode ? 'bg-slate-800/50' : 'bg-white/50'}`}>
         <div className="relative text-center p-4 rounded-lg bg-primary/10">
           <p className={`font-medium italic ${textClasses}`}>"{currentQuote.text}"</p>
           <p className={`text-sm mt-2 ${secondaryTextClasses}`}>- {currentQuote.author}</p>
