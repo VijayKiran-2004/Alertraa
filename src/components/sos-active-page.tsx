@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, Ambulance, Bell } from 'lucide-react';
+import { X, Bell } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { mockData } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
@@ -130,14 +130,16 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
                     <path d="M 10 90 Q 30 20 60 50 T 90 20" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
-                    <RealisticAmbulanceIcon width={8} height={8} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")' }} />
+                    <g className="animate-ambulance-move" style={{ filter: 'drop-shadow(2px 4px 6px black)' }}>
+                        <RealisticAmbulanceIcon width={8} height={8} className="text-white" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")', transform: 'rotate(90deg)' }} />
+                    </g>
                 </svg>
             </div>
         )}
         
         <div className="relative mt-auto p-4 text-center">
-            <div className={cn("p-6 rounded-2xl shadow-xl backdrop-blur-md bg-black/40", textColor)}>
-                <Ambulance size={48} className="mx-auto mb-2" />
+            <div className={cn("p-4 rounded-2xl shadow-xl backdrop-blur-md bg-black/40", textColor)}>
+                <RealisticAmbulanceIcon width={36} height={36} className="mx-auto mb-2" />
                 <h2 className="text-2xl font-bold">{eta} minutes</h2>
                 <p className="font-semibold">Estimated Time of Arrival</p>
                 <p className="text-xs mt-2 opacity-80">Your location has been shared. Help is on the way. Please stay calm.</p>
