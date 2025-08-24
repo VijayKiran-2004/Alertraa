@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, Ambulance, CheckCircle, Bell } from 'lucide-react';
+import { X, Ambulance, Bell } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import Image from 'next/image';
 import { mockData } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
 import type { SosStage } from '@/types';
+import GoogleMap from './google-map';
 
 interface SosActivePageProps {
   onClose: () => void;
@@ -24,6 +24,12 @@ const NotifPopup = ({ message, onAcknowledge }: { message: string, onAcknowledge
             OK
         </button>
     </div>
+);
+
+const RealisticAmbulanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
+        <path d="M19.5,8H17V6.5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5V8H12V6.5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5V8H4.5A2.5,2.5,0,0,0,2,10.5v6A2.5,2.5,0,0,0,4.5,19h.72a2,2,0,0,0,3.56,0h6.44a2,2,0,0,0,3.56,0H19.5A2.5,2.5,0,0,0,22,16.5v-6A2.5,2.5,0,0,0,19.5,8ZM7,18a1,1,0,1,1-1-1A1,1,0,0,1,7,18Zm4.5-5.5h-2a.5.5,0,0,1-.5-.5v-2a.5.5,0,0,1,.5-.5h2a.5.5,0,0,1,.5.5v2A.5.5,0,0,1,11.5,12.5Zm.5-6h2V8H12ZM17,18a1,1,0,1,1-1-1A1,1,0,0,1,17,18Z"/>
+    </svg>
 );
 
 export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProps) {
@@ -103,19 +109,11 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
 
       <main className="relative flex-1 flex flex-col">
         <div className="absolute inset-0">
-          <Image
-            src="https://placehold.co/1200x800.png"
-            alt="Map of the area"
-            layout="fill"
-            objectFit="cover"
-            className={isDarkMode ? 'dark-map-filter' : ''}
-            data-ai-hint="city map"
+          <GoogleMap
+            location={mockData.location}
+            showControls={false}
+            isDarkMode={isDarkMode}
           />
-          <style jsx global>{`
-            .dark-map-filter {
-              filter: invert(1) hue-rotate(180deg);
-            }
-          `}</style>
         </div>
         
         {stage === 'searching' && (
@@ -132,7 +130,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
                     <path d="M 10 90 Q 30 20 60 50 T 90 20" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
-                    <Ambulance size={8} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")' }} />
+                    <RealisticAmbulanceIcon width={8} height={8} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")' }} />
                 </svg>
             </div>
         )}
