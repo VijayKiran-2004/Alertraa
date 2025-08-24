@@ -230,6 +230,7 @@ export const mockData: MockData = {
         { name: 'Smartwatch', status: 'Connected', lastSync: '10 mins ago' },
         { name: 'Smart Scale', status: 'Disconnected', lastSync: '2 days ago' },
         { name: 'Blood Pressure Monitor', status: 'Connected', lastSync: '2 hours ago' },
+        { name: 'Bluetooth Headphones', status: 'Connected', lastSync: '5 mins ago' },
       ]
     },
     'Gesture Configuration': {
