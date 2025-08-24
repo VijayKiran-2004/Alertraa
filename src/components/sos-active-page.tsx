@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import { mockData } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
 import type { SosStage } from '@/types';
-import GoogleMap from './google-map';
+import MapPlaceholder from './map-placeholder';
 
 interface SosActivePageProps {
   onClose: () => void;
@@ -35,7 +35,7 @@ const RealisticAmbulanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProps) {
   const [stage, setStage] = useState<SosStage>('searching');
   const [eta, setEta] = useState(15);
-  const [showPopup, setShowPopup] = useState<string | null>(false);
+  const [showPopup, setShowPopup] = useState<string | null>(null);
 
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
@@ -108,11 +108,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
 
       <main className="relative flex-1 flex flex-col">
         <div className="absolute inset-0">
-          <GoogleMap
-            location={mockData.location}
-            showControls={false}
-            isDarkMode={isDarkMode}
-          />
+          <MapPlaceholder isDarkMode={isDarkMode} />
         </div>
         
         {stage === 'searching' && (
