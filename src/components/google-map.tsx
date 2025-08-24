@@ -20,7 +20,7 @@ export default function GoogleMap({ location, showControls, isDarkMode }: Google
         layout="fill"
         objectFit="cover"
         className={isDarkMode ? 'dark-map-filter' : ''}
-        data-ai-hint="abstract map"
+        data-ai-hint="abstract map illustration"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
       {showControls && (
