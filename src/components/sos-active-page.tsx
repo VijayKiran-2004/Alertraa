@@ -106,39 +106,39 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
       </header>
 
       <main className="relative flex-1 flex flex-col">
-        <div className="absolute inset-0">
+        <div className="h-1/2 relative">
           <MapPlaceholder isDarkMode={isDarkMode} />
+          
+          {stage === 'searching' && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="relative w-64 h-64">
+                      <div className="absolute inset-0 rounded-full bg-blue-500/30 animate-scan-ping"></div>
+                      <div className="absolute inset-4 rounded-full bg-blue-500/30 animate-scan-ping" style={{ animationDelay: '0.5s' }}></div>
+                      <div className="absolute inset-8 rounded-full bg-blue-500/30 animate-scan-ping" style={{ animationDelay: '1s' }}></div>
+                  </div>
+              </div>
+          )}
+
+          {(stage === 'en-route' || stage === 'arriving') && (
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  <svg className="w-full h-full" viewBox="0 0 200 150">
+                      <path id="ambulance-path" d="M 0 80 L 50 75 L 100 90 L 150 85 L 200 95" stroke="transparent" fill="none" />
+                      <g className="animate-ambulance-drive" style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))' }}>
+                          <RealisticAmbulanceIcon width={16} height={16} className="text-white" />
+                      </g>
+                  </svg>
+              </div>
+          )}
         </div>
         
-        {stage === 'searching' && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="relative w-64 h-64">
-                    <div className="absolute inset-0 rounded-full bg-blue-500/30 animate-scan-ping"></div>
-                    <div className="absolute inset-4 rounded-full bg-blue-500/30 animate-scan-ping" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="absolute inset-8 rounded-full bg-blue-500/30 animate-scan-ping" style={{ animationDelay: '1s' }}></div>
-                </div>
-            </div>
-        )}
-
-        {(stage === 'en-route' || stage === 'arriving') && (
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                <svg className="w-full h-full" viewBox="0 0 100 100">
-                    <path d="M 10 90 Q 30 20 60 50 T 90 20" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
-                    <g className="animate-ambulance-move" style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))', transform: 'rotate(90deg) translateY(-2px) translateX(2px)' }}>
-                        <RealisticAmbulanceIcon width={8} height={8} className="text-white" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")' }} />
-                    </g>
-                </svg>
-            </div>
-        )}
-        
-        <div className="relative mt-auto p-4 md:absolute md:bottom-4 md:left-4 md:mt-0">
-            <div className={cn("p-3 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full max-w-xs text-center md:text-left", textColor)}>
-                <div className="flex flex-col md:flex-row items-center gap-3">
-                    <RealisticAmbulanceIcon width={32} height={32} className="flex-shrink-0" />
+        <div className="flex-1 flex items-center justify-center p-4">
+            <div className={cn("p-6 rounded-2xl shadow-xl backdrop-blur-md bg-black/40 w-full max-w-sm text-center", textColor)}>
+                <div className="flex flex-col items-center gap-3">
+                    <RealisticAmbulanceIcon width={48} height={48} className="flex-shrink-0" />
                     <div>
-                        <h2 className="text-xl font-bold">{eta} minutes</h2>
-                        <p className="text-sm font-semibold">Estimated Time of Arrival</p>
-                        <p className="text-xs mt-1 opacity-80">Your location has been shared. Help is on the way. Please stay calm.</p>
+                        <h2 className="text-4xl font-bold">{eta} min</h2>
+                        <p className="text-lg font-semibold">Estimated Time of Arrival</p>
+                        <p className="text-sm mt-2 opacity-80">Your location has been shared. Help is on the way. Please stay calm.</p>
                     </div>
                 </div>
             </div>

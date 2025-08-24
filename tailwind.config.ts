@@ -164,6 +164,10 @@ export default {
           '0%': { 'offset-distance': '0%' },
           '100%': { 'offset-distance': '100%' },
         },
+        'ambulance-drive': {
+          '0%': { 'offset-distance': '0%' },
+          '100%': { 'offset-distance': '100%' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -181,6 +185,7 @@ export default {
         'walk-leg-2': 'walk-leg-2 1s ease-in-out infinite',
         'scan-ping': 'scan-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'ambulance-move': 'ambulance-move 300s linear forwards',
+        'ambulance-drive': 'ambulance-drive 12s linear forwards',
       },
     },
   },
