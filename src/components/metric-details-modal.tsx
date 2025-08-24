@@ -4,14 +4,14 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, ResponsiveContainer, Legend, Tooltip, Cell } from 'recharts';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
 import RecommendationModal from './recommendation-modal';
 import WeeklyReportModal from './weekly-report-modal';
 import { mockData } from '@/lib/mock-data';
-import type { DailyActivity, Vital, MaintenanceTip } from '@/types';
+import type { DailyActivity, Vital, MaintenanceTip, SleepDetails } from '@/types';
 import SleepDetailsChart from './sleep-details-chart';
 import { cn } from '@/lib/utils';
 
@@ -58,90 +58,7 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
     </div>
 );
 
-export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
-  const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
-  const [showWeeklyReport, setShowWeeklyReport] = useState(false);
-  
-  const getMetricData = () => {
-    switch (metric) {
-      case 'Heart Rate':
-        return {
-          value: parseInt(vitals.heartRate),
-          unit: 'bpm',
-          data: mockData.vitals,
-          color: isDarkMode ? 'text-red-400' : 'text-red-500',
-          yAxisDomain: [40, 120] as [number, number],
-        };
-      case 'Blood Pressure':
-        return {
-          value: parseInt(vitals.bloodPressure.split('/')[0]),
-          unit: 'mmHg',
-          data: mockData.vitals,
-          color: isDarkMode ? 'text-blue-400' : 'text-blue-500',
-          yAxisDomain: [60, 180] as [number, number],
-        };
-      case 'Blood Oxygen':
-        return {
-          value: parseInt(vitals.bloodOxygen),
-          unit: '%',
-          data: mockData.vitals,
-          color: isDarkMode ? 'text-cyan-400' : 'text-cyan-500',
-          yAxisDomain: [80, 100] as [number, number],
-        };
-      case 'Calories Burnt':
-         return {
-          value: parseInt(dailyActivity.caloriesBurnt),
-          unit: 'kcal',
-          data: mockData.dailyActivity,
-          color: isDarkMode ? 'text-orange-400' : 'text-orange-500',
-          yAxisDomain: [0, 800] as [number, number],
-        };
-      case 'Distance Walked':
-        return {
-          value: parseFloat(dailyActivity.distanceWalked),
-          unit: 'km',
-          data: mockData.dailyActivity,
-          color: isDarkMode ? 'text-green-400' : 'text-green-500',
-          yAxisDomain: [0, 8] as [number, number],
-        };
-      case 'Sleep Hours':
-        return {
-          value: parseFloat(dailyActivity.sleepHours),
-          unit: 'hrs',
-          data: mockData.dailyActivity,
-          color: isDarkMode ? 'text-indigo-400' : 'text-indigo-500',
-          yAxisDomain: [0, 10] as [number, number],
-        };
-      default:
-        return {
-          value: 0,
-          unit: '',
-          data: mockData.vitals,
-          color: isDarkMode ? 'text-white' : 'text-black',
-          yAxisDomain: undefined,
-        };
-    }
-  };
-
-  const { value, unit, data, color, yAxisDomain } = getMetricData();
-  const chartData = data.pastReadings
-      .filter((r) => r.type === metric)
-      .slice(0, 12)
-      .map((r) => ({
-        time: r.date,
-        today: r.value,
-        yesterday: r.yesterdayValue,
-        past_days: r.pastDaysValue,
-      }))
-      .reverse();
-
-  const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
-  const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
-  const recommendation = data.recommendations[metric] || "No recommendations available.";
-  const tips = maintenanceTips[metric] || [];
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
-
-  const MainContent = () => (
+const MainContent = ({ metric, value, unit, color, isDarkMode, secondaryTextClasses, textClasses, chartData, yAxisDomain, recommendation, tips, setSelectedTip }: { metric: string, value: number, unit: string, color: string, isDarkMode: boolean, secondaryTextClasses: string, textClasses: string, chartData: any[], yAxisDomain: [number, number] | undefined, recommendation: string, tips: MaintenanceTip[], setSelectedTip: (tip: MaintenanceTip) => void }) => (
     <>
       <div className="flex flex-col items-center">
         <div className="relative">
@@ -154,7 +71,7 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
       </div>
       
       <SectionCard isDarkMode={isDarkMode}>
-          <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>{metric} in Graph</h2>
+          <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>Today vs Last Week Comparison</h2>
           <MetricAreaChart data={chartData} isDarkMode={isDarkMode} yAxisDomain={yAxisDomain} />
       </SectionCard>
 
@@ -186,18 +103,18 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
     </>
   );
 
-  const SleepContent = () => {
+const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textClasses, recommendation, tips, setSelectedTip }: { metric: string, color: string, isDarkMode: boolean, secondaryTextClasses: string, textClasses: string, recommendation: string, tips: MaintenanceTip[], setSelectedTip: (tip: MaintenanceTip) => void }) => {
     const sleepDetails = mockData.dailyActivity.sleepDetails;
 
     const sleepPieData = useMemo(() => {
-      const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
-      const hoursPercentage = Math.round((hoursVsNeeded.actual / hoursVsNeeded.needed) * 100);
-      return [
-        { name: 'Hours vs Needed', value: hoursPercentage, fill: '#8b5cf6' },
-        { name: 'Consistency', value: consistency, fill: '#ef4444' },
-        { name: 'Efficiency', value: efficiency, fill: '#3b82f6' },
-        { name: 'High Stress', value: highStress, fill: '#f97316' },
-      ];
+        const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
+        const hoursPercentage = Math.round((hoursVsNeeded.actual / hoursVsNeeded.needed) * 100);
+        return [
+            { name: 'Hours vs Needed', value: hoursPercentage, fill: '#8b5cf6' },
+            { name: 'Consistency', value: consistency, fill: '#ef4444' },
+            { name: 'Efficiency', value: efficiency, fill: '#3b82f6' },
+            { name: 'High Stress', value: highStress, fill: '#f97316' },
+        ];
     }, [sleepDetails]);
 
     return (
@@ -275,6 +192,90 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
     );
   }
 
+export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
+  const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
+  const [showWeeklyReport, setShowWeeklyReport] = useState(false);
+  
+  const getMetricData = useCallback(() => {
+    switch (metric) {
+      case 'Heart Rate':
+        return {
+          value: parseInt(vitals.heartRate),
+          unit: 'bpm',
+          data: mockData.vitals,
+          color: isDarkMode ? 'text-red-400' : 'text-red-500',
+          yAxisDomain: [40, 120] as [number, number],
+        };
+      case 'Blood Pressure':
+        return {
+          value: parseInt(vitals.bloodPressure.split('/')[0]),
+          unit: 'mmHg',
+          data: mockData.vitals,
+          color: isDarkMode ? 'text-blue-400' : 'text-blue-500',
+          yAxisDomain: [60, 180] as [number, number],
+        };
+      case 'Blood Oxygen':
+        return {
+          value: parseInt(vitals.bloodOxygen),
+          unit: '%',
+          data: mockData.vitals,
+          color: isDarkMode ? 'text-cyan-400' : 'text-cyan-500',
+          yAxisDomain: [80, 100] as [number, number],
+        };
+      case 'Calories Burnt':
+         return {
+          value: parseInt(dailyActivity.caloriesBurnt),
+          unit: 'kcal',
+          data: mockData.dailyActivity,
+          color: isDarkMode ? 'text-orange-400' : 'text-orange-500',
+          yAxisDomain: [0, 800] as [number, number],
+        };
+      case 'Distance Walked':
+        return {
+          value: parseFloat(dailyActivity.distanceWalked),
+          unit: 'km',
+          data: mockData.dailyActivity,
+          color: isDarkMode ? 'text-green-400' : 'text-green-500',
+          yAxisDomain: [0, 8] as [number, number],
+        };
+      case 'Sleep Hours':
+        return {
+          value: parseFloat(dailyActivity.sleepHours),
+          unit: 'hrs',
+          data: mockData.dailyActivity,
+          color: isDarkMode ? 'text-indigo-400' : 'text-indigo-500',
+          yAxisDomain: [0, 10] as [number, number],
+        };
+      default:
+        return {
+          value: 0,
+          unit: '',
+          data: mockData.vitals,
+          color: isDarkMode ? 'text-white' : 'text-black',
+          yAxisDomain: undefined,
+        };
+    }
+  }, [metric, vitals, dailyActivity, isDarkMode]);
+
+  const { value, unit, data, color, yAxisDomain } = getMetricData();
+  
+  const chartData = useMemo(() => data.pastReadings
+      .filter((r) => r.type === metric)
+      .slice(0, 12)
+      .map((r) => ({
+        time: r.date,
+        today: r.value,
+        yesterday: r.yesterdayValue,
+        past_days: r.pastDaysValue,
+      }))
+      .reverse(), [data.pastReadings, metric]);
+
+  const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
+  const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
+  const recommendation = data.recommendations[metric] || "No recommendations available.";
+  const tips = maintenanceTips[metric] || [];
+  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">
       <div className={`p-6 rounded-2xl shadow-xl max-w-2xl w-full flex flex-col space-y-4 max-h-[90vh] ${modalBgClasses}`}>
@@ -291,7 +292,33 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
         </header>
         
         <main className="flex-1 overflow-y-auto space-y-6 pr-2">
-          {metric === 'Sleep Hours' ? <SleepContent /> : <MainContent />}
+          {metric === 'Sleep Hours' ? (
+             <SleepContent 
+                metric={metric}
+                color={color}
+                isDarkMode={isDarkMode}
+                secondaryTextClasses={secondaryTextClasses}
+                textClasses={textClasses}
+                recommendation={recommendation}
+                tips={tips}
+                setSelectedTip={setSelectedTip}
+            />
+          ) : (
+            <MainContent 
+                metric={metric}
+                value={value}
+                unit={unit}
+                color={color}
+                isDarkMode={isDarkMode}
+                secondaryTextClasses={secondaryTextClasses}
+                textClasses={textClasses}
+                chartData={chartData}
+                yAxisDomain={yAxisDomain}
+                recommendation={recommendation}
+                tips={tips}
+                setSelectedTip={setSelectedTip}
+            />
+          )}
         </main>
 
         {selectedTip && createPortal(
@@ -306,3 +333,4 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
     </div>
   );
 }
+
