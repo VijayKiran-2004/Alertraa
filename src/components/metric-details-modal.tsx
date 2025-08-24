@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
@@ -188,15 +188,17 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
 
   const SleepContent = () => {
     const sleepDetails = mockData.dailyActivity.sleepDetails;
-    const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
-    const hoursPercentage = Math.round((hoursVsNeeded.actual / hoursVsNeeded.needed) * 100);
 
-    const sleepPieData = [
+    const sleepPieData = useMemo(() => {
+      const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
+      const hoursPercentage = Math.round((hoursVsNeeded.actual / hoursVsNeeded.needed) * 100);
+      return [
         { name: 'Hours vs Needed', value: hoursPercentage, fill: '#8b5cf6' },
         { name: 'Consistency', value: consistency, fill: '#ef4444' },
         { name: 'Efficiency', value: efficiency, fill: '#3b82f6' },
         { name: 'High Stress', value: highStress, fill: '#f97316' },
       ];
+    }, [sleepDetails]);
 
     return (
       <>
