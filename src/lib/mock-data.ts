@@ -95,7 +95,7 @@ export const mockData: MockData = {
       hoursVsNeeded: { actual: 6, needed: 8 },
       consistency: 45,
       efficiency: 95,
-      highStress: 0,
+      highStress: 2,
       weeklyPerformance: [
         { day: 'Monday', 'Normal Sleep': 98, 'Average Sleep': 78, 'Deep Sleep': 58 },
         { day: 'Tuesday', 'Normal Sleep': 98, 'Average Sleep': 58, 'Deep Sleep': 38 },
