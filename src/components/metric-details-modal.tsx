@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
@@ -69,6 +69,19 @@ const AnimatedPieChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boole
   }, [data.length]);
 
   const activeData = data[activeIndex];
+  
+  const renderCell = useCallback((entry: any, index: number) => {
+    return (
+      <Cell
+        key={`cell-${index}`}
+        fill={entry.fill}
+        className={cn(
+          'transition-opacity',
+          activeIndex === index ? 'opacity-100 animate-glow' : 'opacity-40'
+        )}
+      />
+    );
+  }, [activeIndex]);
 
   return (
     <div className="w-full h-64 relative">
@@ -84,16 +97,7 @@ const AnimatedPieChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boole
             dataKey="value"
             stroke="none"
           >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.fill}
-                className={cn(
-                  'transition-opacity',
-                  activeIndex === index ? 'opacity-100 animate-glow' : 'opacity-40'
-                )}
-              />
-            ))}
+            {data.map(renderCell)}
           </Pie>
           <Tooltip
             contentStyle={{
