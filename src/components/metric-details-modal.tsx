@@ -58,79 +58,6 @@ const TipCard = ({ tip, isDarkMode, onClick }: { tip: MaintenanceTip, isDarkMode
     </div>
 );
 
-const AnimatedPieChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boolean }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % data.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [data.length]);
-
-  const activeData = data[activeIndex];
-  
-  const renderCell = useCallback((entry: any, index: number) => {
-    return (
-      <Cell
-        key={`cell-${index}`}
-        fill={entry.fill}
-        className={cn(
-          'transition-opacity',
-          activeIndex === index ? 'opacity-100 animate-glow' : 'opacity-40'
-        )}
-      />
-    );
-  }, [activeIndex]);
-
-  return (
-    <div className="w-full h-64 relative">
-      <ResponsiveContainer>
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            innerRadius={60}
-            outerRadius={80}
-            dataKey="value"
-            stroke="none"
-          >
-            {data.map(renderCell)}
-          </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
-              border: 'none',
-              borderRadius: '0.5rem',
-            }}
-          />
-          <Legend
-            iconSize={10}
-            layout="vertical"
-            verticalAlign="middle"
-            align="right"
-            formatter={(value, entry, index) => (
-              <span className={cn(isDarkMode ? 'text-white' : 'text-slate-800', activeIndex === index ? 'font-bold' : '')}>
-                {value}
-              </span>
-            )}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <span className="text-2xl font-bold" style={{ color: activeData.fill }}>
-          {activeData.value}%
-        </span>
-        <span className={`text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-          {activeData.name}
-        </span>
-      </div>
-    </div>
-  );
-};
-
 export default function MetricDetailsModal({ metric, vitals, dailyActivity, onClose, isDarkMode }: { metric: string, vitals: Vital, dailyActivity: DailyActivity, onClose: () => void, isDarkMode: boolean }) {
   const [selectedTip, setSelectedTip] = useState<MaintenanceTip | null>(null);
   const [showWeeklyReport, setShowWeeklyReport] = useState(false);
@@ -289,7 +216,33 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
-             <AnimatedPieChart data={sleepPieData} isDarkMode={isDarkMode} />
+          <div className="w-full h-64">
+            <ResponsiveContainer>
+              <PieChart>
+                <Pie
+                  data={sleepPieData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  dataKey="value"
+                >
+                  {sleepPieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                  }}
+                  formatter={(value) => `${value}%`}
+                />
+                <Legend iconSize={10} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
