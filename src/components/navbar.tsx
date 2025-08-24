@@ -26,7 +26,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
 
   return (
     <nav className={cn('fixed bottom-0 left-0 right-0 h-20 px-4 z-30 flex items-center justify-center')}>
-      <div className={cn('w-full max-w-md h-16 rounded-full flex items-center justify-around shadow-lg animate-gradient-xy', navBarBgClasses)}>
+      <div className={cn('w-full max-w-md h-16 rounded-full flex items-center justify-around shadow-lg', navBarBgClasses)}>
         <div className="flex-1 flex justify-around items-center">
           {navItems.slice(0, 2).map((item) => (
             <button
