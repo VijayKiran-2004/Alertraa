@@ -329,4 +329,11 @@ export const mockData: MockData = {
       { date: '2023-11-20', time: '10:00 AM', summary: 'General health check with nurse Jane.' },
     ],
   },
+  quotes: [
+    { text: 'The greatest wealth is health.', author: 'Virgil' },
+    { text: 'A healthy outside starts from the inside.', author: 'Robert Urich' },
+    { text: 'To keep the body in good health is a duty... otherwise we shall not be able to keep our mind strong and clear.', author: 'Buddha' },
+    { text: 'Let food be thy medicine and medicine be thy food.', author: 'Hippocrates' },
+    { text: 'Take care of your body. It’s the only place you have to live.', author: 'Jim Rohn' },
+  ],
 };

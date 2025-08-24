@@ -51,7 +51,7 @@ export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEme
   const itemBgClasses = isDarkMode ? 'bg-slate-800' : 'bg-gray-100';
   
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in pb-24">
       <SectionCard isDarkMode={isDarkMode}>
         <div className="flex items-center space-x-4">
           <div className="p-4 bg-primary/20 rounded-full">

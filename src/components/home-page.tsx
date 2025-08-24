@@ -1,6 +1,7 @@
 'use client';
 
-import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge, AlertTriangle, Sun, Utensils, Pill } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Heart, Droplet, Flame, Moon, ChevronRight, FileText, Clock, Footprints, Wind, Gauge, AlertTriangle, Sun, Utensils, Pill, Quote } from 'lucide-react';
 import SectionCard from './section-card';
 import { mockData } from '@/lib/mock-data';
 import ProgressRing from './progress-ring';
@@ -64,6 +65,15 @@ const PlanItem = ({ time, description, isDarkMode, id }: { time: string, descrip
 
 
 export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActivity, onEmergencyClick, onShowDailyPlan, isDarkMode }: HomePageProps) {
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIndex((prevIndex) => (prevIndex + 1) % mockData.quotes.length);
+    }, 60000); // 1 minute
+    return () => clearInterval(interval);
+  }, []);
+  
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const cardBg = isDarkMode ? 'bg-slate-800' : 'bg-white';
@@ -91,6 +101,8 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
     }
   };
 
+  const currentQuote = mockData.quotes[quoteIndex];
+
   return (
     <div className="space-y-4 animate-fade-in pb-24">
       <div className={`grid grid-cols-3 gap-2 p-2 rounded-2xl shadow-md ${cardBg}`}>
@@ -113,6 +125,17 @@ export default function HomePage({ onMetricClick, onMapClick, vitals, dailyActiv
             {metric.name === 'Distance Walked' && <WalkingAnimation />}
           </div>
         ))}
+      </div>
+
+      <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>
+        <div className='flex justify-between items-center mb-2'>
+            <h3 className={`font-bold ${textClasses}`}>Quote of the Day</h3>
+            <Quote size={20} className={secondaryTextClasses}/>
+        </div>
+        <div className="relative text-center p-4 rounded-lg bg-primary/10">
+          <p className={`font-medium italic ${textClasses}`}>"{currentQuote.text}"</p>
+          <p className={`text-sm mt-2 ${secondaryTextClasses}`}>- {currentQuote.author}</p>
+        </div>
       </div>
       
       <div className={`p-4 rounded-2xl shadow-md ${cardBg}`}>

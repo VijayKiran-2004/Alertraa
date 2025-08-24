@@ -215,6 +215,11 @@ export interface MaintenanceTip {
   text: string;
 }
 
+export interface Quote {
+  text: string;
+  author: string;
+}
+
 export interface MockData {
   vitals: Vital;
   dailyActivity: DailyActivity;
@@ -230,4 +235,5 @@ export interface MockData {
   emergencyDetails: Record<string, EmergencyDetails>;
   healthHistoryDetails: HealthHistoryDetails[];
   appointments: AppointmentsData;
+  quotes: Quote[];
 }
