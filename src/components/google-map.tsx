@@ -10,7 +10,7 @@ interface GoogleMapProps {
 }
 
 export default function GoogleMap({ location, showControls, isDarkMode }: GoogleMapProps) {
-  const mapImageUrl = `https://placehold.co/600x400.png`;
+  const mapImageUrl = `https://placehold.co/600x400/e0e0e0/abb2bf`;
 
   return (
     <div className="w-full h-full relative overflow-hidden rounded-xl shadow-inner">
