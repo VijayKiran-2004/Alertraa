@@ -1,20 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Plus, X, PhoneCall, AlertTriangle, Users, Wallet } from 'lucide-react';
+import { User, Plus, X, PhoneCall, AlertTriangle, Users, Wallet, ShoppingCart } from 'lucide-react';
 import SectionCard from './section-card';
 import InfoList from './info-list';
 import { mockData } from '@/lib/mock-data';
-import type { EmergencyContact, AllContact } from '@/types';
+import type { EmergencyContact, AllContact, Medicine } from '@/types';
 
 interface ProfilePageProps {
   onShowHealthHistory: () => void;
   onShowAddModal: (type: string) => void;
   onEmergencyClick: (date: string) => void;
+  onAddToCart: (medicine: Medicine) => void;
   isDarkMode: boolean;
 }
 
-export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEmergencyClick, isDarkMode }: ProfilePageProps) {
+export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEmergencyClick, onAddToCart, isDarkMode }: ProfilePageProps) {
   const [assignedContacts, setAssignedContacts] = useState<EmergencyContact[]>(mockData.emergencyContacts);
   const [allContacts, setAllContacts] = useState<AllContact[]>(mockData.allContacts);
 
@@ -24,6 +25,15 @@ export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEme
 
   const handleRemoveContact = (contactToRemove: EmergencyContact) => {
     setAssignedContacts(assignedContacts.filter((c) => c.name !== contactToRemove.name));
+  };
+
+  const handleMedicationAddToCart = (medicationName: string) => {
+    const medicine = mockData.eCommerce.medicines.find(m => m.name.includes(medicationName));
+    if (medicine) {
+      onAddToCart(medicine);
+    } else {
+      console.warn(`Medicine "${medicationName}" not found in store.`);
+    }
   };
   
   const getSeverityIconColor = (severity: string) => {
@@ -73,8 +83,19 @@ export default function ProfilePage({ onShowHealthHistory, onShowAddModal, onEme
         <ul className="space-y-2 mb-4">
           {mockData.userDetails.healthConditions.map((condition, index) => (
             <li key={index} className={`p-3 rounded-lg ${listBgClasses}`}>
-               <p className={`font-medium ${textClasses}`}>{condition.name}</p>
-               <p className={`text-sm ${secondaryTextClasses}`}>Status: {condition.status} | Since: {condition.since}</p>
+               <div className="flex justify-between items-center">
+                    <div>
+                        <p className={`font-medium ${textClasses}`}>{condition.name}</p>
+                        <p className={`text-sm ${secondaryTextClasses}`}>Medication: {condition.medication} | Since: {condition.since}</p>
+                    </div>
+                    <button
+                      onClick={() => handleMedicationAddToCart(condition.medication)}
+                      className="p-2 rounded-full bg-primary/20 text-primary hover:bg-primary/30 transition-colors"
+                      aria-label={`Add ${condition.medication} to cart`}
+                    >
+                      <ShoppingCart size={18} />
+                    </button>
+               </div>
             </li>
           ))}
         </ul>

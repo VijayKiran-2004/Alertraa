@@ -251,7 +251,7 @@ export default function App() {
       case 'Booking':
         return <BookingPage onBookVisit={() => setShowBookingModal(true)} onPastVisitClick={setSelectedPastVisit} isDarkMode={isDarkMode} />;
       case 'User':
-        return <ProfilePage onShowHealthHistory={() => setShowHealthHistory(true)} onShowAddModal={setShowAddModal} onEmergencyClick={setSelectedEmergency} isDarkMode={isDarkMode} />;
+        return <ProfilePage onShowHealthHistory={() => setShowHealthHistory(true)} onShowAddModal={setShowAddModal} onEmergencyClick={setSelectedEmergency} onAddToCart={handleAddToCart} isDarkMode={isDarkMode} />;
       case 'Medicine':
         return <MedicinePage 
                   isDarkMode={isDarkMode} 
