@@ -124,8 +124,12 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                   <svg className="w-full h-full" viewBox="0 0 200 150">
                       <path id="ambulance-path" d="M 0 80 L 50 75 L 100 90 L 150 85 L 200 95" stroke="transparent" fill="none" />
-                      <g className="animate-ambulance-drive" style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))' }}>
-                          <RealisticAmbulanceIcon width={16} height={16} className="text-white" />
+                       <g style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.5))' }}>
+                          <RealisticAmbulanceIcon width={16} height={16} className="text-white">
+                            <animateMotion dur="12s" repeatCount="1" fill="freeze">
+                                <mpath href="#ambulance-path" />
+                            </animateMotion>
+                          </RealisticAmbulanceIcon>
                       </g>
                   </svg>
               </div>
