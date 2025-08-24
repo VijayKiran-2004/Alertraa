@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Dumbbell, BookOpen, Salad, ShieldCheck, Wind, Flame, Footprints, Moon, Clock, Zap } from 'lucide-react';
-import { RadialBarChart, RadialBar, Legend, Tooltip, ResponsiveContainer, PolarAngleAxis } from 'recharts';
+import { RadialBarChart, RadialBar, Legend, Tooltip, ResponsiveContainer, PolarAngleAxis, Cell } from 'recharts';
 import ProgressRing from './progress-ring';
 import SectionCard from './section-card';
 import MetricAreaChart from './metric-area-chart';
