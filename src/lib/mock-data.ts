@@ -303,7 +303,23 @@ export const mockData: MockData = {
         details: {
           notes: 'Blood pressure is slightly elevated. Patient reports stress at work. Recommended stress management techniques and a follow-up in 3 months. Prescribed a low-dose of Amlodipine.',
           prescriptions: [
-            { name: 'Amlodipine', dosage: '5mg, once daily' },
+             {
+              id: 13, 
+              name: 'Amlodipine 5mg', 
+              date: '2023-07-12', 
+              doctor: 'Dr. Mike', 
+              doctorDetails: {
+                name: 'Dr. Mike Ross',
+                clinic: 'Community Medical Group',
+                address: '789 Wellness Blvd, Healthville',
+                phone: '(555) 987-6543',
+                license: 'MD-54322'
+              },
+              file: 'amlodipine_rx.pdf', 
+              price: '10.00', 
+              description: 'For high blood pressure.', 
+              frequentlyBought: false
+            }
           ],
           vitals: { heartRate: '78 bpm', bloodPressure: '135/85 mmHg' }
         }

@@ -1,15 +1,16 @@
 'use client';
 
 import { X, Pill, Heart, FileText, Stethoscope } from 'lucide-react';
-import type { Appointment } from '@/types';
+import type { Appointment, Prescription } from '@/types';
 
 interface PastVisitDetailsModalProps {
   visit: Appointment;
   onClose: () => void;
   isDarkMode: boolean;
+  onViewPrescription: (prescription: Prescription) => void;
 }
 
-export default function PastVisitDetailsModal({ visit, onClose, isDarkMode }: PastVisitDetailsModalProps) {
+export default function PastVisitDetailsModal({ visit, onClose, isDarkMode, onViewPrescription }: PastVisitDetailsModalProps) {
   const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
   const listBgClasses = isDarkMode ? 'bg-slate-700' : 'bg-gray-100';
   const listTextClasses = isDarkMode ? 'text-white' : 'text-gray-700';
@@ -57,9 +58,17 @@ export default function PastVisitDetailsModal({ visit, onClose, isDarkMode }: Pa
             {visit.details.prescriptions.length > 0 ? (
               <ul className="space-y-2">
                 {visit.details.prescriptions.map((p, index) => (
-                  <li key={index} className={`p-3 rounded-lg ${listBgClasses}`}>
-                    <p className={`font-medium ${listTextClasses}`}>{p.name}</p>
-                    <p className={`text-sm ${textMuted}`}>{p.dosage}</p>
+                  <li key={index} className={`p-3 rounded-lg flex items-center justify-between ${listBgClasses}`}>
+                    <div>
+                      <p className={`font-medium ${listTextClasses}`}>{p.name}</p>
+                      <p className={`text-sm ${textMuted}`}>{p.description}</p>
+                    </div>
+                    <button
+                      onClick={() => onViewPrescription(p)}
+                      className="text-sm font-medium text-primary hover:underline"
+                    >
+                      View
+                    </button>
                   </li>
                 ))}
               </ul>

@@ -367,7 +367,15 @@ export default function App() {
         document.body
       )}
       {selectedPastVisit && createPortal(
-        <PastVisitDetailsModal visit={selectedPastVisit} onClose={() => setSelectedPastVisit(null)} isDarkMode={isDarkMode} />,
+        <PastVisitDetailsModal
+          visit={selectedPastVisit}
+          onClose={() => setSelectedPastVisit(null)}
+          isDarkMode={isDarkMode}
+          onViewPrescription={(prescription) => {
+            setSelectedPastVisit(null);
+            setSelectedPrescription(prescription);
+          }}
+        />,
         document.body
       )}
       {selectedPrescription && createPortal(
@@ -376,7 +384,9 @@ export default function App() {
           onClose={() => setSelectedPrescription(null)} 
           isDarkMode={isDarkMode}
           onAddToCart={() => {
-            handleAddToCart(selectedPrescription);
+            if (selectedPrescription) {
+              handleAddToCart(selectedPrescription);
+            }
             setSelectedPrescription(null);
           }}
         />,

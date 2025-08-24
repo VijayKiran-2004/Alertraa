@@ -197,7 +197,7 @@ export interface Appointment {
     summary: string;
     details?: {
         notes: string;
-        prescriptions: { name: string; dosage: string }[];
+        prescriptions: Prescription[];
         vitals: { heartRate: string; bloodPressure: string };
     }
 }
