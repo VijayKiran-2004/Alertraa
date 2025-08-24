@@ -156,6 +156,14 @@ export default {
           '0%, 100%': { transform: 'rotate(25deg)', transformOrigin: '20px 26px' },
           '50%': { transform: 'rotate(-25deg)', transformOrigin: '20px 26px' },
         },
+        'scan-ping': {
+          '0%': { transform: 'scale(0.5)', opacity: '1' },
+          '80%, 100%': { transform: 'scale(1.5)', opacity: '0' },
+        },
+        'ambulance-move': {
+          '0%': { 'offset-distance': '0%' },
+          '100%': { 'offset-distance': '100%' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -171,6 +179,8 @@ export default {
         'flame-flicker': 'flame-flicker 1.5s ease-in-out infinite',
         'walk-leg-1': 'walk-leg-1 1s ease-in-out infinite',
         'walk-leg-2': 'walk-leg-2 1s ease-in-out infinite',
+        'scan-ping': 'scan-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'ambulance-move': 'ambulance-move 15s linear forwards',
       },
     },
   },

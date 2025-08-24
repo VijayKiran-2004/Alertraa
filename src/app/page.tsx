@@ -47,6 +47,7 @@ import NotificationPopover from '@/components/notification-popover';
 import DailyPlanModal from '@/components/daily-plan-modal';
 import PastVisitDetailsModal from '@/components/past-visit-details-modal';
 import PrescriptionDetailsModal from '@/components/prescription-details-modal';
+import SosActivePage from '@/components/sos-active-page';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
@@ -55,6 +56,7 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('Home');
   const [showSosModal, setShowSosModal] = useState(false);
+  const [sosActive, setSosActive] = useState(false);
   const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
   const [isMapEnlarged, setIsMapEnlarged] = useState(false);
   const [selectedEmergency, setSelectedEmergency] = useState<string | null>(null);
@@ -132,6 +134,8 @@ export default function App() {
   const handleSosClick = () => setShowSosModal(true);
   
   const handleConfirmSos = async () => {
+    setShowSosModal(false);
+    setSosActive(true);
     try {
       const notificationInput = {
         emergencyContacts: mockData.emergencyContacts,
@@ -153,8 +157,6 @@ export default function App() {
       console.log('SOS Confirmed! Generated notifications:', notifications);
     } catch (error) {
       console.error('Failed to generate emergency notifications:', error);
-    } finally {
-      setShowSosModal(false);
     }
   };
 
@@ -227,6 +229,10 @@ export default function App() {
     return <LoginPage onLogin={handleLogin} isDarkMode={isDarkMode} />;
   }
   
+  if (sosActive) {
+    return <SosActivePage onClose={() => setSosActive(false)} isDarkMode={isDarkMode} />;
+  }
+
   if (selectedMetric) {
     return <MetricDetailsPage metric={selectedMetric} vitals={vitals} dailyActivity={dailyActivity} onClose={() => setSelectedMetric(null)} isDarkMode={isDarkMode} />;
   }

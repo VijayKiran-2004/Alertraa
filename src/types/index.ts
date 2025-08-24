@@ -220,6 +220,8 @@ export interface Quote {
   author: string;
 }
 
+export type SosStage = 'searching' | 'dispatched' | 'en-route' | 'arriving';
+
 export interface MockData {
   vitals: Vital;
   dailyActivity: DailyActivity;
