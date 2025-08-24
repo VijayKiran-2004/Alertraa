@@ -69,7 +69,6 @@ const AnimatedPieChart = ({ data, isDarkMode }: { data: any[], isDarkMode: boole
   }, [data.length]);
 
   const activeData = data[activeIndex];
-  const textColor = isDarkMode ? 'white' : 'black';
 
   return (
     <div className="w-full h-64 relative">
