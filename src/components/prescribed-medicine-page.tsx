@@ -66,7 +66,7 @@ export default function PrescribedMedicinePage({ isDarkMode, onAddToCart, onView
                   </div>
                   <div className="flex items-center space-x-3">
                     <button onClick={() => onViewPrescription(prescription)} className="text-sm font-medium text-primary hover:underline">
-                      View PDF
+                      View Prescription
                     </button>
                     <button
                       onClick={() => onAddToCart(prescription)}
