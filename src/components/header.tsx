@@ -13,13 +13,36 @@ interface HeaderProps {
 }
 
 const AlertraLogo = (props: React.HTMLAttributes<HTMLDivElement>) => (
-    <div
-      className="text-4xl font-bold font-headline tracking-wider text-primary"
-      {...props}
-    >
-      ALERTRA
-    </div>
-  );
+  <div className="w-24 h-auto text-primary" {...props}>
+    <svg viewBox="0 0 135 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M51.6 34.41H17.89V23.36C17.89 23.36 20.21 15.35 34.75 15.35C49.29 15.35 51.6 23.36 51.6 23.36V34.41Z"
+        fill="#4866FA"
+      />
+      <path
+        d="M0 72.06V41.67H17.89V72.06H0Z"
+        fill="#4866FA"
+      />
+      <path
+        d="M33.71 72.06V41.67H51.6V72.06H33.71Z"
+        fill="#4866FA"
+      />
+      <path
+        d="M109.84 72.06L75.14 41.67H95.96L130.66 72.06H109.84Z"
+        fill="#4866FA"
+      />
+      <path
+        d="M89.7899 34.41H56.0799V23.36C56.0799 23.36 58.3999 15.35 72.9399 15.35C87.4799 15.35 89.7899 23.36 89.7899 23.36V34.41Z"
+        fill="#4866FA"
+      />
+      <g>
+        <rect x="54.49" y="3.41" width="13.16" height="6.58" rx="3" transform="rotate(30 54.49 3.41)" fill="#F97316"/>
+        <rect x="30.29" y="10.8" width="13.16" height="6.58" rx="3" transform="rotate(30 30.29 10.8)" fill="#EF4444"/>
+        <rect x="78.69" y="1.2" width="13.16" height="6.58" rx="3" transform="rotate(30 78.69 1.2)" fill="#FBBF24"/>
+      </g>
+    </svg>
+  </div>
+);
 
 
 export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCount, onCartClick, onNotificationClick }: HeaderProps) {
