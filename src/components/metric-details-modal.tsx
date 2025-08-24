@@ -105,6 +105,7 @@ const MainContent = ({ metric, value, unit, color, isDarkMode, secondaryTextClas
 
 const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textClasses, recommendation, tips, setSelectedTip }: { metric: string, color: string, isDarkMode: boolean, secondaryTextClasses: string, textClasses: string, recommendation: string, tips: MaintenanceTip[], setSelectedTip: (tip: MaintenanceTip) => void }) => {
     const sleepDetails = mockData.dailyActivity.sleepDetails;
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const sleepPieData = useMemo(() => {
         const { hoursVsNeeded, consistency, efficiency, highStress } = sleepDetails;
@@ -116,6 +117,15 @@ const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textCla
             { name: 'High Stress', value: highStress, fill: '#f97316' },
         ];
     }, [sleepDetails]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex((prevIndex) => (prevIndex + 1) % sleepPieData.length);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, [sleepPieData.length]);
+
+    const activeSegment = sleepPieData[activeIndex];
 
     return (
       <>
@@ -135,33 +145,39 @@ const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textCla
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
-          <div className="w-full h-64">
-            <ResponsiveContainer>
-              <PieChart>
-                <Pie
-                  data={sleepPieData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  dataKey="value"
-                >
-                  {sleepPieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
-                    border: 'none',
-                    borderRadius: '0.5rem',
-                  }}
-                  formatter={(value) => `${value}%`}
-                />
-                <Legend iconSize={10} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+            <div className="w-full h-64 relative">
+                <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                    <Pie
+                        data={sleepPieData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={60}
+                        outerRadius={80}
+                        dataKey="value"
+                        paddingAngle={5}
+                    >
+                    {sleepPieData.map((entry, index) => (
+                        <Cell 
+                            key={`cell-${index}`} 
+                            fill={entry.fill} 
+                            opacity={index === activeIndex ? 1 : 0.5}
+                            className="transition-opacity duration-500"
+                        />
+                    ))}
+                    </Pie>
+                    <Tooltip content={() => null} />
+                </PieChart>
+                </ResponsiveContainer>
+                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <p className={`text-2xl font-bold transition-opacity duration-300`} style={{ color: activeSegment.fill }}>
+                        {activeSegment.value}%
+                    </p>
+                    <p className={`text-sm font-medium text-center max-w-[100px] transition-opacity duration-300 ${secondaryTextClasses}`}>
+                        {activeSegment.name}
+                    </p>
+                </div>
+            </div>
         </SectionCard>
 
         <SectionCard isDarkMode={isDarkMode}>
@@ -333,4 +349,3 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
     </div>
   );
 }
-
