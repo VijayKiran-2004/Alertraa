@@ -10,7 +10,7 @@ interface GoogleMapProps {
 }
 
 export default function GoogleMap({ location, showControls, isDarkMode }: GoogleMapProps) {
-  const mapImageUrl = `https://placehold.co/600x400/e0e0e0/abb2bf`;
+  const mapImageUrl = `https://placehold.co/600x400.png`;
 
   return (
     <div className="w-full h-full relative overflow-hidden rounded-xl shadow-inner">
@@ -20,7 +20,7 @@ export default function GoogleMap({ location, showControls, isDarkMode }: Google
         layout="fill"
         objectFit="cover"
         className={isDarkMode ? 'dark-map-filter' : ''}
-        data-ai-hint="abstract map illustration"
+        data-ai-hint="map illustration"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
       {showControls && (
