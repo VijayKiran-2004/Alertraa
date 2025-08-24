@@ -3,10 +3,9 @@
 import { useState, useEffect } from 'react';
 import { X, Bell } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import { mockData } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
 import type { SosStage } from '@/types';
-import GoogleMap from './google-map';
+import MapPlaceholder from './map-placeholder';
 
 interface SosActivePageProps {
   onClose: () => void;
@@ -108,7 +107,7 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
 
       <main className="relative flex-1 flex flex-col">
         <div className="absolute inset-0">
-          <GoogleMap isDarkMode={isDarkMode} />
+          <MapPlaceholder isDarkMode={isDarkMode} />
         </div>
         
         {stage === 'searching' && (
