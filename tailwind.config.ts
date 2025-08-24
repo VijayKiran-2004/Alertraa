@@ -108,6 +108,16 @@ export default {
             'background-position': 'right center',
           },
         },
+        'slow-gradient-xy': {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
         'ecg-draw': {
           to: {
             'stroke-dashoffset': '0',
@@ -153,6 +163,7 @@ export default {
         beat: 'beat 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in': 'fadeIn 0.3s ease-out',
         'gradient-xy': 'gradient-xy 1.5s linear infinite',
+        'slow-gradient-xy': 'slow-gradient-xy 3s linear infinite',
         'ecg-draw': 'ecg-draw var(--animation-duration, 1s) ease-out infinite',
         'ecg-pulse': 'ecg-pulse var(--animation-duration, 1s) infinite',
         'meter-needle': 'meter-needle 0.5s ease-out forwards',
