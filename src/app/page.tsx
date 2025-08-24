@@ -136,28 +136,28 @@ export default function App() {
   const handleConfirmSos = async () => {
     setShowSosModal(false);
     setSosActive(true);
-    try {
-      const notificationInput = {
-        emergencyContacts: mockData.emergencyContacts,
-        userDetails: {
-            username: mockData.userDetails.username,
-            age: mockData.userDetails.age,
-            gender: mockData.userDetails.gender,
-            height: mockData.userDetails.height,
-            weight: mockData.userDetails.weight,
-        },
-        currentVitals: {
-            heartRate: vitals.heartRate,
-            bloodPressure: vitals.bloodPressure,
-            bloodOxygen: vitals.bloodOxygen,
-        },
-        location: mockData.location,
-      };
-      const notifications = await notifyEmergencyContacts(notificationInput);
-      console.log('SOS Confirmed! Generated notifications:', notifications);
-    } catch (error) {
-      console.error('Failed to generate emergency notifications:', error);
-    }
+    // try {
+    //   const notificationInput = {
+    //     emergencyContacts: mockData.emergencyContacts,
+    //     userDetails: {
+    //         username: mockData.userDetails.username,
+    //         age: mockData.userDetails.age,
+    //         gender: mockData.userDetails.gender,
+    //         height: mockData.userDetails.height,
+    //         weight: mockData.userDetails.weight,
+    //     },
+    //     currentVitals: {
+    //         heartRate: vitals.heartRate,
+    //         bloodPressure: vitals.bloodPressure,
+    //         bloodOxygen: vitals.bloodOxygen,
+    //     },
+    //     location: mockData.location,
+    //   };
+    //   const notifications = await notifyEmergencyContacts(notificationInput);
+    //   console.log('SOS Confirmed! Generated notifications:', notifications);
+    // } catch (error) {
+    //   console.error('Failed to generate emergency notifications:', error);
+    // }
   };
 
   const handleCancelSos = () => setShowSosModal(false);
