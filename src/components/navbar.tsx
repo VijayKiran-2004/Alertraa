@@ -20,7 +20,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     { name: 'Profile', icon: <User size={24} />, page: 'User' },
   ];
 
-  const navBarBgClasses = 'bg-gradient-to-r from-green-100 via-blue-100 to-white dark:from-green-900/70 dark:via-blue-900/70 dark:to-slate-800/70 animate-slow-gradient-xy';
+  const navBarBgClasses = 'bg-gradient-to-r from-green-200 via-blue-200 to-white dark:from-green-800/70 dark:via-blue-800/70 dark:to-slate-800/70 animate-slow-gradient-xy';
   const iconActiveClasses = 'bg-gradient-to-r from-primary to-accent text-white';
   const iconInactiveClasses = isDarkMode ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-black/5';
 
