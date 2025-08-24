@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X, Ambulance, CheckCircle, Bell } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import GoogleMap from './google-map';
+import Image from 'next/image';
 import { mockData } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
 import type { SosStage } from '@/types';
@@ -103,7 +103,19 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
 
       <main className="relative flex-1 flex flex-col">
         <div className="absolute inset-0">
-          <GoogleMap location={mockData.location} showControls={false} isDarkMode={true} />
+          <Image
+            src="https://placehold.co/1200x800.png"
+            alt="Map of the area"
+            layout="fill"
+            objectFit="cover"
+            className={isDarkMode ? 'dark-map-filter' : ''}
+            data-ai-hint="city map"
+          />
+          <style jsx global>{`
+            .dark-map-filter {
+              filter: invert(1) hue-rotate(180deg);
+            }
+          `}</style>
         </div>
         
         {stage === 'searching' && (
@@ -119,8 +131,8 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
         {(stage === 'en-route' || stage === 'arriving') && (
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
-                    <path d="M 20 80 C 40 20, 60 20, 80 80" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
-                    <Ambulance size={8} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 20 80 C 40 20, 60 20, 80 80")' }} />
+                    <path d="M 10 90 Q 30 20 60 50 T 90 20" stroke="#4866FA" strokeWidth="2" strokeDasharray="4" fill="none" className="animate-pulse" />
+                    <Ambulance size={8} className="text-white animate-ambulance-move" style={{ offsetPath: 'path("M 10 90 Q 30 20 60 50 T 90 20")' }} />
                 </svg>
             </div>
         )}
