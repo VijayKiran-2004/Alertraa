@@ -41,7 +41,6 @@ export default function SosActivePage({ onClose, isDarkMode }: SosActivePageProp
     const timeouts: NodeJS.Timeout[] = [];
 
     timeouts.push(setTimeout(() => {
-        setShowPopup('Ambulance has been dispatched and is heading your way!');
         setStage('dispatched');
     }, 4000));
 
