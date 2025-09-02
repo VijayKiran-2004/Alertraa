@@ -4,18 +4,14 @@ import { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import { mockData } from '@/lib/mock-data';
 
-type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
-
 interface SettingsModalProps {
   setting: string;
   onClose: () => void;
   isDarkMode: boolean;
   setIsDarkMode: (isDark: boolean) => void;
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
 }
 
-export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkMode, theme, setTheme }: SettingsModalProps) {
+export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkMode }: SettingsModalProps) {
   const [notifications, setNotifications] = useState(mockData.settingsContent['Notifications'].content);
   const [guardians, setGuardians] = useState(mockData.settingsContent['Default Partners/Guardians'].assigned);
   const [otherContacts, setOtherContacts] = useState(mockData.settingsContent['Default Partners/Guardians'].others);
@@ -51,9 +47,6 @@ export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkM
   const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
   const listBgClasses = isDarkMode ? 'bg-slate-700' : 'bg-gray-100';
   const listTextClasses = isDarkMode ? 'text-white' : 'text-gray-700';
-  const labelTextClasses = isDarkMode ? 'text-gray-300' : 'text-gray-700';
-  const inputBgClasses = isDarkMode ? 'bg-slate-700 border-slate-600' : 'bg-gray-100 border-gray-300';
-
 
   const getModalContent = () => {
     switch (setting) {
@@ -158,21 +151,6 @@ export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkM
               <button onClick={() => handleToggle(null, 'Accessibility')} className={`relative w-10 h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out flex-shrink-0 ${isDarkMode ? 'bg-primary' : 'bg-gray-300'}`}>
                 <span className={`absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`}></span>
               </button>
-            </div>
-            <div className={`p-3 rounded-lg ${listBgClasses} mt-4`}>
-                <label htmlFor="theme-select" className={`block text-sm font-medium mb-2 ${labelTextClasses}`}>Theme</label>
-                 <select
-                    id="theme-select"
-                    value={theme}
-                    onChange={(e) => setTheme(e.target.value as Theme)}
-                    className={`w-full p-2 rounded-md ${inputBgClasses}`}
-                >
-                    <option value="default">Default</option>
-                    <option value="blue-yonder">Blue Yonder</option>
-                    <option value="american-blue">American Blue</option>
-                    <option value="eerie-black">Eerie Black</option>
-                    <option value="pink-delight">Pink Delight</option>
-                </select>
             </div>
             <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Adjust app settings for better accessibility, including font sizes, color contrast, and screen reader support.</p>
           </div>

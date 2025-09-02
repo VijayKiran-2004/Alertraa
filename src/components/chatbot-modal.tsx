@@ -16,6 +16,17 @@ interface Message {
   text: string;
 }
 
+const predefinedAnswers: Record<string, string> = {
+  "What are some diet tips for managing high blood pressure?":
+    "To manage high blood pressure, it's recommended to:\n\n*   **Reduce sodium intake:** Avoid processed foods and limit salt.\n*   **Eat potassium-rich foods:** Bananas, spinach, and sweet potatoes are great choices.\n*   **Follow the DASH diet:** This diet emphasizes fruits, vegetables, whole grains, and lean proteins.",
+  "Can you suggest a simple walking plan for beginners?":
+    "Of course! Here’s a simple walking plan to get you started:\n\n*   **Week 1:** Start with a 15-minute walk at a comfortable pace, 5 days a week.\n*   **Week 2:** Increase your walk to 20 minutes.\n*   **Week 3:** Walk for 25 minutes.\n*   **Week 4:** Aim for a 30-minute walk. After this, you can gradually increase your pace or duration.",
+  "What precautions should I take with my penicillin allergy?":
+    "If you have a penicillin allergy, it's crucial to:\n\n*   **Inform all healthcare providers:** Make sure your doctors, dentists, and pharmacists are aware of your allergy.\n*   **Wear a medical alert bracelet:** This can provide vital information in an emergency.\n*   **Know the signs of a reaction:** Be aware of symptoms like hives, swelling, or difficulty breathing and seek immediate medical attention if they occur.",
+  "What is the average resting heart rate?":
+    "A normal resting heart rate for adults ranges from **60 to 100 beats per minute (bpm)**. Generally, a lower heart rate at rest implies more efficient heart function and better cardiovascular fitness. For example, a well-trained athlete might have a normal resting heart rate closer to 40 bpm.",
+};
+
 export default function ChatbotModal({ onClose, isDarkMode }: ChatbotModalProps) {
   const [messages, setMessages] = useState<Message[]>([
     { role: 'ai', text: "Hello! I'm Alertra's health assistant. How can I help you today?" }
@@ -55,6 +66,16 @@ export default function ChatbotModal({ onClose, isDarkMode }: ChatbotModalProps)
     setInput('');
     setIsLoading(true);
     setShowFaqs(false);
+
+    // Check for predefined answer
+    if (predefinedAnswers[query]) {
+        setTimeout(() => {
+            const aiResponse: Message = { role: 'ai', text: predefinedAnswers[query] };
+            setMessages(prev => [...prev, aiResponse]);
+            setIsLoading(false);
+        }, 1000);
+        return;
+    }
 
     try {
       const aiResponseText = await healthSummaryQuery(query);

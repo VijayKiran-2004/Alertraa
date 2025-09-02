@@ -50,7 +50,6 @@ import PrescriptionDetailsModal from '@/components/prescription-details-modal';
 import SosActivePage from '@/components/sos-active-page';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
-type Theme = 'default' | 'blue-yonder' | 'american-blue' | 'eerie-black' | 'pink-delight';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -66,7 +65,6 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState<string | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [theme, setTheme] = useState<Theme>('default');
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [showChatbotModal, setShowChatbotModal] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -90,9 +88,7 @@ export default function App() {
   
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
-    document.documentElement.classList.remove('default', 'blue-yonder', 'american-blue', 'eerie-black', 'pink-delight');
-    document.documentElement.classList.add(theme);
-  }, [isDarkMode, theme]);
+  }, [isDarkMode]);
 
   const checkVitalsStatus = (vitalsData: { heartRate: string, bloodPressure: string, bloodOxygen: string }) => {
     const hr = parseInt(vitalsData.heartRate.split(' ')[0], 10);
@@ -328,7 +324,7 @@ export default function App() {
         document.body
       )}
       {showSettingsModal && createPortal(
-        <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} theme={theme} setTheme={setTheme} />,
+        <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />,
         document.body
       )}
       {showBurgerMenu && createPortal(
