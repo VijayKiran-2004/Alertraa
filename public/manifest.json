@@ -1,0 +1,21 @@
+{
+  "name": "Alertra",
+  "short_name": "Alertra",
+  "description": "Your Personal Health Guardian",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F1F5F9",
+  "theme_color": "#6199D1",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
