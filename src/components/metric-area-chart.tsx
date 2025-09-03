@@ -29,7 +29,7 @@ export default function MetricAreaChart({ data, isDarkMode, yAxisDomain }: Metri
   const textColor = isDarkMode ? '#cbd5e1' : '#475569';
 
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-80">
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart
             data={data}
