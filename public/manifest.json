@@ -7,10 +7,17 @@
       "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ],
   "theme_color": "#6199D1",
   "background_color": "#F1F5F9",
   "start_url": "/",
-  "display": "standalone"
+  "display": "standalone",
+  "orientation": "portrait"
 }
