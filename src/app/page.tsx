@@ -30,6 +30,7 @@ import ProfilePage from '@/components/profile-page';
 import MedicinePage from '@/components/medicine-page';
 import LoginPage from '@/components/login-page';
 import MetricDetailsModal from '@/components/metric-details-modal';
+import LoadingScreen from '@/components/loading-screen';
 
 import SosModal from '@/components/sos-modal';
 import EmergencyDetailsModal from '@/components/emergency-details-modal';
@@ -218,7 +219,7 @@ export default function App() {
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   if (!isClient) {
-    return null;
+    return <LoadingScreen isDarkMode={isDarkMode} />;
   }
   
   if (!isAuthenticated) {
