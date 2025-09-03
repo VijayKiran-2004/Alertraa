@@ -71,7 +71,7 @@ const MainContent = ({ metric, value, unit, color, isDarkMode, secondaryTextClas
       </div>
       
       <SectionCard isDarkMode={isDarkMode}>
-          <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>Today vs Last Week Comparison</h2>
+          <h2 className={`text-lg font-headline font-bold text-center mb-4 ${textClasses}`}>Recent Activity Comparison</h2>
           <MetricAreaChart data={chartData} isDarkMode={isDarkMode} yAxisDomain={yAxisDomain} />
       </SectionCard>
 
@@ -349,3 +349,5 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
     </div>
   );
 }
+
+    
