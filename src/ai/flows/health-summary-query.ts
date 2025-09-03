@@ -26,7 +26,7 @@ const healthSummaryPrompt = ai.definePrompt({
   name: 'healthSummaryPrompt',
   input: {schema: HealthSummaryQueryInputSchema},
   output: {schema: HealthSummaryQueryOutputSchema},
-  prompt: `You are an AI health assistant for an app named \"Alertra\".
+  prompt: `You are an AI health assistant for an app named \"Alertraa\".
   Your purpose is to provide helpful, general health advice, diet suggestions, and safety precautions based on user query.
   Please provide the response in a concise, conversational tone. Use Markdown formatting like **bolding** and bullet points for lists to make the information easy to read.
   Use your knowledge and be creative to answer the following user query: {{{$input}}}`,

@@ -29,7 +29,7 @@ const predefinedAnswers: Record<string, string> = {
 
 export default function ChatbotModal({ onClose, isDarkMode }: ChatbotModalProps) {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'ai', text: "Hello! I'm Alertra's health assistant. How can I help you today?" }
+    { role: 'ai', text: "Hello! I'm Alertraa's health assistant. How can I help you today?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);

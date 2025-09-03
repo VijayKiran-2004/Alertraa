@@ -3,7 +3,7 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Alertra',
+  title: 'Alertraa',
   description: 'Your Personal Health Guardian',
   manifest: '/manifest.json',
 };
@@ -31,10 +31,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <meta name="application-name" content="Alertra" />
+        <meta name="application-name" content="Alertraa" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Alertra" />
+        <meta name="apple-mobile-web-app-title" content="Alertraa" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#6199D1" />

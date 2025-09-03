@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import { AlertraLogo } from './alertra-logo';
+import { AlertraaLogo } from '@/components/alertraa-logo';
 
 interface LoginPageProps {
   onLogin: (username: string, password: string) => void;
@@ -27,7 +27,7 @@ export default function LoginPage({ onLogin, isDarkMode }: LoginPageProps) {
     <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
       <div className={`w-full max-w-md p-8 space-y-8 rounded-2xl shadow-xl ${cardClasses}`}>
         <div className="text-center">
-            <AlertraLogo className="mx-auto mb-4 !w-40" />
+            <AlertraaLogo className="mx-auto mb-4 !w-40" />
             <p className={`font-semibold text-lg ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Your Personal Health Guardian</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
