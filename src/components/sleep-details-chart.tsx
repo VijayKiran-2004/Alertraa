@@ -1,3 +1,4 @@
+
 'use client';
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -36,7 +37,7 @@ export default function SleepDetailsChart({ data, isDarkMode }: SleepDetailsChar
                 border: 'none',
                 borderRadius: '0.5rem',
             }}
-            cursor={{ fill: isDarkMode ? 'rgba(148, 163, 184, 0.1)' : 'rgba(100, 116, 139, 0.1)' }}
+            cursor={false}
           />
           <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
           <Bar dataKey="Normal Sleep" fill={chartColors['Normal Sleep']} radius={[4, 4, 0, 0]} />

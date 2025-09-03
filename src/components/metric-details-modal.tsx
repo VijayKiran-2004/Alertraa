@@ -166,7 +166,7 @@ const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textCla
                         />
                     ))}
                     </Pie>
-                    <Tooltip content={() => null} />
+                    <Tooltip content={() => null} cursor={false} />
                 </PieChart>
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
