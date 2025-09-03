@@ -294,7 +294,7 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
 
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">
-      <div className={`p-6 rounded-2xl shadow-xl max-w-2xl w-full flex flex-col space-y-4 max-h-[90vh] ${modalBgClasses}`}>
+      <div className={`p-6 rounded-2xl shadow-xl max-w-4xl w-full flex flex-col space-y-4 max-h-[90vh] ${modalBgClasses}`}>
         <header className="flex items-center justify-between sticky top-0">
           <h1 className="text-xl font-headline font-bold">Today</h1>
           <div className="flex items-center gap-2">
