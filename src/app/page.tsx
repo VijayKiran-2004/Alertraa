@@ -85,6 +85,13 @@ export default function App() {
 
   useEffect(() => {
     setIsClient(true);
+    if (typeof window !== 'undefined') {
+      const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      setIsDarkMode(darkModeQuery.matches);
+      const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+      darkModeQuery.addEventListener('change', handleChange);
+      return () => darkModeQuery.removeEventListener('change', handleChange);
+    }
   }, []);
   
   useEffect(() => {
