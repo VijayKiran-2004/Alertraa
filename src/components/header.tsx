@@ -32,10 +32,10 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
   };
 
   return (
-    <header className={cn('px-4 py-1 flex items-center justify-between sticky top-0 z-20', themeClasses)}>
+    <header className={cn('px-4 flex items-center justify-between sticky top-0 z-20', themeClasses)}>
       <div className="flex items-center space-x-3">
          <div className={cn('w-10 h-10 rounded-full transition-colors duration-500', getStatusColorClass(healthStatus))} />
-         <AlertraLogo className="!w-28" />
+         <AlertraLogo className="!w-32" />
       </div>
 
       <div className="flex-1" />
