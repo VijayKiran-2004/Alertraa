@@ -156,6 +156,7 @@ const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textCla
                         outerRadius={80}
                         dataKey="value"
                         paddingAngle={5}
+                        stroke="none"
                     >
                     {sleepPieData.map((entry, index) => (
                         <Cell 
@@ -163,6 +164,7 @@ const SleepContent = ({ metric, color, isDarkMode, secondaryTextClasses, textCla
                             fill={entry.fill} 
                             opacity={index === activeIndex ? 1 : 0.5}
                             className="transition-opacity duration-500"
+                            style={{ outline: 'none' }}
                         />
                     ))}
                     </Pie>
