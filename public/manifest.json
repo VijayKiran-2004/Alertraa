@@ -1,7 +1,12 @@
 {
   "name": "Alertraa",
   "short_name": "Alertraa",
-  "description": "Your Personal Health Guardian",
+  "theme_color": "#6199D11",
+  "background_color": "#F1F5F9",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "/icon.svg",
@@ -9,15 +14,20 @@
       "type": "image/svg+xml"
     },
     {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
       "src": "/icon-maskable.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
     }
-  ],
-  "theme_color": "#6199D1",
-  "background_color": "#F1F5F9",
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }
