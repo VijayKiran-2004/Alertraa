@@ -53,6 +53,7 @@ import SosActivePage from '@/components/sos-active-page';
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
 
 export default function App() {
+  const [appLoading, setAppLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('Home');
   const [showSosModal, setShowSosModal] = useState(false);
@@ -90,6 +91,11 @@ export default function App() {
       setIsDarkMode(darkModeQuery.matches);
       const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
       darkModeQuery.addEventListener('change', handleChange);
+      
+      setTimeout(() => {
+        setAppLoading(false);
+      }, 1500);
+
       return () => darkModeQuery.removeEventListener('change', handleChange);
     }
   }, []);
@@ -225,7 +231,7 @@ export default function App() {
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  if (!isClient) {
+  if (appLoading || !isClient) {
     return <LoadingScreen isDarkMode={isDarkMode} />;
   }
   
