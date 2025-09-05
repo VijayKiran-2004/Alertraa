@@ -3,10 +3,16 @@
   "short_name": "Alertraa",
   "description": "Your Personal Health Guardian",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#F1F5F9",
   "theme_color": "#6199D1",
   "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
     {
       "src": "/icon-192x192.png",
       "sizes": "192x192",
