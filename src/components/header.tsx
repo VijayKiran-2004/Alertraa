@@ -40,13 +40,13 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
 
       <div className="flex-1" />
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <button
           onClick={onCartClick}
-          className={cn('p-2 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          className={cn('p-1 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open shopping cart"
         >
-          <ShoppingCart size={24} />
+          <ShoppingCart size={22} />
           {cartCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               {cartCount}
@@ -55,17 +55,17 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
         </button>
         <button
           onClick={onNotificationClick}
-          className={cn('p-2 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          className={cn('p-1 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open notifications"
         >
-          <Bell size={24} />
+          <Bell size={22} />
         </button>
         <button 
           onClick={onMenuClick}
-          className={cn('p-2 rounded-full transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
+          className={cn('p-1 rounded-full transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open settings menu"
         >
-          <Settings size={24} />
+          <Settings size={22} />
         </button>
       </div>
     </header>
