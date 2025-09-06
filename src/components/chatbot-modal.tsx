@@ -90,7 +90,7 @@ export default function ChatbotModal({ onClose, isDarkMode }: ChatbotModalProps)
     }
   };
 
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const chatBubbleClasses = isDarkMode ? 'bg-slate-700' : 'bg-gray-100';
   const inputClasses = isDarkMode ? 'bg-slate-700 text-white placeholder-slate-400 border-slate-600' : 'bg-gray-100 text-slate-900 placeholder-gray-500 border-gray-300';
   const sendButtonClasses = 'bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 animate-gradient-xy';

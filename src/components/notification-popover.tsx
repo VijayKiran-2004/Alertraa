@@ -10,7 +10,7 @@ interface NotificationPopoverProps {
 }
 
 export default function NotificationPopover({ onClose, isDarkMode, onShowSettings }: NotificationPopoverProps) {
-  const popoverBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const popoverBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const itemBgClasses = isDarkMode ? 'bg-slate-700' : 'bg-gray-100';
   const textClasses = isDarkMode ? 'text-white' : 'text-slate-900';
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';

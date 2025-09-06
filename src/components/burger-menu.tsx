@@ -10,7 +10,7 @@ interface BurgerMenuProps {
 }
 
 export default function BurgerMenu({ onClose, onShowSettingsModal, isDarkMode, onLogout }: BurgerMenuProps) {
-  const menuBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const menuBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const itemClasses = isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-100';
 
   const settingsItems = [

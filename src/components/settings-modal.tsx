@@ -44,7 +44,7 @@ export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkM
     setConnectedDevices(newDevices);
   };
 
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const listBgClasses = isDarkMode ? 'bg-slate-700' : 'bg-gray-100';
   const listTextClasses = isDarkMode ? 'text-white' : 'text-gray-700';
 

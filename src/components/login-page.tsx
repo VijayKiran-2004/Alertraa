@@ -19,7 +19,7 @@ export default function LoginPage({ onLogin, isDarkMode }: LoginPageProps) {
     onLogin(username, password);
   };
 
-  const cardClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
+  const cardClasses = isDarkMode ? 'bg-card' : 'bg-white';
   const inputBgClasses = isDarkMode ? 'bg-slate-700 border-slate-600 text-white' : 'bg-gray-100 border-gray-300 text-slate-900';
   const labelTextClasses = isDarkMode ? 'text-gray-300' : 'text-gray-700';
 

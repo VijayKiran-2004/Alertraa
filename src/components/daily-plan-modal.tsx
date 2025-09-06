@@ -29,7 +29,7 @@ const PlanItem = ({ time, description, isDarkMode, id }: { time: string, descrip
 );
 
 export default function DailyPlanModal({ onClose, isDarkMode }: DailyPlanModalProps) {
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
 
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">

@@ -8,7 +8,7 @@ interface PaymentConfirmationModalProps {
 }
 
 export default function PaymentConfirmationModal({ onClose, isDarkMode }: PaymentConfirmationModalProps) {
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const textMutedClasses = isDarkMode ? 'text-slate-400' : 'text-gray-600';
 
   return (

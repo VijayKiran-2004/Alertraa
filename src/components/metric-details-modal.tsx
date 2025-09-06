@@ -292,7 +292,7 @@ export default function MetricDetailsModal({ metric, vitals, dailyActivity, onCl
   const secondaryTextClasses = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const recommendation = data.recommendations[metric] || "No recommendations available.";
   const tips = maintenanceTips[metric] || [];
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
 
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">

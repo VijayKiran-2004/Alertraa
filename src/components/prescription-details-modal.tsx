@@ -12,7 +12,7 @@ interface PrescriptionDetailsModalProps {
 }
 
 export default function PrescriptionDetailsModal({ prescription, onClose, isDarkMode, onAddToCart }: PrescriptionDetailsModalProps) {
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const textMuted = isDarkMode ? 'text-slate-400' : 'text-gray-500';
   const paperBg = isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200';
   

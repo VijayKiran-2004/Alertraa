@@ -10,7 +10,7 @@ interface EnlargedMapModalProps {
 }
 
 export default function EnlargedMapModal({ onClose, isDarkMode }: EnlargedMapModalProps) {
-  const headerBgClasses = isDarkMode ? 'bg-[#36454F] border-slate-700 text-white' : 'bg-white border-gray-200 text-slate-900';
+  const headerBgClasses = isDarkMode ? 'bg-card border-slate-700 text-white' : 'bg-white border-gray-200 text-slate-900';
 
   return (
     <div className="fixed inset-0 flex flex-col z-50 animate-fade-in" style={{ backgroundColor: isDarkMode ? '#1E293B' : '#F1F5F9' }}>

@@ -9,7 +9,7 @@ interface SectionCardProps {
 }
 
 export default function SectionCard({ title, children, isDarkMode }: SectionCardProps) {
-  const cardClasses = isDarkMode ? 'bg-[#36454F]' : 'bg-white';
+  const cardClasses = isDarkMode ? 'bg-card' : 'bg-white';
   const titleClasses = isDarkMode ? 'text-white' : 'text-slate-900';
 
   return (

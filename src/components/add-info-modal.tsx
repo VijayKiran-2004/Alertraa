@@ -47,7 +47,7 @@ export default function AddInfoModal({ type, onClose, isDarkMode }: AddInfoModal
     }
   };
 
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
   const inputBgClasses = isDarkMode ? 'bg-slate-700 border-slate-600 text-white' : 'bg-gray-100 border-gray-300 text-slate-900';
   const labelTextClasses = isDarkMode ? 'text-gray-300' : 'text-gray-700';
 

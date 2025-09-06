@@ -10,7 +10,7 @@ interface WeeklyReportModalProps {
 }
 
 export default function WeeklyReportModal({ onClose, isDarkMode }: WeeklyReportModalProps) {
-  const modalBgClasses = isDarkMode ? 'bg-[#36454F] text-white' : 'bg-white text-slate-900';
+  const modalBgClasses = isDarkMode ? 'bg-card text-white' : 'bg-white text-slate-900';
 
   const weeklyData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => {
     const hr = mockData.vitals.pastReadings.find(r => r.date === day && r.type === 'Heart Rate')?.value || 0;
