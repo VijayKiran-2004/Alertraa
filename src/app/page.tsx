@@ -88,8 +88,9 @@ export default function App() {
 
   useEffect(() => {
     setIsClient(true);
-    // Default to light theme
+    // Default to light theme and blue theme
     setIsDarkMode(false);
+    document.documentElement.classList.add('theme-blue');
     
     setTimeout(() => {
       setAppLoading(false);
@@ -277,7 +278,7 @@ export default function App() {
                   onShowCart={() => setShowCartModal(true)}
                   wishlist={wishlist}
                   toggleWishlist={toggleWishlist}
-                  onAddToCart={handleAddToCart}
+                  onAddToCart={onAddToCart}
                   onViewPrescription={setSelectedPrescription}
                 />;
       default:

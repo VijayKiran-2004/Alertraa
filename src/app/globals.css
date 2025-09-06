@@ -14,19 +14,14 @@ body {
     --card-foreground: 222.2 84% 4.9%;
     --popover: 210 30% 98%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 50% 60%;
-    --primary-foreground: 0 0% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 80% 70%;
-    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 210 50% 60%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -50,19 +45,14 @@ body {
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 50% 60%;
-    --primary-foreground: 210 40% 98%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 210 80% 70%;
-    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 210 50% 60%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -78,12 +68,20 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Default Blue Theme (already set in :root) */
+  /* Blue Theme (Default) */
   :root.theme-blue {
-    /* No overrides needed for light blue, it's the default */
+    --primary: 210 50% 60%;
+    --primary-foreground: 0 0% 98%;
+    --accent: 210 80% 70%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --ring: 210 50% 60%;
   }
   .dark.theme-blue {
-    /* No overrides needed for dark blue, it's the default dark */
+    --primary: 210 50% 60%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 210 80% 70%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 210 50% 60%;
   }
 
   /* Green Theme */
@@ -91,10 +89,14 @@ body {
     --primary: 142 76% 36%;
     --accent: 142 66% 46%;
     --ring: 142 76% 36%;
+    --primary-foreground: 0 0% 98%;
+    --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark.theme-green {
     --primary: 142 60% 45%;
     --accent: 142 50% 55%;
+    --primary-foreground: 210 40% 98%;
+    --accent-foreground: 210 40% 98%;
   }
 
   /* Pink Theme */
@@ -102,10 +104,14 @@ body {
     --primary: 340 82% 52%;
     --accent: 340 92% 62%;
     --ring: 340 82% 52%;
+    --primary-foreground: 0 0% 98%;
+    --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark.theme-pink {
     --primary: 340 70% 60%;
     --accent: 340 80% 70%;
+    --primary-foreground: 210 40% 98%;
+    --accent-foreground: 210 40% 98%;
   }
 
   /* Purple Theme */
@@ -113,10 +119,14 @@ body {
     --primary: 262 82% 57%;
     --accent: 262 92% 67%;
     --ring: 262 82% 57%;
+    --primary-foreground: 0 0% 98%;
+    --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark.theme-purple {
     --primary: 262 70% 65%;
     --accent: 262 80% 75%;
+    --primary-foreground: 210 40% 98%;
+    --accent-foreground: 210 40% 98%;
   }
 
   /* Maroon Theme */
@@ -124,10 +134,14 @@ body {
     --primary: 0 59% 40%;
     --accent: 0 69% 50%;
     --ring: 0 59% 40%;
+    --primary-foreground: 0 0% 98%;
+    --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark.theme-maroon {
     --primary: 0 50% 50%;
     --accent: 0 60% 60%;
+    --primary-foreground: 210 40% 98%;
+    --accent-foreground: 210 40% 98%;
   }
 }
 
