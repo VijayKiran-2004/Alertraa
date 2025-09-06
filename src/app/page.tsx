@@ -278,7 +278,7 @@ export default function App() {
                   onShowCart={() => setShowCartModal(true)}
                   wishlist={wishlist}
                   toggleWishlist={toggleWishlist}
-                  onAddToCart={onAddToCart}
+                  onAddToCart={handleAddToCart}
                   onViewPrescription={setSelectedPrescription}
                 />;
       default:
