@@ -87,10 +87,10 @@ body {
   /* Green Theme */
   :root.theme-green {
     --primary: 142 76% 36%;
-    --accent: 142 66% 46%;
-    --ring: 142 76% 36%;
     --primary-foreground: 0 0% 98%;
+    --accent: 142 66% 46%;
     --accent-foreground: 222.2 47.4% 11.2%;
+    --ring: 142 76% 36%;
   }
   .dark.theme-green {
     --primary: 142 60% 45%;
@@ -102,10 +102,10 @@ body {
   /* Pink Theme */
   :root.theme-pink {
     --primary: 340 82% 52%;
-    --accent: 340 92% 62%;
-    --ring: 340 82% 52%;
     --primary-foreground: 0 0% 98%;
+    --accent: 340 92% 62%;
     --accent-foreground: 222.2 47.4% 11.2%;
+    --ring: 340 82% 52%;
   }
   .dark.theme-pink {
     --primary: 340 70% 60%;
@@ -117,10 +117,10 @@ body {
   /* Purple Theme */
   :root.theme-purple {
     --primary: 262 82% 57%;
-    --accent: 262 92% 67%;
-    --ring: 262 82% 57%;
     --primary-foreground: 0 0% 98%;
+    --accent: 262 92% 67%;
     --accent-foreground: 222.2 47.4% 11.2%;
+    --ring: 262 82% 57%;
   }
   .dark.theme-purple {
     --primary: 262 70% 65%;
@@ -132,10 +132,10 @@ body {
   /* Maroon Theme */
   :root.theme-maroon {
     --primary: 0 59% 40%;
-    --accent: 0 69% 50%;
-    --ring: 0 59% 40%;
     --primary-foreground: 0 0% 98%;
+    --accent: 0 69% 50%;
     --accent-foreground: 222.2 47.4% 11.2%;
+    --ring: 0 59% 40%;
   }
   .dark.theme-maroon {
     --primary: 0 50% 50%;
