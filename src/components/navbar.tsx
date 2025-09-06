@@ -27,7 +27,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const containerRef = useRef<HTMLDivElement>(null);
   const iconsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const SVG_HEIGHT = 100;
+  const SVG_HEIGHT = 80;
   const activeIndex = navItems.findIndex(item => item.page === currentPage);
 
   useEffect(() => {
@@ -79,8 +79,8 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     if (!pos) return `M0 0 H${containerWidth} V${SVG_HEIGHT} H0 Z`;
 
     const itemCenter = pos.left + (pos.right - pos.left) / 2;
-    const dipWidth = 90; 
-    const dipDepth = 55;
+    const dipWidth = 110; 
+    const dipDepth = 65;
 
     const startX = itemCenter - dipWidth / 2;
     const endX = itemCenter + dipWidth / 2;
@@ -106,7 +106,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const navItemClasses = (isActive: boolean) => cn(
     'relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full transition-all duration-300',
     isActive 
-      ? 'text-white -translate-y-6 scale-110'
+      ? 'text-white -translate-y-12 scale-110'
       : `opacity-80 -translate-y-1 scale-100 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`
   );
   
@@ -119,7 +119,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
         <svg
           viewBox={`0 0 ${containerWidth} ${SVG_HEIGHT}`}
           preserveAspectRatio="none"
-          className="absolute left-0 -top-8 w-full h-[100px] z-0"
+          className="absolute left-0 -top-8 w-full h-[80px] z-0"
           style={{pointerEvents: 'none'}}
         >
           <motion.path
