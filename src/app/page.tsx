@@ -51,7 +51,6 @@ import PrescriptionDetailsModal from '@/components/prescription-details-modal';
 import SosActivePage from '@/components/sos-active-page';
 
 type Page = 'Home' | 'Booking' | 'User' | 'Medicine';
-type Theme = 'blue' | 'green' | 'pink' | 'purple' | 'maroon';
 
 export default function App() {
   const [appLoading, setAppLoading] = useState(true);
@@ -68,7 +67,6 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState<string | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [theme, setTheme] = useState<Theme>('blue');
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [showChatbotModal, setShowChatbotModal] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -88,9 +86,8 @@ export default function App() {
 
   useEffect(() => {
     setIsClient(true);
-    // Default to light theme and blue theme
+    // Default to light theme
     setIsDarkMode(false);
-    document.documentElement.classList.add('theme-blue');
     
     setTimeout(() => {
       setAppLoading(false);
@@ -101,15 +98,6 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
   }, [isDarkMode]);
-
-  useEffect(() => {
-    document.documentElement.classList.forEach(c => {
-      if (c.startsWith('theme-')) {
-        document.documentElement.classList.remove(c);
-      }
-    });
-    document.documentElement.classList.add(`theme-${theme}`);
-  }, [theme]);
 
   const checkVitalsStatus = (vitalsData: { heartRate: string, bloodPressure: string, bloodOxygen: string }) => {
     const hr = parseInt(vitalsData.heartRate.split(' ')[0], 10);
@@ -345,7 +333,7 @@ export default function App() {
         document.body
       )}
       {showSettingsModal && createPortal(
-        <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} currentTheme={theme} setTheme={setTheme} />,
+        <SettingsModal setting={showSettingsModal} onClose={() => setShowSettingsModal(null)} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />,
         document.body
       )}
       {showBurgerMenu && createPortal(
