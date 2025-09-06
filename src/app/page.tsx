@@ -107,9 +107,7 @@ export default function App() {
         document.documentElement.classList.remove(c);
       }
     });
-    if (theme !== 'blue') {
-      document.documentElement.classList.add(`theme-${theme}`);
-    }
+    document.documentElement.classList.add(`theme-${theme}`);
   }, [theme]);
 
   const checkVitalsStatus = (vitalsData: { heartRate: string, bloodPressure: string, bloodOxygen: string }) => {

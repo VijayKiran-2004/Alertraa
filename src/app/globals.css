@@ -7,20 +7,20 @@ body {
 }
 
 @layer base {
-  :root {
-    --background: 210 50% 97%; /* #F0F6FA */
+  :root, :root.theme-blue {
+    --background: 210 50% 97%;
     --foreground: 222.2 84% 4.9%;
-    --card: 210 30% 98%; /* #F7F9FA */
+    --card: 210 30% 98%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 210 30% 98%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 50% 60%; /* #6199D1 */
+    --primary: 210 50% 60%;
     --primary-foreground: 0 0% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 80% 70%; /* #76B2EE */
+    --accent: 210 80% 70%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -43,10 +43,10 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    --background: 204 10% 4%; /* Near-black with a hint of blue */
-    --foreground: 0 0% 98%; /* Off-white for text */
-    --card: 204 10% 10%; /* Slightly lighter than background */
+  .dark, .dark.theme-blue {
+    --background: 204 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 204 10% 10%;
     --card-foreground: 0 0% 98%;
     --popover: 204 10% 10%;
     --popover-foreground: 0 0% 98%;
