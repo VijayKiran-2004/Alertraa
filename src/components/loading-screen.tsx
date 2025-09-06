@@ -5,8 +5,8 @@ export default function LoadingScreen({ isDarkMode }: { isDarkMode: boolean }) {
   const spinnerClasses = isDarkMode ? 'border-t-white' : 'border-t-slate-900';
 
   const LogoSvg = () => (
-    <div className="w-48 mb-8">
-       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+    <div className="mb-8">
+       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="192" height="192">
         <defs>
             <style>
             {`
