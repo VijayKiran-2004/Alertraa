@@ -78,7 +78,7 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .theme-green {
+  :root.theme-green {
     --primary: 142 76% 36%;
     --accent: 142 66% 46%;
     --ring: 142 76% 36%;
@@ -88,7 +88,7 @@ body {
     --accent: 142 50% 55%;
   }
 
-  .theme-pink {
+  :root.theme-pink {
     --primary: 340 82% 52%;
     --accent: 340 92% 62%;
     --ring: 340 82% 52%;
@@ -98,7 +98,7 @@ body {
     --accent: 340 80% 70%;
   }
 
-  .theme-purple {
+  :root.theme-purple {
     --primary: 262 82% 57%;
     --accent: 262 92% 67%;
     --ring: 262 82% 57%;
@@ -108,7 +108,7 @@ body {
     --accent: 262 80% 75%;
   }
 
-  .theme-maroon {
+  :root.theme-maroon {
     --primary: 0 59% 40%;
     --accent: 0 69% 50%;
     --ring: 0 59% 40%;
