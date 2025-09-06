@@ -79,8 +79,8 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     if (!pos) return `M0 0 H${containerWidth} V${SVG_HEIGHT} H0 Z`;
 
     const itemCenter = pos.left + (pos.right - pos.left) / 2;
-    const dipWidth = 80; 
-    const dipDepth = 50; // Increased from 40 for a deeper curve
+    const dipWidth = 90; 
+    const dipDepth = 55;
 
     const startX = itemCenter - dipWidth / 2;
     const endX = itemCenter + dipWidth / 2;
@@ -111,7 +111,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   );
   
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-20 z-30"> 
+    <nav className="fixed bottom-0 left-0 right-0 h-16 z-30"> 
       <div
         ref={containerRef}
         className={cn('relative h-full flex items-center justify-around', navBarBgClasses)}
