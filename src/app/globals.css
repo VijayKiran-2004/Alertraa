@@ -7,7 +7,7 @@ body {
 }
 
 @layer base {
-  :root, :root.theme-blue {
+  :root {
     --background: 210 50% 97%;
     --foreground: 222.2 84% 4.9%;
     --card: 210 30% 98%;
@@ -43,25 +43,25 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark, .dark.theme-blue {
-    --background: 204 10% 4%;
-    --foreground: 0 0% 98%;
-    --card: 204 10% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 204 10% 10%;
-    --popover-foreground: 0 0% 98%;
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
     --primary: 210 50% 60%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 204 10% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 204 10% 12%;
-    --muted-foreground: 0 0% 63.9%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
     --accent: 210 80% 70%;
-    --accent-foreground: 0 0% 9%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 204 10% 20%;
-    --input: 204 10% 20%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
     --ring: 210 50% 60%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -78,6 +78,15 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Default Blue Theme (already set in :root) */
+  :root.theme-blue {
+    /* No overrides needed for light blue, it's the default */
+  }
+  .dark.theme-blue {
+    /* No overrides needed for dark blue, it's the default dark */
+  }
+
+  /* Green Theme */
   :root.theme-green {
     --primary: 142 76% 36%;
     --accent: 142 66% 46%;
@@ -88,6 +97,7 @@ body {
     --accent: 142 50% 55%;
   }
 
+  /* Pink Theme */
   :root.theme-pink {
     --primary: 340 82% 52%;
     --accent: 340 92% 62%;
@@ -98,6 +108,7 @@ body {
     --accent: 340 80% 70%;
   }
 
+  /* Purple Theme */
   :root.theme-purple {
     --primary: 262 82% 57%;
     --accent: 262 92% 67%;
@@ -108,6 +119,7 @@ body {
     --accent: 262 80% 75%;
   }
 
+  /* Maroon Theme */
   :root.theme-maroon {
     --primary: 0 59% 40%;
     --accent: 0 69% 50%;
