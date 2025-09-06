@@ -2,7 +2,7 @@
 
 import { Settings, ShoppingCart, Bell } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { AppIcon } from '@/components/app-icon';
+import { AlertraaLogo } from '@/components/alertraa-logo';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -35,7 +35,7 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
     <header className={cn('px-4 py-3 flex items-center justify-between sticky top-0 z-20', themeClasses)}>
       <div className="flex items-center space-x-3">
          <div className={cn('w-4 h-4 rounded-full transition-colors duration-500', getStatusColorClass(healthStatus))} />
-         <AppIcon className="w-8 h-8" />
+         <AlertraaLogo className="!w-24" />
       </div>
 
       <div className="flex-1" />
