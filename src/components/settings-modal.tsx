@@ -3,15 +3,28 @@
 import { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import { mockData } from '@/lib/mock-data';
+import { cn } from '@/lib/utils';
+
+type Theme = 'blue' | 'green' | 'pink' | 'purple' | 'maroon';
 
 interface SettingsModalProps {
   setting: string;
   onClose: () => void;
   isDarkMode: boolean;
   setIsDarkMode: (isDark: boolean) => void;
+  currentTheme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
-export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkMode }: SettingsModalProps) {
+const themes: { name: Theme, color: string }[] = [
+  { name: 'blue', color: 'bg-blue-500' },
+  { name: 'green', color: 'bg-green-500' },
+  { name: 'pink', color: 'bg-pink-500' },
+  { name: 'purple', color: 'bg-purple-500' },
+  { name: 'maroon', color: 'bg-red-800' },
+];
+
+export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkMode, currentTheme, setTheme }: SettingsModalProps) {
   const [notifications, setNotifications] = useState(mockData.settingsContent['Notifications'].content);
   const [guardians, setGuardians] = useState(mockData.settingsContent['Default Partners/Guardians'].assigned);
   const [otherContacts, setOtherContacts] = useState(mockData.settingsContent['Default Partners/Guardians'].others);
@@ -144,13 +157,34 @@ export default function SettingsModal({ setting, onClose, isDarkMode, setIsDarkM
         );
       case 'Accessibility':
         return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-headline font-semibold mb-2">Display Settings</h3>
-            <div className={`flex items-center justify-between p-3 rounded-lg ${listBgClasses}`}>
-              <p className={`font-medium ${listTextClasses}`}>Dark Mode</p>
-              <button onClick={() => handleToggle(null, 'Accessibility')} className={`relative w-10 h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out flex-shrink-0 ${isDarkMode ? 'bg-primary' : 'bg-gray-300'}`}>
-                <span className={`absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`}></span>
-              </button>
+          <div className="space-y-6">
+            <div>
+                <h3 className="text-lg font-headline font-semibold mb-2">Display Settings</h3>
+                <div className={`flex items-center justify-between p-3 rounded-lg ${listBgClasses}`}>
+                    <p className={`font-medium ${listTextClasses}`}>Dark Mode</p>
+                    <button onClick={() => handleToggle(null, 'Accessibility')} className={`relative w-10 h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out flex-shrink-0 ${isDarkMode ? 'bg-primary' : 'bg-gray-300'}`}>
+                        <span className={`absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`}></span>
+                    </button>
+                </div>
+            </div>
+            <div>
+                <h3 className="text-lg font-headline font-semibold mb-2">Color Theme</h3>
+                 <div className={`p-3 rounded-lg ${listBgClasses}`}>
+                    <div className="flex items-center justify-around">
+                        {themes.map((theme) => (
+                            <button
+                                key={theme.name}
+                                onClick={() => setTheme(theme.name)}
+                                className={cn(
+                                'w-8 h-8 rounded-full transition-all duration-200',
+                                theme.color,
+                                currentTheme === theme.name ? 'ring-2 ring-offset-2 ring-primary' : 'ring-1 ring-gray-400'
+                                )}
+                                aria-label={`Set ${theme.name} theme`}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
             <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>Adjust app settings for better accessibility, including font sizes, color contrast, and screen reader support.</p>
           </div>

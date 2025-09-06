@@ -77,6 +77,46 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  .theme-green {
+    --primary: 142 76% 36%;
+    --accent: 142 66% 46%;
+    --ring: 142 76% 36%;
+  }
+  .dark.theme-green {
+    --primary: 142 60% 45%;
+    --accent: 142 50% 55%;
+  }
+
+  .theme-pink {
+    --primary: 340 82% 52%;
+    --accent: 340 92% 62%;
+    --ring: 340 82% 52%;
+  }
+  .dark.theme-pink {
+    --primary: 340 70% 60%;
+    --accent: 340 80% 70%;
+  }
+
+  .theme-purple {
+    --primary: 262 82% 57%;
+    --accent: 262 92% 67%;
+    --ring: 262 82% 57%;
+  }
+  .dark.theme-purple {
+    --primary: 262 70% 65%;
+    --accent: 262 80% 75%;
+  }
+
+  .theme-maroon {
+    --primary: 0 59% 40%;
+    --accent: 0 69% 50%;
+    --ring: 0 59% 40%;
+  }
+  .dark.theme-maroon {
+    --primary: 0 50% 50%;
+    --accent: 0 60% 60%;
+  }
 }
 
 @layer base {
