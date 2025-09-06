@@ -8,7 +8,6 @@ body {
 
 @layer base {
   :root {
-    --background: 210 50% 97%;
     --foreground: 222.2 84% 4.9%;
     --card: 210 30% 98%;
     --card-foreground: 222.2 84% 4.9%;
@@ -70,6 +69,7 @@ body {
 
   /* Blue Theme (Default) */
   :root.theme-blue {
+    --background: 210 50% 97%;
     --primary: 210 50% 60%;
     --primary-foreground: 0 0% 98%;
     --accent: 210 80% 70%;
@@ -86,6 +86,7 @@ body {
 
   /* Green Theme */
   :root.theme-green {
+    --background: 140 50% 97%;
     --primary: 142 76% 36%;
     --primary-foreground: 0 0% 98%;
     --accent: 142 66% 46%;
@@ -101,6 +102,7 @@ body {
 
   /* Pink Theme */
   :root.theme-pink {
+    --background: 340 50% 97%;
     --primary: 340 82% 52%;
     --primary-foreground: 0 0% 98%;
     --accent: 340 92% 62%;
@@ -116,6 +118,7 @@ body {
 
   /* Purple Theme */
   :root.theme-purple {
+    --background: 260 50% 97%;
     --primary: 262 82% 57%;
     --primary-foreground: 0 0% 98%;
     --accent: 262 92% 67%;
@@ -131,6 +134,7 @@ body {
 
   /* Maroon Theme */
   :root.theme-maroon {
+    --background: 0 30% 97%;
     --primary: 0 59% 40%;
     --primary-foreground: 0 0% 98%;
     --accent: 0 69% 50%;
