@@ -27,9 +27,8 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const containerRef = useRef<HTMLDivElement>(null);
   const iconsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const SVG_HEIGHT = 100; // Reduced from 120
+  const SVG_HEIGHT = 100;
   const activeIndex = navItems.findIndex(item => item.page === currentPage);
-  const totalItems = navItems.length + 1; // +1 for the SOS button
 
   useEffect(() => {
     const calculatePositions = () => {
@@ -37,7 +36,14 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
         setContainerWidth(containerRef.current.offsetWidth);
       }
       if (iconsRef.current.length > 0) {
-        const positions = iconsRef.current.map((el) => {
+        const allElements = [...iconsRef.current];
+        const sosButton = document.getElementById('sos-button');
+        if (sosButton) {
+          // Insert the SOS button in the middle for position calculation
+          allElements.splice(2, 0, sosButton as any);
+        }
+        
+        const positions = allElements.map((el) => {
           if (!el || !containerRef.current) return { left: 0, right: 0 };
           const rect = el.getBoundingClientRect();
           const parentRect = containerRef.current.getBoundingClientRect();
@@ -52,16 +58,29 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     
     calculatePositions();
     window.addEventListener('resize', calculatePositions);
-    return () => window.removeEventListener('resize', calculatePositions);
-  }, []);
+    const observer = new MutationObserver(calculatePositions);
+    if(containerRef.current) {
+        observer.observe(containerRef.current, { childList: true, subtree: true });
+    }
+
+    return () => {
+        window.removeEventListener('resize', calculatePositions);
+        observer.disconnect();
+    }
+  }, [currentPage]); // Rerun when page changes to get correct activeIndex
   
   const generatePath = (index: number) => {
-    if (!containerWidth || iconPositions.length === 0 || index < 0 || index >= iconPositions.length) return `M0 0 H${containerWidth} V${SVG_HEIGHT} H0 Z`;
+    if (!containerWidth || iconPositions.length === 0 || index < 0) return `M0 0 H${containerWidth} V${SVG_HEIGHT} H0 Z`;
 
-    const pos = iconPositions[index];
+    // Map nav index to the correct icon position index (accounting for SOS button)
+    const positionIndex = index < 2 ? index : index + 1;
+    const pos = iconPositions[positionIndex];
+
+    if (!pos) return `M0 0 H${containerWidth} V${SVG_HEIGHT} H0 Z`;
+
     const itemCenter = pos.left + (pos.right - pos.left) / 2;
     const dipWidth = 80; 
-    const dipDepth = 40; // Reduced from 50
+    const dipDepth = 50; // Increased from 40 for a deeper curve
 
     const startX = itemCenter - dipWidth / 2;
     const endX = itemCenter + dipWidth / 2;
@@ -87,7 +106,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const navItemClasses = (isActive: boolean) => cn(
     'relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full transition-all duration-300',
     isActive 
-      ? 'text-white -translate-y-6 scale-110' // Reduced Y translation
+      ? 'text-white -translate-y-6 scale-110'
       : `opacity-80 -translate-y-1 scale-100 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`
   );
   
@@ -100,7 +119,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
         <svg
           viewBox={`0 0 ${containerWidth} ${SVG_HEIGHT}`}
           preserveAspectRatio="none"
-          className="absolute left-0 -top-8 w-full h-[100px] z-0" // Adjusted top and height
+          className="absolute left-0 -top-8 w-full h-[100px] z-0"
           style={{pointerEvents: 'none'}}
         >
           <motion.path
@@ -113,7 +132,6 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
           />
         </svg>
 
-        {/* Navigation icons */}
         <div className="w-full flex justify-around items-center z-10">
           {navItems.slice(0, 2).map((item, idx) => {
             const isActive = currentPage === item.page;
@@ -132,11 +150,12 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
           })}
 
           <button
+              id="sos-button"
               onClick={onSosClick}
               className={cn(
                   "bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4 z-20",
                   isDarkMode ? 'border-slate-800' : 'border-white',
-                  'relative -translate-y-6' // Reduced Y translation
+                  'relative -translate-y-6'
               )}
               aria-label="SOS Emergency Button"
           >
