@@ -32,7 +32,7 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
   };
 
   return (
-    <header className={cn('px-4 flex items-center justify-between sticky top-0 z-20', themeClasses)}>
+    <header className={cn('px-4 flex justify-between sticky top-0 z-20', themeClasses)}>
       <div className="flex items-center space-x-3">
          <div className={cn('w-4 h-4 rounded-full transition-colors duration-500', getStatusColorClass(healthStatus))} />
          <AlertraaLogo className="!w-20" />
@@ -46,7 +46,7 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
           className={cn('p-1 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open shopping cart"
         >
-          <ShoppingCart size={22} />
+          <ShoppingCart size={20} />
           {cartCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               {cartCount}
@@ -58,14 +58,14 @@ export default function Header({ onMenuClick, isDarkMode, healthStatus, cartCoun
           className={cn('p-1 rounded-full relative transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open notifications"
         >
-          <Bell size={22} />
+          <Bell size={20} />
         </button>
         <button 
           onClick={onMenuClick}
           className={cn('p-1 rounded-full transition-transform transform hover:scale-110 active:scale-95', isDarkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-200')}
           aria-label="Open settings menu"
         >
-          <Settings size={22} />
+          <Settings size={20} />
         </button>
       </div>
     </header>
