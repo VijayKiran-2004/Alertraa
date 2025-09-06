@@ -16,10 +16,10 @@ interface NavbarProps {
 
 export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDarkMode }: NavbarProps) {
   const navItems = [
-    { name: 'Home', icon: <Heart size={24} />, page: 'Home' },
-    { name: 'Booking', icon: <FileText size={24} />, page: 'Booking' },
-    { name: 'Medicine', icon: <Pill size={24} />, page: 'Medicine' },
-    { name: 'Profile', icon: <User size={24} />, page: 'User' },
+    { name: 'Home', icon: <Heart size={24} />, page: 'Home' as Page },
+    { name: 'Booking', icon: <FileText size={24} />, page: 'Booking' as Page },
+    { name: 'Medicine', icon: <Pill size={24} />, page: 'Medicine' as Page },
+    { name: 'Profile', icon: <User size={24} />, page: 'User' as Page },
   ];
 
   const [containerWidth, setContainerWidth] = useState(0);
@@ -27,7 +27,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const containerRef = useRef<HTMLDivElement>(null);
   const iconsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const SVG_HEIGHT = 120;
+  const SVG_HEIGHT = 100; // Reduced from 120
   const activeIndex = navItems.findIndex(item => item.page === currentPage);
   const totalItems = navItems.length + 1; // +1 for the SOS button
 
@@ -61,7 +61,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
     const pos = iconPositions[index];
     const itemCenter = pos.left + (pos.right - pos.left) / 2;
     const dipWidth = 80; 
-    const dipDepth = 50;
+    const dipDepth = 40; // Reduced from 50
 
     const startX = itemCenter - dipWidth / 2;
     const endX = itemCenter + dipWidth / 2;
@@ -87,12 +87,12 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
   const navItemClasses = (isActive: boolean) => cn(
     'relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full transition-all duration-300',
     isActive 
-      ? 'text-white -translate-y-8 scale-110' 
-      : `opacity-80 -translate-y-2 scale-100 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`
+      ? 'text-white -translate-y-6 scale-110' // Reduced Y translation
+      : `opacity-80 -translate-y-1 scale-100 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`
   );
   
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-24 z-30">
+    <nav className="fixed bottom-0 left-0 right-0 h-20 z-30"> 
       <div
         ref={containerRef}
         className={cn('relative h-full flex items-center justify-around', navBarBgClasses)}
@@ -100,7 +100,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
         <svg
           viewBox={`0 0 ${containerWidth} ${SVG_HEIGHT}`}
           preserveAspectRatio="none"
-          className="absolute left-0 -top-10 w-full h-[120px] z-0"
+          className="absolute left-0 -top-8 w-full h-[100px] z-0" // Adjusted top and height
           style={{pointerEvents: 'none'}}
         >
           <motion.path
@@ -136,7 +136,7 @@ export default function Navbar({ currentPage, setCurrentPage, onSosClick, isDark
               className={cn(
                   "bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-lg shadow-xl transition-transform transform hover:scale-105 active:scale-95 border-4 z-20",
                   isDarkMode ? 'border-slate-800' : 'border-white',
-                  'relative -translate-y-8'
+                  'relative -translate-y-6' // Reduced Y translation
               )}
               aria-label="SOS Emergency Button"
           >
