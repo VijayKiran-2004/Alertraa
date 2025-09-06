@@ -1,14 +1,37 @@
 'use client';
 
-import { AlertraaLogo } from '@/components/alertraa-logo';
-
 export default function LoadingScreen({ isDarkMode }: { isDarkMode: boolean }) {
   const bgClasses = isDarkMode ? 'bg-slate-900' : 'bg-slate-50';
   const spinnerClasses = isDarkMode ? 'border-t-white' : 'border-t-slate-900';
 
+  const LogoSvg = () => (
+    <div className="w-48 mb-8">
+       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+        <defs>
+            <style>
+            {`
+              .cls-1{fill:#6199d1;}
+              .cls-2{fill:#fdb813;}
+              .cls-3{fill:#ed1c24;}
+              .cls-4{fill:#e25425;}
+            `}
+            </style>
+        </defs>
+        <title>Alertra Logo New</title>
+        <polygon className="cls-1" points="737.429 729.013 882.53 729.013 977.014 909.545 831.913 909.545 737.429 729.013"/>
+        <rect className="cls-1" x="565.8953" y="729.01291" width="58.20898" height="180.53221"/>
+        <polygon className="cls-1" points="541.712 731.263 541.712 909.545 483.492 909.545 483.492 908.69 330.518 908.69 330.518 909.545 187.959 909.545 187.959 729.013 330.518 729.013 330.518 799.876 483.492 799.876 483.492 731.263 541.712 731.263"/>
+        <path className="cls-1" d="M928.37673,695.26857v.83235H602.72189V695.831H565.8953V515.29876h58.198v109.1067H825.5916c-33.67733-111.73886-144.11095-193.715-275.15147-193.715-131.06249,0-241.49611,81.97611-275.15147,193.715H483.49189V515.29876h58.22V695.831H495.86481v.26995H168.00429v-.83235a330.64218,330.64218,0,0,1,7.64959-70.86311C210.9723,463.31,364.3289,342.07782,548.19051,342.07782c183.83964,0,337.2193,121.23219,372.53772,282.32764A330.7119,330.7119,0,0,1,928.37673,695.26857Z"/>
+        <polygon className="cls-2" points="578.882 312.548 487.991 302.995 483.728 149.861 612.653 163.411 578.882 312.548"/>
+        <polygon className="cls-3" points="248.33 418.327 197.225 494.094 60.014 425.966 132.505 318.494 248.33 418.327"/>
+        <polygon className="cls-4" points="402.341 323.426 320.911 364.916 233.933 238.809 349.438 179.956 402.341 323.426"/>
+      </svg>
+    </div>
+  );
+
   return (
     <div className={`fixed inset-0 flex flex-col items-center justify-center transition-colors duration-300 ${bgClasses}`}>
-      <AlertraaLogo className="!w-48 mb-8" />
+      <LogoSvg />
       <div className={`w-12 h-12 border-4 ${spinnerClasses} border-solid border-slate-900/20 rounded-full animate-spin`}></div>
     </div>
   );
